@@ -2,6 +2,15 @@ const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/gradeBot')
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error: '));
+db.once('open', function () {
+  //connected
+})
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -12,7 +21,10 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Define API routes here
+app.get("/api/admins", (req, res) => {
 
+
+})
 
 
 // Send every other request to the React app
