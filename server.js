@@ -4,13 +4,9 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/gradeBot')
+var db = require('./models');
 
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error: '));
-db.once('open', function () {
-  //connected
-})
+mongoose.connect('mongodb://localhost/gradeBot');
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -21,11 +17,27 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Define API routes here
-app.get("/api/admins", (req, res) => {
+app.post("/api/createUser", (req, res) => {
+  var adminAcc = {
+    Email: "connorh16@gmail.com",
+    Password: "123",
+    AccessType: "Admin"
+  }
 
-
+  db.Admin.create(adminAcc).then(created => {
+    res.json(created);
+  })
+  .catch(err => console.log(err))
 })
 
+app.get("/api/allUsers", (req, res) => {
+  db.User.find({})
+    .lean()
+    .then(function(users) {
+      res.json(users);
+    })
+    .catch(err => console.log(err));
+})
 
 // Send every other request to the React app
 // Define any API routes before this runs
