@@ -6,7 +6,9 @@ import Top from "./Components/Nav";
 class App extends Component {
   render() {
     return (
-      <Top />
+      <>
+        <Top />
+      </>
     );
   }
 }
