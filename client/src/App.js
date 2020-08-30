@@ -20,7 +20,6 @@ class App extends Component {
         <Switch>
           <Route path="/">
             <Dashboard />
-
             {/* <Login /> */}
           </Route>
         </Switch>

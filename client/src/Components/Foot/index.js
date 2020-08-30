@@ -4,7 +4,6 @@ import "./index.css"
 
 function Bottom() {
     return (
-      
             <div className="container-fluid text-center page-footer bg-info">
                 <div className="row">
                     <div className="col-lg-12 col-md-12 mt-3">
@@ -12,7 +11,6 @@ function Bottom() {
                     </div>
                 </div>
             </div>
-      
     )
 }
 
