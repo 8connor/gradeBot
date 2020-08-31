@@ -2,6 +2,8 @@ import React from "react";
 import Navbar from 'react-bootstrap/Navbar'
 import "./index.css";
 import { Button } from "react-bootstrap";
+import Switch from "react-bootstrap/esm/Switch";
+import { Route } from "react-router-dom";
 
 class Top extends React.Component {
 
@@ -12,12 +14,15 @@ class Top extends React.Component {
 
     }
 
-
     render() {
         return (
             <Navbar bg="info" expand="lg" className="login">
-                <Navbar.Brand href="#" className="brand">Grade Bot</Navbar.Brand>
-                <Button onClick={this.handleClick}><span className="navbar-toggler-icon"></span></Button>
+                <Navbar.Brand href="/" className="brand">Grade Bot</Navbar.Brand>
+                <Switch>
+                    <Route path="/dashboard">
+                        <Button onClick={this.handleClick}><span className="navbar-toggler-icon"></span></Button>
+                    </Route>
+                </Switch>
             </Navbar>
         )
     }

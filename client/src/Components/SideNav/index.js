@@ -26,7 +26,6 @@ function SideNav() {
                 </div>
             </div>
         </div>
-   
     )
 }
 
