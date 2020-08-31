@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import Top from "./Components/Nav";
 import Bottom from "./Components/Foot";
-// import Login from "./Components/Login";
+import Login from "./Components/Login";
 import Dashboard from "./Components/Dashboard";
+import SideNav from "./Components/SideNav";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  // Link
+  Link
 } from "react-router-dom";
 
 
@@ -18,9 +19,17 @@ class App extends Component {
       <Router>
         <Top />
         <Switch>
-          <Route path="/">
-            <Dashboard />
-            {/* <Login /> */}
+          <Route exact path="/" component={Login} />
+          <Route exact path="/dashboard" render={
+            () => {
+              return (
+                <>
+                  <SideNav />
+                  <Dashboard />
+                </>
+              )
+            }
+          }>
           </Route>
         </Switch>
         <Bottom />

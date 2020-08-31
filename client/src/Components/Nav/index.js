@@ -8,10 +8,8 @@ class Top extends React.Component {
     handleClick(e) {
         e.preventDefault();
 
-        
-        document.getElementById("sideBar").classList.toggle("navHidden")
+        document.getElementById("sideNav").classList.toggle("navHidden")
 
-        console.log("hello World");
     }
 
 
@@ -19,7 +17,7 @@ class Top extends React.Component {
         return (
             <Navbar bg="info" expand="lg" className="login">
                 <Navbar.Brand href="#" className="brand">Grade Bot</Navbar.Brand>
-                <Button onClick={this.handleClick}>sidenav</Button>
+                <Button onClick={this.handleClick}><span className="navbar-toggler-icon"></span></Button>
             </Navbar>
         )
     }

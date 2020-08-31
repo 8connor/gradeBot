@@ -3,4 +3,5 @@
     bottom: 0;
     width: 100%;
     line-height: 60px;
+    z-index: 999999;
 }
