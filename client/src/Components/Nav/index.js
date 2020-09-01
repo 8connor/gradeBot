@@ -10,8 +10,7 @@ class Top extends React.Component {
     handleClick(e) {
         e.preventDefault();
 
-        document.getElementById("sideNav").classList.toggle("navHidden")
-
+        document.getElementById("sideNav").classList.toggle("navHidden");
     }
 
     render() {
@@ -20,6 +19,15 @@ class Top extends React.Component {
                 <Navbar.Brand href="/" className="brand">Grade Bot</Navbar.Brand>
                 <Switch>
                     <Route path="/dashboard">
+                        <Button onClick={this.handleClick}><span className="navbar-toggler-icon"></span></Button>
+                    </Route>
+                    <Route path="/createAssignment">
+                        <Button onClick={this.handleClick}><span className="navbar-toggler-icon"></span></Button>
+                    </Route>
+                    <Route path="/allAssignments">
+                        <Button onClick={this.handleClick}><span className="navbar-toggler-icon"></span></Button>
+                    </Route>
+                    <Route path="/grade">
                         <Button onClick={this.handleClick}><span className="navbar-toggler-icon"></span></Button>
                     </Route>
                 </Switch>

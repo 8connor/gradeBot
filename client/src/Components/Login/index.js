@@ -20,7 +20,7 @@ class Login extends React.Component {
     handleEvent(e) {
         e.preventDefault();
 
-        
+
         Axios
             .get("/api/allUsers")
             .then(res => {
@@ -51,9 +51,11 @@ class Login extends React.Component {
                                         <Form.Label>Password</Form.Label>
                                         <Form.Control type="password" placeholder="Password" />
                                     </Form.Group>
-                                    <Button onClick={this.handleEvent} variant="primary" type="submit" id="subButton">
-                                        Submit
+                                    <Row className="justify-content-md-center">
+                                        <Button onClick={this.handleEvent} variant="primary" type="submit" id="subButton">
+                                            Submit
                                     </Button>
+                                    </Row>
                                 </Form>
                             </Col>
                         </Row>
