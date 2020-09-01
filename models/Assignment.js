@@ -5,18 +5,22 @@ const AssignmentSchema = new Schema({
     Task: {
         type: String
     },
-    currentGrade: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Grade'
+    Grade: [{
+        studentID: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        grade: {
+            type: String
+        }
     }],
-    User: [{
+    Owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }],
-
+    },
 },
 { versionKey: false });
 
-var Assignment = mongoose.model("Assigment", AssignmentSchema);
+var Assignment = mongoose.model("Assignment", AssignmentSchema);
 
 module.exports = Assignment;
