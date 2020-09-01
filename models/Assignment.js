@@ -2,19 +2,28 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 const AssignmentSchema = new Schema({
-    Task: {
+    //These are the task requirements
+    requirements:{
+        type: String,
+    },
+    //This is the name of the task
+    taskName:{
         type: String
     },
-    Grade: [{
+    // This will determine whether it is a quiz, test, or homework etc.
+    task: {
+        type: String
+    },
+    grade: [{
         studentID: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'User',
         },
         grade: {
             type: String
         }
     }],
-    Owner: {
+    owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },

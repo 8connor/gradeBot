@@ -2,17 +2,22 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
-    Email: {
+    email: {
         type: String,
         unique: true
     },
-    Password: {
+    password: {
         type: String,
     },
-    AccessType: {
+    accessType: {
         type: String
+    },
+    grade: {
+        type: String,
+        required: false
     }
-}, { versionKey: false });
+}, 
+{ versionKey: false });
 
 var User = mongoose.model("User", UserSchema);
 

@@ -4,6 +4,9 @@ import Bottom from "./Components/Foot";
 import Login from "./Components/Login";
 import Dashboard from "./Components/Dashboard";
 import SideNav from "./Components/SideNav";
+import CreateForm from "./Components/CreateForm";
+import AllAssignments from "./Components/AllAssignments";
+import SpecificGrade from "./Components/SpecificGrade";
 import {
   BrowserRouter as Router,
   Switch,
@@ -29,8 +32,37 @@ class App extends Component {
                 </>
               )
             }
-          }>
-          </Route>
+          } />
+          <Route exact path="/createAssignment" render={
+            () => {
+              return (
+                <>
+                  <SideNav />
+                  <CreateForm />
+                </>
+              )
+            }
+          } />
+           <Route exact path="/allAssignments" render={
+            () => {
+              return (
+                <>
+                  <SideNav />
+                  <AllAssignments />
+                </>
+              )
+            }
+          } />
+          <Route path="/grade" render={
+            () => {
+              return (
+                <>
+                  <SideNav />
+                  <SpecificGrade />
+                </>
+              )
+            }
+          } />
         </Switch>
         <Bottom />
       </Router>

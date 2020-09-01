@@ -7,7 +7,6 @@ import "./index.css"
 class Dashboard extends React.Component {
     render() {
         return (
-
             <Container>
                 <Row>
                     <Col>
@@ -15,7 +14,6 @@ class Dashboard extends React.Component {
                     </Col>
                 </Row>
             </Container>
-
         )
     }
 }
