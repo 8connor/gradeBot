@@ -17,19 +17,12 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Define API routes here
-app.post("/api/createUser", (req, res) => {
-  var adminAcc = {
-    Email: "connorh16@gmail.com",
-    Password: "123",
-    AccessType: "Admin"
-  }
 
-  db.Admin.create(adminAcc).then(created => {
-    res.json(created);
-  })
-    .catch(err => console.log(err))
-})
+// =============================================================================
 
+//GET ROUTES BELOW HERE
+
+// =============================================================================
 app.get("/api/allUsers", (req, res) => {
   db.User.find({})
     .lean()
@@ -37,7 +30,7 @@ app.get("/api/allUsers", (req, res) => {
       res.json(users);
     })
     .catch(err => console.log(err));
-})
+});
 
 app.get("/api/allAssignments", (req, res) => {
   db.Assignment.find({})
@@ -46,18 +39,7 @@ app.get("/api/allAssignments", (req, res) => {
       res.json(assignments);
     })
     .catch(err => console.log(err));
-})
-
-
-app.get("/api/specificGrade/:id", (req, res) => {
-  db.Assignment.find({})
-    .lean()
-    .then(function (assignments) {
-      res.json(assignments);
-    })
-    .catch(err => console.log(err));
-})
-
+});
 
 app.get("/api/average", (req, res) => {
   //req coming in
@@ -77,7 +59,35 @@ app.get("/api/average", (req, res) => {
     })
     .then(Average => res.json(Average))
     .catch(err => console.log(err));
-})
+});
+
+// =============================================================================
+
+//POST ROUTES BELOW HERE
+
+// =============================================================================
+app.post("/api/createUser", (req, res) => {
+
+
+  db.Admin.create(adminAcc).then(created => {
+    res.json(created);
+  })
+    .catch(err => console.log(err))
+});
+
+app.post("/api/specificGrade/", (req, res) => {
+
+
+
+  db.Assignment.find({})
+    .lean()
+    .then(function (assignments) {
+      res.json(assignments);
+    })
+    .catch(err => console.log(err));
+});
+
+
 
 app.post("/api/changeGrade", (req, res) => {
   //req coming in
@@ -97,20 +107,20 @@ app.post("/api/changeGrade", (req, res) => {
     })
     .then(Average => res.json(Average))
     .catch(err => console.log(err));
-})
+});
 
 app.post("/api/createAssignment", (req, res) => {
   //req coming in
   var Assignment = req.body
-
+  //This will create the assignment.
   db.Assignment.create(Assignment)
     .then(function (assignment) {
       console.log(assignment);
-
+      //this responds with the assignment that has been added.
       res.json(assignment);
     })
     .catch(err => console.log(err));
-})
+});
 
 // Send every other request to the React app
 // Define any API routes before this runs
