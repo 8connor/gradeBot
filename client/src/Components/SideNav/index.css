@@ -7,7 +7,7 @@
     /* Behind the navbar */
     padding: 48px 0 0;
     /* Height of navbar */
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    box-shadow: -1px 0 10px 0 rgba(0, 0, 0, .1);
 }
 
 @media (max-width: 767.98px) {
@@ -56,6 +56,14 @@
     text-transform: uppercase;
 }
 
-.navHidden{
+.navShow {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 100ms, visibility 0s linear 0s;
+}
+
+.navHidden {
     visibility: hidden;
+    opacity: 0;
+    transition: opacity 300ms, visibility 0s linear 300ms;
 }

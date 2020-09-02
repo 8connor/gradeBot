@@ -5,14 +5,17 @@ const AssignmentSchema = new Schema({
     //These are the task requirements
     requirements:{
         type: String,
+        required: true
     },
     //This is the name of the task
     taskName:{
-        type: String
+        type: String,
+        required: true
     },
     // This will determine whether it is a quiz, test, or homework etc.
     task: {
-        type: String
+        type: String,
+        required: true
     },
     grade: [{
         studentID: {
