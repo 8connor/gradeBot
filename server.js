@@ -1,8 +1,14 @@
+
+
 const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
 const mongoose = require('mongoose');
+
+
+//----------------------------------------- END OF DEPENDENCIES---------------------------------------------------
+
 
 var db = require('./models');
 
@@ -16,6 +22,9 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
+//----------------------------------------- END OF MIDDLEWARE ---------------------------------------------------
+
+
 // Define API routes here
 app.post("/api/createUser", (req, res) => {
   var adminAcc = {
@@ -24,11 +33,13 @@ app.post("/api/createUser", (req, res) => {
     AccessType: "Admin"
   }
 
+
   db.Admin.create(adminAcc).then(created => {
     res.json(created);
   })
     .catch(err => console.log(err))
-})
+});
+
 
 app.get("/api/allUsers", (req, res) => {
   db.User.find({})
@@ -37,7 +48,8 @@ app.get("/api/allUsers", (req, res) => {
       res.json(users);
     })
     .catch(err => console.log(err));
-})
+});
+
 
 app.get("/api/allAssignments", (req, res) => {
   db.Assignment.find({})
@@ -46,7 +58,7 @@ app.get("/api/allAssignments", (req, res) => {
       res.json(assignments);
     })
     .catch(err => console.log(err));
-})
+});
 
 
 app.get("/api/specificGrade/:id", (req, res) => {
@@ -56,7 +68,7 @@ app.get("/api/specificGrade/:id", (req, res) => {
       res.json(assignments);
     })
     .catch(err => console.log(err));
-})
+});
 
 
 app.get("/api/average", (req, res) => {
@@ -77,7 +89,8 @@ app.get("/api/average", (req, res) => {
     })
     .then(Average => res.json(Average))
     .catch(err => console.log(err));
-})
+});
+
 
 app.post("/api/changeGrade", (req, res) => {
   //req coming in
@@ -97,7 +110,8 @@ app.post("/api/changeGrade", (req, res) => {
     })
     .then(Average => res.json(Average))
     .catch(err => console.log(err));
-})
+});
+
 
 app.post("/api/createAssignment", (req, res) => {
   //req coming in
@@ -110,7 +124,7 @@ app.post("/api/createAssignment", (req, res) => {
       res.json(assignment);
     })
     .catch(err => console.log(err));
-})
+});
 
 // Send every other request to the React app
 // Define any API routes before this runs
@@ -118,6 +132,9 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
+
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
 });
+
+
