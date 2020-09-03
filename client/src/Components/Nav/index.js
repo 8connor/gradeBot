@@ -8,7 +8,7 @@ import { Route } from "react-router-dom";
 
 class Top extends React.Component {
 
-    
+
     handleClick(e) {
         e.preventDefault();
 
@@ -40,6 +40,11 @@ class Top extends React.Component {
                     <Route path="/grade">
                         <Button onClick={this.handleClick}><span className="navbar-toggler-icon"></span></Button>
                     </Route>
+
+                    <Route path="/adminCreateUser">
+                        <Button onClick={this.handleClick}><span className="navbar-toggler-icon"></span></Button>
+                    </Route>
+
                 </Switch>
             </Navbar>
         )
