@@ -53,16 +53,6 @@ class App extends Component {
               )
             }
           } />
-          <Route path="/grade" render={
-            () => {
-              return (
-                <>
-                  <SideNav />
-                  <SpecificGrade />
-                </>
-              )
-            }
-          } />
         </Switch>
         <Bottom />
       </Router>
