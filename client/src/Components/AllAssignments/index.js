@@ -4,7 +4,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button"
 import Axios from "axios";
-import SpecificGrade from "../SpecificGrade";
 import "./index.css";
 
 class AllAssignments extends React.Component {
@@ -20,7 +19,11 @@ class AllAssignments extends React.Component {
             this.setState({
                 all: res.data
             })
-        })
+        });
+    }
+
+    componentDidMount() {
+        this.assignments();
     }
 
     renderTheNew(a) {
@@ -37,17 +40,6 @@ class AllAssignments extends React.Component {
             .catch(err => console.log(err))
     }
 
-    createTheRows() {
-        var studentArr = this.state.specificGrade;
-        var componentArr = []
-
-        for (var i = 0; i < studentArr.length; i++) {
-            componentArr.push(<SpecificGrade studentName={studentArr[i].studentName} Grade={studentArr[i].Grade} />)
-        }
-
-
-        return componentArr
-    }
 
     render() {
         return (
@@ -62,19 +54,41 @@ class AllAssignments extends React.Component {
                                 <th>Grades</th>
                             </tr>
                         </thead>
-                        {this.assignments()}
                         {this.state.all.map((assignments, index) =>
                             <thead key={index}>
                                 <tr>
                                     <th>{assignments.Task}</th>
                                     <th>{assignments.taskName}</th>
                                     <th>{assignments.requirements}</th>
-                                    <th><Button onClick={() => { this.renderTheNew(assignments._id) }}>Click here for grades</Button></th>
+                                    <th>
+                                        <Button onClick={() => { this.renderTheNew(assignments._id) }}>Click here for grades</Button>
+                                    </th>
                                 </tr>
                             </thead>
                         )}
                     </Table>
-                    {this.state.beenClicked ? this.createTheRows() : false}
+
+                    {
+                        this.state.beenClicked ?
+                            <Table striped bordered hover variant="dark">
+                                <thead>
+                                    <tr>
+                                        <th>Student name</th>
+                                        <th>Grade</th>
+                                    </tr>
+                                </thead>
+                                {this.state.specificGrade.map((specific, index) =>
+                                    <thead key={index}>
+                                        <tr>
+                                            <th>{specific.studentName}</th>
+                                            <th>{specific.Grade}</th>
+                                        </tr>
+                                    </thead>
+                                )}
+                            </Table>
+                            : false
+                    }
+
                 </Row>
             </Container>
         )

@@ -141,16 +141,29 @@ app.post("/api/changeGrade", (req, res) => {
 });
 
 app.post("/api/createAssignment", (req, res) => {
-  
-  
   //req coming in
   var Assignment = req.body
+
   //This will create the assignment.
   db.Assignment.create(Assignment)
     .then(function (assignment) {
       console.log(assignment);
       //this responds with the assignment that has been added.
-      res.json(assignment);
+
+    })
+    .catch(err => console.log(err));
+});
+
+app.post("/api/createClass", (req, res) => {
+  //req coming in
+  var className = req.body
+
+  //This will create the class.
+  db.Class.create(className)
+    .then(function (className) {
+      console.log(assignment);
+      //this responds with the assignment that has been added.
+
     })
     .catch(err => console.log(err));
 });
