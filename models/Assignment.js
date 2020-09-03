@@ -26,10 +26,11 @@ const AssignmentSchema = new Schema({
             type: String
         }
     }],
-    owner: {
+
+    class: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
+        ref: "Class"
+    }
 },
 { versionKey: false });
 
