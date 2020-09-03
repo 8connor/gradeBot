@@ -11,10 +11,6 @@ const UserSchema = new Schema({
     },
     accessType: {
         type: String
-    },
-    grade: {
-        type: String,
-        required: false
     }
 }, 
 { versionKey: false });

@@ -16,9 +16,10 @@ const ClassroomSchema = new Schema({
         studentID: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
-        }
-    }],
-}, { versionKey: false });
+        }}
+]},
+{ versionKey: false });
+
 
 var Classroom = mongoose.model("Classroom", ClassroomSchema);
 

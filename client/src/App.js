@@ -6,6 +6,8 @@ import Dashboard from "./Components/Dashboard";
 import SideNav from "./Components/SideNav";
 import CreateForm from "./Components/CreateForm";
 import AllAssignments from "./Components/AllAssignments";
+import AdminCreateUser from "./Components/AdminCreateUser";
+
 
 import {
   BrowserRouter as Router,
@@ -49,6 +51,16 @@ class App extends Component {
                 <>
                   <SideNav />
                   <AllAssignments />
+                </>
+              )
+            }
+          } />
+          <Route exact path="/adminCreateUser" render={
+            () => {
+              return (
+                <>
+                  <SideNav />
+                  <AdminCreateUser />
                 </>
               )
             }
