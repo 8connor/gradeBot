@@ -16,8 +16,7 @@ class Top extends React.Component {
         } else if (document.getElementById("sideNav").classList.contains("navHidden")) {
             document.getElementById("sideNav").classList.toggle("navHidden");
             document.getElementById("sideNav").classList.toggle("navShow");
-        }
-
+        };
     }
 
     render() {

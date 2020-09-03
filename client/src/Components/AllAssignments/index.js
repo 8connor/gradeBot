@@ -39,14 +39,13 @@ class AllAssignments extends React.Component {
 
     createTheRows() {
         var studentArr = this.state.specificGrade;
-        var componentArr = []
+        var componentArr = [];
 
         for (var i = 0; i < studentArr.length; i++) {
-            componentArr.push(<SpecificGrade studentName={studentArr[i].studentName} Grade={studentArr[i].Grade} />)
-        }
+            componentArr.push(<SpecificGrade key={i} studentName={studentArr[i].studentName} Grade={studentArr[i].Grade} />)
+        };
 
-
-        return componentArr
+        return componentArr;
     }
 
     render() {
@@ -69,7 +68,9 @@ class AllAssignments extends React.Component {
                                     <th>{assignments.Task}</th>
                                     <th>{assignments.taskName}</th>
                                     <th>{assignments.requirements}</th>
-                                    <th><Button onClick={() => { this.renderTheNew(assignments._id) }}>Click here for grades</Button></th>
+                                    <th>
+                                        <Button onClick={() => { this.renderTheNew(assignments._id) }}>Click here for grades</Button>
+                                    </th>
                                 </tr>
                             </thead>
                         )}
