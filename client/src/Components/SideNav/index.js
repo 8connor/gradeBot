@@ -26,6 +26,13 @@ function SideNav() {
                                     </Link>
                                 </li>
                                 <li className="nav-item">
+                                    <Link className="nav-link active" to="/createClass">
+                                        <span data-feather="home"></span>
+                                        Create class
+                                    <span className="sr-only"></span>
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
                                     <Link className="nav-link active" to="/allAssignments">
                                         <span data-feather="home"></span>
                                         Assignments

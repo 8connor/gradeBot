@@ -50,6 +50,16 @@ app.get("/api/allAssignments", (req, res) => {
     .catch(err => console.log(err));
 });
 
+app.get("/api/checkUser", (req, res) => {
+  db.Classroom.find({})
+    .lean()
+    .then(function (classes) {
+      res.json(classes);
+    })
+    .catch(err => console.log(err));
+});
+
+
 app.get("/api/average", (req, res) => {
   //req coming in
   var studentId = req.body._id
@@ -134,14 +144,17 @@ app.post("/api/createAssignment", (req, res) => {
 
 app.post("/api/createClass", (req, res) => {
   //req coming in
-  var className = req.body
+  var className = req.body;
 
+  console.log(className)
+
+    
   //This will create the class.
-  db.Class.create(className)
-    .then(function (className) {
-      console.log(assignment);
+  db.Classroom.create(className)
+    .then(function (random) {
+      console.log(random);
       //this responds with the assignment that has been added.
-
+      res.json(random);
     })
     .catch(err => console.log(err));
 });

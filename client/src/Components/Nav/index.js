@@ -39,6 +39,9 @@ class Top extends React.Component {
                     <Route path="/grade">
                         <Button onClick={this.handleClick}><span className="navbar-toggler-icon"></span></Button>
                     </Route>
+                    <Route path="/createClass">
+                        <Button onClick={this.handleClick}><span className="navbar-toggler-icon"></span></Button>
+                    </Route>
                 </Switch>
             </Navbar>
         )

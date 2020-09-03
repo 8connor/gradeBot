@@ -57,7 +57,7 @@ class AllAssignments extends React.Component {
                         {this.state.all.map((assignments, index) =>
                             <thead key={index}>
                                 <tr>
-                                    <th>{assignments.Task}</th>
+                                    <th>{assignments.task}</th>
                                     <th>{assignments.taskName}</th>
                                     <th>{assignments.requirements}</th>
                                     <th>
