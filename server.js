@@ -1,8 +1,14 @@
+
+
 const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
 const mongoose = require('mongoose');
+
+
+//----------------------------------------- END OF DEPENDENCIES---------------------------------------------------
+
 
 var db = require('./models');
 
@@ -15,6 +21,9 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
+
+//----------------------------------------- END OF MIDDLEWARE ---------------------------------------------------
+
 
 // Define API routes here
 
@@ -110,6 +119,8 @@ app.post("/api/changeGrade", (req, res) => {
 });
 
 app.post("/api/createAssignment", (req, res) => {
+  
+  
   //req coming in
   var Assignment = req.body
   //This will create the assignment.
@@ -128,6 +139,9 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
+
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
 });
+
+
