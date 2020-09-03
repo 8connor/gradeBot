@@ -40,7 +40,13 @@ class Top extends React.Component {
                         <Button onClick={this.handleClick}><span className="navbar-toggler-icon"></span></Button>
                     </Route>
 
+
                     <Route path="/adminCreateUser">
+                        <Button onClick={this.handleClick}><span className="navbar-toggler-icon"></span></Button>
+                    </Route>
+
+
+                    <Route path="/createClass">
                         <Button onClick={this.handleClick}><span className="navbar-toggler-icon"></span></Button>
                     </Route>
 

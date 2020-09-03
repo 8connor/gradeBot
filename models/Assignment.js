@@ -28,7 +28,6 @@ const AssignmentSchema = new Schema({
             type: String
         }
     }],
-
     classroom: {
         // _id
         type: mongoose.Schema.Types.ObjectId, 
