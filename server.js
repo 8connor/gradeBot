@@ -130,8 +130,8 @@ app.post("/api/createClass", (req, res) => {
   var className = req.body
 
   //This will create the class.
-  db.Class.create(Assignment)
-    .then(function (assignment) {
+  db.Class.create(className)
+    .then(function (className) {
       console.log(assignment);
       //this responds with the assignment that has been added.
 
