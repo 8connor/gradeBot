@@ -12,12 +12,12 @@ const ClassroomSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    students: [
+    students: [{
         studentID: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
-        }
-    ],
+        }}
+]},
 { versionKey: false });
 
 var Classroom = mongoose.model("Classroom", ClassroomSchema);
