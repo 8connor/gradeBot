@@ -27,19 +27,9 @@ if (process.env.NODE_ENV === "production") {
 
 // Define API routes here
 
-<<<<<<< HEAD
-
-  db.Admin.create(adminAcc).then(created => {
-    res.json(created);
-  })
-    .catch(err => console.log(err))
-});
-
-=======
 // =============================================================================
 
 //GET ROUTES BELOW HERE
->>>>>>> a8e46183cf1fde94ac435a75b7f84bc1b763a235
 
 // =============================================================================
 app.get("/api/allUsers", (req, res) => {
@@ -50,10 +40,6 @@ app.get("/api/allUsers", (req, res) => {
     })
     .catch(err => console.log(err));
 });
-<<<<<<< HEAD
-
-=======
->>>>>>> a8e46183cf1fde94ac435a75b7f84bc1b763a235
 
 app.get("/api/allAssignments", (req, res) => {
   db.Assignment.find({})
@@ -63,20 +49,6 @@ app.get("/api/allAssignments", (req, res) => {
     })
     .catch(err => console.log(err));
 });
-<<<<<<< HEAD
-
-
-app.get("/api/specificGrade/:id", (req, res) => {
-  db.Assignment.find({})
-    .lean()
-    .then(function (assignments) {
-      res.json(assignments);
-    })
-    .catch(err => console.log(err));
-});
-
-=======
->>>>>>> a8e46183cf1fde94ac435a75b7f84bc1b763a235
 
 app.get("/api/average", (req, res) => {
   //req coming in
@@ -98,8 +70,6 @@ app.get("/api/average", (req, res) => {
     .catch(err => console.log(err));
 });
 
-<<<<<<< HEAD
-=======
 // =============================================================================
 
 //POST ROUTES BELOW HERE
@@ -127,7 +97,6 @@ app.post("/api/specificGrade/", (req, res) => {
 });
 
 
->>>>>>> a8e46183cf1fde94ac435a75b7f84bc1b763a235
 
 app.post("/api/changeGrade", (req, res) => {
   //req coming in
@@ -148,12 +117,10 @@ app.post("/api/changeGrade", (req, res) => {
     .then(Average => res.json(Average))
     .catch(err => console.log(err));
 });
-<<<<<<< HEAD
-
-=======
->>>>>>> a8e46183cf1fde94ac435a75b7f84bc1b763a235
 
 app.post("/api/createAssignment", (req, res) => {
+  
+  
   //req coming in
   var Assignment = req.body
   //This will create the assignment.

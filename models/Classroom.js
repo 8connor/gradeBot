@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-const ClassSchema = new Schema({
+const ClassroomSchema = new Schema({
     //These are the task requirements
     name:{
         type: String,
@@ -20,6 +20,6 @@ const ClassSchema = new Schema({
     ],
 { versionKey: false });
 
-var Class = mongoose.model("Class", ClassSchema);
+var Classroom = mongoose.model("Classroom", ClassroomSchema);
 
-module.exports = Class;
+module.exports = Classroom;
