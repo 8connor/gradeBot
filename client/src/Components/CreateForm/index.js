@@ -7,11 +7,34 @@ import Button from "react-bootstrap/Button";
 import Axios from "axios";
 
 class CreateForm extends React.Component {
+
+    state = {
+        classesA: []
+    }
+
+    checkUser() {
+        Axios.get("/api/checkUser").then(res => {
+
+            console.log(res)
+
+            console.log("above is res")
+            this.setState(
+                {
+                    classesA: res.data
+                }
+            )
+        }).catch(err => console.log(err))
+    }
+
+    componentDidMount() {
+        this.checkUser();
+    }
+
     handleClick(e) {
         e.preventDefault();
 
         var assignmentObj = {
-            Task: document.getElementById("taskType").value,
+            task: document.getElementById("taskType").value,
             taskName: document.getElementById("taskName").value,
             requirements: document.getElementById("taskRequirements").value
         }
@@ -25,14 +48,23 @@ class CreateForm extends React.Component {
             <Container>
                 <Row>
                     <Col>
-                        <Form><Form.Group controlId="taskType">
-                            <Form.Label>Task type:</Form.Label>
-                            <Form.Control as="select">
-                                <option>Quiz</option>
-                                <option>Test</option>
-                                <option>Homework</option>
-                            </Form.Control>
-                        </Form.Group>
+                        <Form>
+                            <Form.Group controlId="class">
+                                <Form.Label>Class</Form.Label>
+                                <Form.Control as="select">
+                                    {
+                                        this.state.classesA.map((x, y) => <option key={y}>{x.name}</option>)
+                                    }
+                                </Form.Control>
+                            </Form.Group>
+                            <Form.Group controlId="taskType">
+                                <Form.Label>Task type:</Form.Label>
+                                <Form.Control as="select">
+                                    <option>Quiz</option>
+                                    <option>Test</option>
+                                    <option>Homework</option>
+                                </Form.Control>
+                            </Form.Group>
                             <Form.Group controlId="taskName">
                                 <Form.Label>Task name:</Form.Label>
                                 <Form.Control type="text" placeholder="Task name." />
