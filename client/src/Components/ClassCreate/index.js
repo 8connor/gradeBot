@@ -25,7 +25,7 @@ class CreateForm extends React.Component {
                     <Col>
                         <Form>
                             <Form.Group controlId="className">
-                                <Form.Label>Task name:</Form.Label>
+                                <Form.Label>Class name:</Form.Label>
                                 <Form.Control type="text" placeholder="Task name." />
                             </Form.Group>
                         </Form>

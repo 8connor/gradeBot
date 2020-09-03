@@ -1,9 +1,9 @@
 import React from "react";
 import Navbar from 'react-bootstrap/Navbar'
-import "./index.css";
 import { Button } from "react-bootstrap";
 import Switch from "react-bootstrap/esm/Switch";
 import { Route } from "react-router-dom";
+import "./index.css";
 
 
 class Top extends React.Component {

@@ -119,12 +119,8 @@ app.post("/api/changeGrade", (req, res) => {
 });
 
 app.post("/api/createAssignment", (req, res) => {
-  
-  
   //req coming in
   var Assignment = req.body
-
-
 
   //This will create the assignment.
   db.Assignment.create(Assignment)
