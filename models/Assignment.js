@@ -17,7 +17,7 @@ const AssignmentSchema = new Schema({
         type: String,
         required: true
     },
-    grade: [{
+    grades: [{
         studentID: {
             // _id
             type: mongoose.Schema.Types.ObjectId,

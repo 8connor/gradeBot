@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 const ClassroomSchema = new Schema({
     //These are the task requirements
-    name:{
+    name: {
         type: String,
         required: true
     },
@@ -12,13 +12,13 @@ const ClassroomSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    students: [
+    students: [{
         studentID: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
         }
-    ],
-{ versionKey: false });
+    }],
+}, { versionKey: false });
 
 var Classroom = mongoose.model("Classroom", ClassroomSchema);
 
