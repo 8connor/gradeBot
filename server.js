@@ -5,6 +5,7 @@ const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
 const mongoose = require('mongoose');
+const bcrypt = require("bcryptjs");
 
 
 //----------------------------------------- END OF DEPENDENCIES---------------------------------------------------
@@ -84,19 +85,40 @@ app.get("/api/average", (req, res) => {
 
 //POST ROUTES BELOW HERE
 
+// All Routes will be moved to a ROUTES object and managed by Controller
+
 // =============================================================================
-app.post("/api/createUser", (req, res) => {
 
+app.post("/api/adminCreateUser", (req, res) => {
 
-  db.Admin.create(adminAcc).then(created => {
-    res.json(created);
+  db.User.findOne({email: req.body.email}, async (err, user)=>{
+
+    if(err) throw err; 
+    if(user) res.send("User alread exists");
+    if(!user){
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+      const newUser = new db.User({
+        email: req.body.email, 
+        password: hashedPassword,
+        accessType: req.body.accessType
+      });
+
+      await newUser.save();
+
+      res.send("User Created");
+
+    }
   })
-    .catch(err => console.log(err))
+  .catch((err)=>{
+    console.log(err);
+  })
+
+
 });
 
+
 app.post("/api/specificGrade/", (req, res) => {
-
-
 
   db.Assignment.find({})
     .lean()

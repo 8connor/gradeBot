@@ -8,7 +8,7 @@ import "./index.css";
 
 class Top extends React.Component {
 
-    
+
     handleClick(e) {
         e.preventDefault();
 
@@ -39,9 +39,17 @@ class Top extends React.Component {
                     <Route path="/grade">
                         <Button onClick={this.handleClick}><span className="navbar-toggler-icon"></span></Button>
                     </Route>
+
+
+                    <Route path="/adminCreateUser">
+                        <Button onClick={this.handleClick}><span className="navbar-toggler-icon"></span></Button>
+                    </Route>
+
+
                     <Route path="/createClass">
                         <Button onClick={this.handleClick}><span className="navbar-toggler-icon"></span></Button>
                     </Route>
+
                 </Switch>
             </Navbar>
         )
