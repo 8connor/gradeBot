@@ -7,7 +7,6 @@ import "./index.css";
 
 
 class Top extends React.Component {
-
     
     handleClick(e) {
         e.preventDefault();
@@ -20,7 +19,6 @@ class Top extends React.Component {
             document.getElementById("sideNav").classList.toggle("navShow");
         };
     }
-
 
     render() {
         return (
