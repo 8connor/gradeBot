@@ -34,12 +34,12 @@ function AdminCreateUser (){
         ]);
 
 
-    const countriesList = classrooms.length > 0
+    const classroomList = () => {classrooms.length > 0
     	&& classrooms.map((item, i) => {
       return (
         <Dropdown.Item key={i} eventKey={item.name} value={item.id}>{item.name}</Dropdown.Item>
       )
-    }, this);
+    }, this)};
 
 
     const handleSelect=(e)=>{
@@ -152,7 +152,7 @@ function AdminCreateUser (){
                                     id="dropdown-classroom"
                                     onSelect={handleClassroom}
                                 >
-                                    {countriesList}
+                                    {classroomList}
 
                                 </DropdownButton>
                             </Form.Group> 
