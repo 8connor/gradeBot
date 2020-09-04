@@ -81,6 +81,8 @@ app.get("/api/average", (req, res) => {
 
 app.post("/api/adminCreateUser", (req, res) => {
 
+  console.log(req.body);
+  
   db.User.findOne({email: req.body.email}, async (err, user)=>{
 
     if(err) throw err; 
@@ -89,6 +91,8 @@ app.post("/api/adminCreateUser", (req, res) => {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
       const newUser = new db.User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         email: req.body.email, 
         password: hashedPassword,
         accessType: req.body.accessType
