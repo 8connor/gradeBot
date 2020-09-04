@@ -1,5 +1,5 @@
 
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
@@ -10,6 +10,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Axios from "axios";
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
+// // Only using function will change the const color
 
 
 function AdminCreateUser (){
@@ -162,6 +163,7 @@ function AdminCreateUser (){
     )
     
 }
+
 
 
 export default AdminCreateUser;

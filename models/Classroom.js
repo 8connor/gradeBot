@@ -5,8 +5,9 @@ var Schema = mongoose.Schema;
 const ClassroomSchema = new Schema({
     //These are the task requirements
     name: {
+        unique: true,
         type: String,
-        required: true
+        required: true,
     },
     teacher: {
         type: mongoose.Schema.Types.ObjectId,
@@ -16,9 +17,9 @@ const ClassroomSchema = new Schema({
         studentID: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
-        }}
-]},
-{ versionKey: false });
+        }
+    }]
+}, { versionKey: false });
 
 
 var Classroom = mongoose.model("Classroom", ClassroomSchema);

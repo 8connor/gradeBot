@@ -6,7 +6,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
 
-class CreateForm extends React.Component {
+class ClassCreate extends React.Component {
     handleClick(e) {
         e.preventDefault();
 
@@ -14,9 +14,10 @@ class CreateForm extends React.Component {
             name: document.getElementById("className").value,
         }
 
+        console.log(classRoomObj)
+
         Axios.post("/api/createClass", classRoomObj).then(res => console.log(res))
     }
-
 
     render() {
         return (
@@ -26,7 +27,7 @@ class CreateForm extends React.Component {
                         <Form>
                             <Form.Group controlId="className">
                                 <Form.Label>Class name:</Form.Label>
-                                <Form.Control type="text" placeholder="Task name." />
+                                <Form.Control type="text" placeholder="Class name." />
                             </Form.Group>
                         </Form>
                     </Col>
@@ -39,4 +40,4 @@ class CreateForm extends React.Component {
     }
 }
 
-export default CreateForm;
+export default ClassCreate;
