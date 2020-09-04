@@ -52,9 +52,9 @@ class Login extends React.Component {
                                         <Form.Control type="password" placeholder="Password" />
                                     </Form.Group>
                                     <Row className="justify-content-md-center">
-                                        <Button onClick={this.handleEvent} variant="primary" type="submit" id="subButton">
+                                        <Button onClick={this.handleEvent}  variant="primary" type="submit" id="subButton">
                                             Submit
-                                    </Button>
+                                        </Button>
                                     </Row>
                                 </Form>
                             </Col>
