@@ -7,7 +7,7 @@ import SideNav from "./Components/SideNav";
 import CreateForm from "./Components/CreateForm";
 import AllAssignments from "./Components/AllAssignments";
 import AdminCreateUser from "./Components/AdminCreateUser";
-import ClassCreate from "./Components/ClassCreate";
+import ClassCreation from "./Components/ClassCreate/";
 import {
   BrowserRouter as Router,
   Switch,
@@ -44,7 +44,7 @@ class App extends Component {
               )
             }
           } />
-           <Route exact path="/allAssignments" render={
+          <Route exact path="/allAssignments" render={
             () => {
               return (
                 <>
@@ -64,12 +64,12 @@ class App extends Component {
               )
             }
           } />
-           <Route exact path="/createClass" render={
+          <Route exact path="/createClass" render={
             () => {
               return (
                 <>
                   <SideNav />
-                  <ClassCreate />
+                  <ClassCreation />
                 </>
               )
             }
