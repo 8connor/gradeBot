@@ -26,7 +26,7 @@ function AdminCreateUser (){
     const [titleState, setTitle] = useState("");
     const [classroomState, setClassroom] = useState("");
 
-    const [classrooms, setCountries] = React.useState(
+    const [classrooms, setCountryList] = React.useState(
         [
             {id: 'Class1', name: 'Class1'},
             {id: 'Class2', name: 'Class2'},
@@ -34,17 +34,26 @@ function AdminCreateUser (){
         ]);
 
 
-    const countriesList = classrooms.length > 0
+    const classroomList = () => {classrooms.length > 0
     	&& classrooms.map((item, i) => {
       return (
         <Dropdown.Item key={i} eventKey={item.name} value={item.id}>{item.name}</Dropdown.Item>
       )
-    }, this);
+    }, this)};
 
 
     const handleSelect=(e)=>{
         setTitle(e);
         setAccessType(e);
+        // logic to Show if Teacher or Student has been selected
+        if(e === "Teacher" || e === "Student"){
+            var x = document.getElementById("dropdown-classroom");
+            x.style.display = "block";
+        }
+        else{
+            var x = document.getElementById("dropdown-classroom");
+            x.style.display = "none";  
+        }
     }
 
     const handleClassroom=(e)=>{
@@ -123,6 +132,7 @@ function AdminCreateUser (){
                                     alignRight
                                     title={(titleState === "") ? "Select Access Type" : titleState}
                                     id="dropdown-menu-align-right"
+                                    display="none"
                                     onSelect={handleSelect}
                                         > 
                                         <Dropdown.Item eventKey ="Student">Student</Dropdown.Item>
@@ -142,7 +152,7 @@ function AdminCreateUser (){
                                     id="dropdown-classroom"
                                     onSelect={handleClassroom}
                                 >
-                                    {countriesList}
+                                    {classroomList}
 
                                 </DropdownButton>
                             </Form.Group> 
