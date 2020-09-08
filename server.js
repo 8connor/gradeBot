@@ -92,18 +92,18 @@ app.get("/api/average", (req, res) => {
 app.post("/api/adminCreateUser", (req, res) => {
 
   console.log(req.body);
-  
-  db.User.findOne({email: req.body.email}, async (err, user)=>{
 
-    if(err) throw err; 
-    if(user) res.send("User alread exists");
-    if(!user){
+  db.User.findOne({ email: req.body.email }, async (err, user) => {
+
+    if (err) throw err;
+    if (user) res.send("User alread exists");
+    if (!user) {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
       const newUser = new db.User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        email: req.body.email, 
+        email: req.body.email,
         password: hashedPassword,
         accessType: req.body.accessType
       });
@@ -114,9 +114,9 @@ app.post("/api/adminCreateUser", (req, res) => {
 
     }
   })
-  .catch((err)=>{
-    console.log(err);
-  })
+    .catch((err) => {
+      console.log(err);
+    })
 
 
 });
@@ -131,6 +131,27 @@ app.post("/api/specificGrade/", (req, res) => {
     })
     .catch(err => console.log(err));
 });
+
+
+app.post("/api/studentQuery/", (req, res) => {
+  console.log(req.body)
+
+  db.User.find(req.body)
+    .lean()
+    .then(function (students) {
+
+      let sortedStudents = students.map((sorted, index) => {
+        let rObj = { studentID: sorted._id, firstName: sorted.firstName, lastName: sorted.lastName }
+
+        return rObj
+      })
+
+      console.log(sortedStudents)
+      res.json(sortedStudents)
+    })
+    .catch(err => console.log(err));
+});
+
 
 
 
@@ -174,7 +195,7 @@ app.post("/api/createClass", (req, res) => {
 
   console.log(className)
 
-    
+
   //This will create the class.
   db.Classroom.create(className)
     .then(function (random) {
@@ -184,6 +205,20 @@ app.post("/api/createClass", (req, res) => {
     })
     .catch(err => console.log(err));
 });
+
+app.post("/api/addStudentList", (req, res) => {
+  console.log(req.body)
+
+  db.Classroom.updateMany({ name: req.body.className }, { students: req.body.students })
+    .lean()
+    .then(classRoomAdd => {
+      console.log(classRoomAdd);
+
+
+      res.send("you hit here !");
+    })
+
+})
 
 // Send every other request to the React app
 // Define any API routes before this runs

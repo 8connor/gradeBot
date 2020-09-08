@@ -1,43 +1,14 @@
 import React from "react";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import Axios from "axios";
+import StudentSearch from "./studentSearch"
+import ClassCreate from "./NewFile"
 
-class ClassCreate extends React.Component {
-    handleClick(e) {
-        e.preventDefault();
 
-        var classRoomObj = {
-            name: document.getElementById("className").value,
-        }
-
-        console.log(classRoomObj)
-
-        Axios.post("/api/createClass", classRoomObj).then(res => console.log(res))
-    }
-
+class ClassCreation extends React.Component {
     render() {
         return (
-            <Container>
-                <Row>
-                    <Col>
-                        <Form>
-                            <Form.Group controlId="className">
-                                <Form.Label>Class name:</Form.Label>
-                                <Form.Control type="text" placeholder="Class name." />
-                            </Form.Group>
-                        </Form>
-                    </Col>
-                </Row>
-                <Row className="justify-content-md-center">
-                    <Button type="submit" onClick={this.handleClick}>Submit</Button>
-                </Row>
-            </Container>
+            <ClassCreate />
         )
     }
 }
 
-export default ClassCreate;
+export default ClassCreation;

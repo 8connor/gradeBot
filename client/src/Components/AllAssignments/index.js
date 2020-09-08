@@ -19,7 +19,7 @@ class AllAssignments extends React.Component {
             this.setState({
                 all: res.data
             })
-        });
+        })
     }
 
     componentDidMount() {
@@ -77,14 +77,16 @@ class AllAssignments extends React.Component {
                                         <th>Grade</th>
                                     </tr>
                                 </thead>
-                                {this.state.specificGrade.map((specific, index) =>
+                                {
+                                    this.state.specificGrade.map((specific, index) => 
                                     <thead key={index}>
-                                        <tr>
-                                            <th>{specific.studentName}</th>
-                                            <th>{specific.Grade}</th>
-                                        </tr>
-                                    </thead>
-                                )}
+                                                <tr>
+                                                    <th>{specific.studentName}</th>
+                                                    <th>{specific.Grade}</th>
+                                                </tr>
+                                            </thead>
+                                    )
+                                }
                             </Table>
                             : false
                     }

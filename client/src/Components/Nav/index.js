@@ -21,7 +21,6 @@ class Top extends React.Component {
         };
     }
 
-
     render() {
         return (
             <Navbar bg="info" expand="lg" className="login">
