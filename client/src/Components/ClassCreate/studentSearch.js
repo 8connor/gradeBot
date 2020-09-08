@@ -12,21 +12,27 @@ class StudentSearch extends ClassCreate {
         super(props)
         this.state = {
             studentArr: [],
+            currentList: [],
             studentSearch: false,
             filled: false,
+            currentListFilled: false,
             search: false,
             error: false
         };
     }
 
     handleClick() {
+        this.setState({
+            studentArr: []
+        });
+
         Axios.post("/api/studentQuery", this.state.search)
             .then(res => {
                 console.log(res);
-
                 if (res.data.length === 0) {
                     this.setState({
-                        error: true
+                        error: true,
+                        filled: false,
                     })
                 } else if (res.data.length > 0) {
                     this.setState({
@@ -35,8 +41,6 @@ class StudentSearch extends ClassCreate {
                         error: false
                     });
                 }
-
-
             })
             .catch(err => {
                 this.setState({
@@ -56,11 +60,43 @@ class StudentSearch extends ClassCreate {
     }
 
     handleDelete(index) {
+        this.state.currentList.splice(index, 1);
 
-        document.getElementById("listDiv").removeChild(document.getElementById(`listNum${index}`));
+        if (this.state.currentList.length === 0) {
+            this.setState({
+                currentListFilled: false
+            })
+        } else {
+            this.forceUpdate();
+        }
 
-        this.state.studentArr.splice(index, 1);
     }
+
+    handleAdd(index) {
+        this.state.currentList.push(this.state.studentArr[index])
+        this.state.studentArr.splice(index, 1);
+
+        console.log(this.state.currentList)
+
+        if (this.state.studentArr.length === 0) {
+            this.setState({
+                filled: false
+            })
+        } 
+
+        this.setState({
+            currentListFilled: true
+        })
+    }
+
+    handleSubmit(){
+        console.log("made it here")
+
+        Axios.post("/api/addStudentList", this.state.currentList)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    }
+
 
     render() {
         return (
@@ -75,24 +111,50 @@ class StudentSearch extends ClassCreate {
                 <Row className="justify-content-md-center">
                     <Button type="submit" onClick={() => this.handleClick()}>Search</Button>
                 </Row>
-                <div id="listDiv">
+                <Row>
+                    <Col sm={12} md={12} lg={12} id="searchDiv">
+                        {
+                            this.state.filled ? <h4>Search Results: </h4>
+                                : false
+                        }
+                        {
+                            this.state.filled
+                                ? this.state.studentArr.map((students, index) =>
+                                    <>
+                                        <p key={index} id={`searchNum${index}`}>{students.firstName}</p>
+                                        <Button key={index} onClick={() => this.handleAdd(index)}>Add</Button>
+                                    </>
+                                ) : false
+                        }
+                    </Col>
+                    <Col sm={12} md={12} lg={12} id="listDiv">
+                        {
+                            this.state.currentListFilled ? <h4>Current students you wish to add: </h4>
+                                : false
+                        }
+                        {
+                            this.state.currentListFilled
+                                ? this.state.currentList.map((students, index) =>
+                                    <>
+                                        <p key={index} id={`listNum${index}`}>{students.firstName}</p>
+                                        <Button key={index} onClick={() => this.handleDelete(index)}>Delete</Button>
+                                    </>
+                                ) : false
+                        }
+                    </Col>
                     {
-                        this.state.filled
-                            ? this.state.studentArr.map((students, index) =>
-                                <p key={index} id={`listNum${index}`}>{students.firstName}<Button onClick={() => this.handleDelete(index)}>Delete</Button></p>
-                            ) : false
-                    }
-                </div>
-                {
-                    this.state.error
-                        ?
-                        <Container>
-                            <Row className="justify-content-center text">
-                                Search Failed! Please try again.
+                        this.state.error
+                            ?
+                            <Container>
+                                <Row className="justify-content-center text">
+                                    Search Failed! Please try again.
                             </Row>
-                        </Container>
-                        : false
-                }
+                            </Container>
+                            : false
+                    }
+                </Row>
+
+
             </>
         )
     }
