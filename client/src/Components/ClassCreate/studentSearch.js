@@ -65,36 +65,43 @@ class StudentSearch extends ClassCreate {
         if (this.state.currentList.length === 0) {
             this.setState({
                 currentListFilled: false
-            })
+            });
         } else {
             this.forceUpdate();
-        }
+        };
 
     }
 
     handleAdd(index) {
-        this.state.currentList.push(this.state.studentArr[index])
+        this.state.currentList.push(this.state.studentArr[index]);
         this.state.studentArr.splice(index, 1);
 
-        console.log(this.state.currentList)
+        console.log(this.state.currentList);
 
         if (this.state.studentArr.length === 0) {
             this.setState({
                 filled: false
-            })
-        } 
+            });
+        };
 
         this.setState({
             currentListFilled: true
-        })
+        });
     }
 
-    handleSubmit(){
+    handleSubmit() {
         console.log("made it here")
 
-        Axios.post("/api/addStudentList", this.state.currentList)
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
+        let listObj = {
+            students: this.state.currentList,
+            className: this.props.currentClass
+        }
+
+        console.log(this.props.currentClass)
+
+        Axios.post("/api/addStudentList", listObj)
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err))
     }
 
 
@@ -138,6 +145,7 @@ class StudentSearch extends ClassCreate {
                                     <>
                                         <p key={index} id={`listNum${index}`}>{students.firstName}</p>
                                         <Button key={index} onClick={() => this.handleDelete(index)}>Delete</Button>
+                                        <Button onClick={() => this.handleSubmit()}>submit the list</Button>
                                     </>
                                 ) : false
                         }

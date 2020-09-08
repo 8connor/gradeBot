@@ -138,8 +138,16 @@ app.post("/api/studentQuery/", (req, res) => {
 
   db.User.find(req.body)
     .lean()
-    .then(function (assignments) {
-      res.json(assignments);
+    .then(function (students) {
+
+      let sortedStudents = students.map((sorted, index) => {
+        let rObj = { studentID: sorted._id, firstName: sorted.firstName, lastName: sorted.lastName }
+
+        return rObj
+      })
+
+      console.log(sortedStudents)
+      res.json(sortedStudents)
     })
     .catch(err => console.log(err));
 });
@@ -197,6 +205,20 @@ app.post("/api/createClass", (req, res) => {
     })
     .catch(err => console.log(err));
 });
+
+app.post("/api/addStudentList", (req, res) => {
+  console.log(req.body)
+
+  db.Classroom.updateMany({ name: req.body.className }, { students: req.body.students })
+    .lean()
+    .then(classRoomAdd => {
+      console.log(classRoomAdd);
+
+
+      res.send("you hit here !");
+    })
+
+})
 
 // Send every other request to the React app
 // Define any API routes before this runs

@@ -28,6 +28,7 @@ class ClassCreate extends React.Component {
             console.log(res);
 
         });
+        
         this.setState({
             currentClass: document.getElementById("className").value
         });
@@ -53,7 +54,9 @@ class ClassCreate extends React.Component {
                         </Row>
 
                         <Row className="">
-                            {this.state.currentClass ? <h1>Currently selected class: {this.state.currentClass}</h1> : ""}
+                            {
+                                this.state.currentClass ? <h1>Currently selected class: {this.state.currentClass}</h1> : false
+                            }
                         </Row>
 
                         {
