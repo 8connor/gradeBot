@@ -17,7 +17,6 @@ function AdminCreateUser (){
 
 
     // Only using function will change the const color
-    const [dropDownValue, setDropDownValue] = useState("");
     const [firstNameState, setFirstName] = useState("");
     const [lasttNameState, setLastName] = useState("");
     const [emailState, setEmail] = useState("");
@@ -26,10 +25,9 @@ function AdminCreateUser (){
     const [titleState, setTitle] = useState("");
     const [classroomState, setClassroom] = useState("");
 
-    // Create State of the Dropdown box for classroom+
-    const [hidden, setHidden] = useState(false);
+    const [hideState, setHideState] = useState(false);
 
-    const [classrooms, setClassroomList] = React.useState(
+    const [classrooms, setCountryList] = React.useState(
         [
             {id: 'Class1', name: 'Class1'},
             {id: 'Class2', name: 'Class2'},
@@ -48,10 +46,10 @@ function AdminCreateUser (){
     const handleSelect=(e)=>{
         setTitle(e);
         setAccessType(e);
+        // logic to Show if Teacher or Student has been selected
         if(e === "Teacher" || e === "Student"){
-            setHidden(true)
+            setHideState(true);
         }
-        setClassroom(e);
 
     }
 
@@ -144,24 +142,22 @@ function AdminCreateUser (){
 
 
                             {/* Assign Class */}
-                            {
-                                hidden ?
-                                <Form.Group>
-                                    <DropdownButton
+                            <Form.Group>
+                                {
+                                    hideState ?
+                                        <DropdownButton
                                         alignRight
-                                        type ="hidden"
                                         title={(titleState === "Student") ? "Select Student Classroom" : "Select Teacher Class"}
                                         id="dropdown-classroom"
-                                        // onSelect={handleClassroom}
+                                        onSelect={handleClassroom}
                                     >
-                                        {/* function to create the dropdown */}
-                                        {classroomList}
+                                        {classroomList()}
 
-                                    </DropdownButton>
-                                </Form.Group> 
-                                :null
-                            }
+                                    </DropdownButton> 
+                                    :null
+                                }                           
                            
+                            </Form.Group> 
 
 
                             {/* Button to make Axios call to register user */}
