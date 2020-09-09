@@ -27,6 +27,9 @@ function AdminCreateUser (){
 
     const [hideState, setHideState] = useState(false);
 
+
+    // At the beginning of the app we can make the api call instead of making several api calls 
+    // when a teacher or student access type is selected
     const [classrooms, setCountryList] = React.useState(
         [
             {id: 'Class1', name: 'Class1'},
@@ -34,13 +37,6 @@ function AdminCreateUser (){
             {id: 'Class3', name: 'Class3'}
         ]);
 
-
-    const classroomList = () => {classrooms.length > 0
-    	&& classrooms.map((item, i) => {
-      return (
-        <Dropdown.Item key={i} eventKey={item.name} value={item.id}>{item.name}</Dropdown.Item>
-      )
-    }, this)};
 
 
     const handleSelect=(e)=>{
@@ -148,10 +144,15 @@ function AdminCreateUser (){
                                         <DropdownButton
                                         alignRight
                                         title={(titleState === "Student") ? "Select Student Classroom" : "Select Teacher Class"}
-                                        id="dropdown-classroom"
                                         onSelect={handleClassroom}
                                     >
-                                        {classroomList()}
+                                        {
+                                            classrooms.map((item,i) => (
+                                                <Dropdown.Item key={i} eventKey={item.name} value={item.id}>{item.name}</Dropdown.Item>
+                                            ))
+                                        }
+                                       
+                                        
 
                                     </DropdownButton> 
                                     :null
