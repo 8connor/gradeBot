@@ -109,7 +109,7 @@ class StudentSearch extends ClassCreate {
 
         console.log(this.props.currentClass);
 
-        Axios.post("/api/addStudentLis t", listObj)
+        Axios.post("/api/addStudentList", listObj)
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
     }
