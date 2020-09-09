@@ -17,7 +17,6 @@ function AdminCreateUser (){
 
 
     // Only using function will change the const color
-    const [dropDownValue, setDropDownValue] = useState("");
     const [firstNameState, setFirstName] = useState("");
     const [lasttNameState, setLastName] = useState("");
     const [emailState, setEmail] = useState("");
@@ -25,6 +24,8 @@ function AdminCreateUser (){
     const [accessTypeState, setAccessType] = useState("");
     const [titleState, setTitle] = useState("");
     const [classroomState, setClassroom] = useState("");
+
+    const [hideState, setHideState] = useState(false);
 
     const [classrooms, setCountryList] = React.useState(
         [
@@ -47,13 +48,9 @@ function AdminCreateUser (){
         setAccessType(e);
         // logic to Show if Teacher or Student has been selected
         if(e === "Teacher" || e === "Student"){
-            var x = document.getElementById("dropdown-classroom");
-            x.style.display = "block";
+            setHideState(true);
         }
-        else{
-            var x = document.getElementById("dropdown-classroom");
-            x.style.display = "none";  
-        }
+
     }
 
     const handleClassroom=(e)=>{
@@ -146,15 +143,20 @@ function AdminCreateUser (){
 
                             {/* Assign Class */}
                             <Form.Group>
-                                <DropdownButton
-                                    alignRight
-                                    title={(titleState === "Student") ? "Select Student Classroom" : "Select Teacher Class"}
-                                    id="dropdown-classroom"
-                                    onSelect={handleClassroom}
-                                >
-                                    {classroomList}
+                                {
+                                    hideState ?
+                                        <DropdownButton
+                                        alignRight
+                                        title={(titleState === "Student") ? "Select Student Classroom" : "Select Teacher Class"}
+                                        id="dropdown-classroom"
+                                        onSelect={handleClassroom}
+                                    >
+                                        {classroomList()}
 
-                                </DropdownButton>
+                                    </DropdownButton> 
+                                    :null
+                                }                           
+                           
                             </Form.Group> 
 
 
