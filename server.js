@@ -142,12 +142,11 @@ app.post("/api/studentQuery/", (req, res) => {
 
       let sortedStudents = students.map((sorted, index) => {
         let rObj = { studentID: sorted._id, firstName: sorted.firstName, lastName: sorted.lastName }
+        return rObj;
+      });
 
-        return rObj
-      })
-
-      console.log(sortedStudents)
-      res.json(sortedStudents)
+      console.log(sortedStudents);
+      res.json(sortedStudents);
     })
     .catch(err => console.log(err));
 });
@@ -214,10 +213,8 @@ app.post("/api/addStudentList", (req, res) => {
     .then(classRoomAdd => {
       console.log(classRoomAdd);
 
-
       res.send("you hit here !");
     })
-
 })
 
 // Send every other request to the React app

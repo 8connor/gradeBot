@@ -37,7 +37,7 @@ class Login extends React.Component {
 
     render() {
         return (
-            <Container className="loginCon">
+            <Container className="loginCon shadow-lg">
                 <Card>
                     <Card.Body>
                         <Row>
@@ -52,7 +52,7 @@ class Login extends React.Component {
                                         <Form.Control type="password" placeholder="Password" />
                                     </Form.Group>
                                     <Row className="justify-content-md-center">
-                                        <Button onClick={this.handleEvent}  variant="primary" type="submit" id="subButton">
+                                        <Button onClick={this.handleEvent} variant="primary" type="submit" id="subButton">
                                             Submit
                                         </Button>
                                     </Row>
