@@ -9,7 +9,7 @@ import ClassCreate from "./NewFile.js";
 
 class StudentSearch extends ClassCreate {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             studentArr: [],
             currentList: [],
@@ -69,7 +69,6 @@ class StudentSearch extends ClassCreate {
         } else {
             this.forceUpdate();
         };
-
     }
 
     handleAdd(index) {
@@ -95,11 +94,11 @@ class StudentSearch extends ClassCreate {
         let listObj = {
             students: this.state.currentList,
             className: this.props.currentClass
-        }
+        };
 
-        console.log(this.props.currentClass)
+        console.log(this.props.currentClass);
 
-        Axios.post("/api/addStudentList", listObj)
+        Axios.post("/api/addStudentLis t", listObj)
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
     }
@@ -145,24 +144,28 @@ class StudentSearch extends ClassCreate {
                                     <>
                                         <p key={index} id={`listNum${index}`}>{students.firstName}</p>
                                         <Button key={index} onClick={() => this.handleDelete(index)}>Delete</Button>
-                                        <Button onClick={() => this.handleSubmit()}>submit the list</Button>
                                     </>
                                 ) : false
                         }
+
                     </Col>
+                    <Row className="justify-content-center">
+                        {
+                            this.state.currentListFilled ? <Button onClick={() => this.handleSubmit()}>submit the list</Button>
+                                : false
+                        }
+                    </Row>
                     {
                         this.state.error
                             ?
-                            <Container>
-                                <Row className="justify-content-center text">
-                                    Search Failed! Please try again.
+
+                            <Row className="justify-content-center">
+                                Search Failed! Please try again.
                             </Row>
-                            </Container>
+
                             : false
                     }
                 </Row>
-
-
             </>
         )
     }
