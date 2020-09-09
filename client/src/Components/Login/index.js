@@ -37,8 +37,8 @@ class Login extends React.Component {
 
     render() {
         return (
-            <Container className="loginCon shadow-lg">
-                <Card>
+            <Container>
+                <Card className="loginCon shadow-lg">
                     <Card.Body>
                         <Row>
                             <Col md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} sm={{ span: 6, offset: 3 }} >

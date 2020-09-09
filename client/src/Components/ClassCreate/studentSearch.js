@@ -60,30 +60,41 @@ class StudentSearch extends ClassCreate {
     }
 
     handleDelete(index) {
-        this.state.currentList.splice(index, 1);
+        let tempArr = this.state.currentList.slice();
+
+        tempArr.splice(index, 1);
 
         if (this.state.currentList.length === 0) {
             this.setState({
+                currentList: tempArr,
                 currentListFilled: false
             });
         } else {
-            this.forceUpdate();
+            this.setState({
+                currentList: tempArr
+            })
         };
     }
 
     handleAdd(index) {
-        this.state.currentList.push(this.state.studentArr[index]);
-        this.state.studentArr.splice(index, 1);
+        let tempArr = this.state.currentList.slice();
+        let secondTemp = this.state.studentArr.slice();
 
-        console.log(this.state.currentList);
+        tempArr.push(secondTemp[index]);
 
-        if (this.state.studentArr.length === 0) {
+        secondTemp.splice(index, 1);
+
+        console.log(tempArr);
+
+        if (secondTemp.length === 0) {
             this.setState({
+                studentArr: secondTemp,
                 filled: false
             });
         };
 
         this.setState({
+            currentList: tempArr,
             currentListFilled: true
         });
     }
@@ -149,12 +160,6 @@ class StudentSearch extends ClassCreate {
                         }
 
                     </Col>
-                    <Row className="justify-content-center">
-                        {
-                            this.state.currentListFilled ? <Button onClick={() => this.handleSubmit()}>submit the list</Button>
-                                : false
-                        }
-                    </Row>
                     {
                         this.state.error
                             ?
@@ -166,6 +171,14 @@ class StudentSearch extends ClassCreate {
                             : false
                     }
                 </Row>
+                {
+                    this.state.currentListFilled ?
+                        <Row className="justify-content-center">
+                            <Button onClick={() => this.handleSubmit()}>submit the list</Button>
+                        </Row>
+                        : false
+                }
+
             </>
         )
     }
