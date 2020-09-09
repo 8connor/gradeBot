@@ -6,12 +6,12 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
 import Card from "react-bootstrap/Card";
-import StudentSearch from "./studentSearch"
-
+import StudentSearch from "./studentSearch";
 
 class ClassCreate extends React.Component {
     state = {
-        currentClass: false
+        currentClass: false,
+        entry: false
     }
 
     handleClick(e) {
@@ -28,23 +28,31 @@ class ClassCreate extends React.Component {
             console.log(res);
 
         });
-        
+
         this.setState({
             currentClass: document.getElementById("className").value
         });
     }
 
+
+    handleSubmit(e) {
+        e.stopPropagation();
+        if (e.key === "Enter") {
+            this.handleClick();
+        }
+    }
+
     render() {
         return (
             <Container>
-                <Card>
+                <Card className="shadow-lg">
                     <Card.Body>
                         <Row>
                             <Col>
-                                <Form>
+                                <Form onSubmit={(e) => e.preventDefault()}>
                                     <Form.Group controlId="className">
                                         <Form.Label>Class name:</Form.Label>
-                                        <Form.Control type="text" placeholder="Class name." />
+                                        <Form.Control type="text" placeholder="Class name." contentEditable={true} onKeyPress={(e) => this.handleSubmit(e)} />
                                     </Form.Group>
                                 </Form>
                             </Col>

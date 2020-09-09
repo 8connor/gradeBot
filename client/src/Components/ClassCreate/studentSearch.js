@@ -9,7 +9,7 @@ import ClassCreate from "./NewFile.js";
 
 class StudentSearch extends ClassCreate {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             studentArr: [],
             currentList: [],
@@ -74,7 +74,6 @@ class StudentSearch extends ClassCreate {
                 currentList: tempArr
             })
         };
-
     }
 
     handleAdd(index) {
@@ -106,9 +105,9 @@ class StudentSearch extends ClassCreate {
         let listObj = {
             students: this.state.currentList,
             className: this.props.currentClass
-        }
+        };
 
-        console.log(this.props.currentClass)
+        console.log(this.props.currentClass);
 
         Axios.post("/api/addStudentList", listObj)
             .then(res => console.log(res.data))
@@ -156,19 +155,19 @@ class StudentSearch extends ClassCreate {
                                     <>
                                         <p key={index} id={`listNum${index}`}>{students.firstName}</p>
                                         <Button key={index} onClick={() => this.handleDelete(index)}>Delete</Button>
-
                                     </>
                                 ) : false
                         }
+
                     </Col>
                     {
                         this.state.error
                             ?
-                            <Container>
-                                <Row className="justify-content-center text">
-                                    Search Failed! Please try again.
+
+                            <Row className="justify-content-center">
+                                Search Failed! Please try again.
                             </Row>
-                            </Container>
+
                             : false
                     }
                 </Row>
