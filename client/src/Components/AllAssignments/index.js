@@ -27,8 +27,12 @@ class AllAssignments extends React.Component {
     }
 
     renderTheNew(a) {
+        let obj = {
+            studentID: a
+        }
+
         Axios
-            .post("/api/specificGrade/", a)
+            .post("/api/specificGrade/", obj)
             .then(data => {
                 var res = data.data
 

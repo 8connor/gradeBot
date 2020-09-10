@@ -15,14 +15,14 @@ class CreateForm extends React.Component {
     checkUser() {
         Axios.get("/api/checkUser").then(res => {
 
-            console.log(res)
+            console.log(res);
 
             console.log("above is res")
             this.setState(
                 {
                     classesA: res.data
                 }
-            )
+            );
         }).catch(err => console.log(err))
     }
 
@@ -37,7 +37,7 @@ class CreateForm extends React.Component {
             task: document.getElementById("taskType").value,
             taskName: document.getElementById("taskName").value,
             requirements: document.getElementById("taskRequirements").value
-        }
+        };
 
         Axios.post("/api/createAssignment", assignmentObj).then(res => console.log(res))
     }

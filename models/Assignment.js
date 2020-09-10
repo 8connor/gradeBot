@@ -4,12 +4,12 @@ var Schema = mongoose.Schema;
 
 const AssignmentSchema = new Schema({
     //These are the task requirements
-    requirements:{
+    requirements: {
         type: String,
         required: true
     },
     //This is the name of the task
-    taskName:{
+    taskName: {
         type: String,
         required: true
     },
@@ -18,23 +18,26 @@ const AssignmentSchema = new Schema({
         type: String,
         required: true
     },
-    grades: [{
-        studentID: {
-            // _id
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-        },
-        grade: {
-            type: String
-        }
-    }],
+    grades:
+        [
+            {
+                studentID: {
+                    // _id
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'User',
+                },
+                grade: {
+                    type: String
+                }
+            }
+        ],
     classroom: {
         // _id
-        type: mongoose.Schema.Types.ObjectId, 
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Class"
     }
 },
-{ versionKey: false });
+    { versionKey: false });
 
 var Assignment = mongoose.model("Assignment", AssignmentSchema);
 

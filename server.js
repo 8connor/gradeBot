@@ -123,8 +123,9 @@ app.post("/api/adminCreateUser", (req, res) => {
 
 
 app.post("/api/specificGrade/", (req, res) => {
-
-  db.Assignment.find({})
+  console.log("hit here")
+  console.log(req.body)
+  db.Assignment.find({ grade: { studentID: req.body.studentID } })
     .lean()
     .then(function (assignments) {
       res.json(assignments);
