@@ -41,7 +41,7 @@ class AllAssignments extends React.Component {
                     beenClicked: true
                 });
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
     }
 
 
@@ -58,18 +58,20 @@ class AllAssignments extends React.Component {
                                 <th>Grades</th>
                             </tr>
                         </thead>
-                        {this.state.all.map((assignments, index) =>
-                            <thead key={index}>
-                                <tr>
-                                    <th>{assignments.task}</th>
-                                    <th>{assignments.taskName}</th>
-                                    <th>{assignments.requirements}</th>
-                                    <th>
-                                        <Button onClick={() => { this.renderTheNew(assignments._id) }}>Click here for grades</Button>
-                                    </th>
-                                </tr>
-                            </thead>
-                        )}
+                        {
+                            this.state.all.map((assignments, index) =>
+                                <thead key={index}>
+                                    <tr>
+                                        <th>{assignments.task}</th>
+                                        <th>{assignments.taskName}</th>
+                                        <th>{assignments.requirements}</th>
+                                        <th>
+                                            <Button onClick={() => { this.renderTheNew(assignments._id) }}>Click here for grades</Button>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            )
+                        }
                     </Table>
 
                     {
@@ -82,13 +84,13 @@ class AllAssignments extends React.Component {
                                     </tr>
                                 </thead>
                                 {
-                                    this.state.specificGrade.map((specific, index) => 
-                                    <thead key={index}>
-                                                <tr>
-                                                    <th>{specific.studentName}</th>
-                                                    <th>{specific.Grade}</th>
-                                                </tr>
-                                            </thead>
+                                    this.state.specificGrade.map((specific, index) =>
+                                        <thead key={index}>
+                                            <tr>
+                                                <th>{specific.studentName}</th>
+                                                <th>{specific.Grade}</th>
+                                            </tr>
+                                        </thead>
                                     )
                                 }
                             </Table>
