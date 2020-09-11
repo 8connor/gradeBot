@@ -77,6 +77,7 @@ class ClassCreate extends React.Component {
                 <StudentSearch currentClass={this.state.currentClass} />
                 {/*may end up taking this out or changing it.*/}
                 <CurrentList />
+                <StudentList />
               </>
             ) : (
               false
