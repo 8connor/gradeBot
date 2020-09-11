@@ -19,6 +19,9 @@ const UserSchema = new Schema({
     },
     accessType: {
         type: String
+    },
+    overallGrade:{
+        type: String
     }
 }, 
 { versionKey: false });

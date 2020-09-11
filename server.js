@@ -116,22 +116,19 @@ app.post("/api/adminCreateUser", (req, res) => {
   })
     .catch((err) => {
       console.log(err);
-    })
-
-
+    });
 });
 
-
 app.post("/api/specificGrade/", (req, res) => {
-
-  db.Assignment.find({})
+  console.log("hit here")
+  console.log(req.body)
+  db.Assignment.find({ grade: { studentID: req.body.studentID } })
     .lean()
     .then(function (assignments) {
       res.json(assignments);
     })
     .catch(err => console.log(err));
 });
-
 
 app.post("/api/studentQuery/", (req, res) => {
   console.log(req.body)
@@ -141,7 +138,11 @@ app.post("/api/studentQuery/", (req, res) => {
     .then(function (students) {
 
       let sortedStudents = students.map((sorted, index) => {
-        let rObj = { studentID: sorted._id, firstName: sorted.firstName, lastName: sorted.lastName }
+        let rObj = {
+          studentID: sorted._id,
+          firstName: sorted.firstName,
+          lastName: sorted.lastName
+        }
         return rObj;
       });
 
@@ -150,9 +151,6 @@ app.post("/api/studentQuery/", (req, res) => {
     })
     .catch(err => console.log(err));
 });
-
-
-
 
 app.post("/api/changeGrade", (req, res) => {
   //req coming in
@@ -202,7 +200,9 @@ app.post("/api/createClass", (req, res) => {
       //this responds with the assignment that has been added.
       res.json(random);
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      res.json(err);
+    });
 });
 
 app.post("/api/addStudentList", (req, res) => {
@@ -214,8 +214,8 @@ app.post("/api/addStudentList", (req, res) => {
       console.log(classRoomAdd);
 
       res.send("you hit here !");
-    })
-})
+    });
+});
 
 // Send every other request to the React app
 // Define any API routes before this runs
@@ -223,9 +223,6 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
 });
-
-

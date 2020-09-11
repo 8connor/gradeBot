@@ -7,12 +7,11 @@ import SideNav from "./Components/SideNav";
 import CreateForm from "./Components/CreateForm";
 import AllAssignments from "./Components/AllAssignments";
 import AdminCreateUser from "./Components/AdminCreateUser";
-import ClassCreation from "./Components/ClassCreate/";
+import ClassCreate from "./Components/ClassCreate/";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 
@@ -69,7 +68,7 @@ class App extends Component {
               return (
                 <>
                   <SideNav />
-                  <ClassCreation />
+                  <ClassCreate />
                 </>
               )
             }

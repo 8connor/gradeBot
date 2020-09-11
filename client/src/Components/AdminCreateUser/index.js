@@ -27,7 +27,7 @@ function AdminCreateUser (){
 
     const [hideState, setHideState] = useState(false);
 
-    const [classrooms, setCountryList] = React.useState(
+    const [classrooms, setClassRoomList] = React.useState(
         [
             {id: 'Class1', name: 'Class1'},
             {id: 'Class2', name: 'Class2'},
