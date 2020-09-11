@@ -2,6 +2,8 @@ import React from "react";
 import Col from "react-bootstrap";
 import Button from "react-bootstrap";
 
+//May convert this into a presentational function component rather than a class.
+
 class CurrentList extends React.Component {
   constructor(props) {
     super(props);
