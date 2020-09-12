@@ -134,33 +134,53 @@ class StudentSearch extends React.Component {
             {this.state.filled ? <h4>Search Results: </h4> : false}
             {this.state.filled
               ? this.state.studentArr.map((students, index) => (
-                  <>
-                    <p key={index} id={`searchNum${index}`}>
-                      {students.firstName}
-                    </p>
-                    <Button key={index} onClick={() => this.handleAdd(index)}>
-                      Add
+                <>
+                  <p key={index} id={`searchNum${index}`}>
+                    {students.firstName}
+                  </p>
+                  <Button key={index} onClick={() => this.handleAdd(index)}>
+                    Add
                     </Button>
-                  </>
-                ))
+                </>
+              ))
               : false}
           </Col>
-
+          <Col sm={12} md={12} lg={12} id="listDiv">
+            {this.state.currentListFilled ? (
+              <h4>Current students you wish to add: </h4>
+            ) : (
+                false
+              )}
+            {
+              this.state.currentListFilled
+                ? this.state.currentList.map((students, index) => (
+                  <>
+                    <p key={index} id={`listNum${index}`}>
+                      {students.firstName}
+                    </p>
+                    <Button key={index} onClick={() => this.handleDelete(index)}>
+                      Delete
+              </Button>
+                  </>
+                ))
+                : false
+            }
+          </Col>
           {this.state.error ? (
             <Row className="justify-content-center">
               Search Failed! Please try again.
             </Row>
           ) : (
-            false
-          )}
+              false
+            )}
         </Row>
         {this.state.currentListFilled ? (
           <Row className="justify-content-center">
             <Button onClick={() => this.handleSubmit()}>submit the list</Button>
           </Row>
         ) : (
-          false
-        )}
+            false
+          )}
       </>
     );
   }

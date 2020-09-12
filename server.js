@@ -42,6 +42,15 @@ app.get("/api/allUsers", (req, res) => {
     .catch(err => console.log(err));
 });
 
+app.get("/api/allTeachers", (req, res) => {
+  db.User.find({accessType: "Teacher"})
+    .lean()
+    .then(function (users) {
+      res.json(users);
+    })
+    .catch(err => console.log(err));
+});
+
 app.get("/api/allAssignments", (req, res) => {
   db.Assignment.find({})
     .lean()
@@ -51,7 +60,8 @@ app.get("/api/allAssignments", (req, res) => {
     .catch(err => console.log(err));
 });
 
-app.get("/api/checkUser", (req, res) => {
+app.get("/api/allClasses", (req, res) => {
+  console.log("hit here")
   db.Classroom.find({})
     .lean()
     .then(function (classes) {
@@ -212,7 +222,7 @@ app.post("/api/createClass", (req, res) => {
 });
 
 app.post("/api/addStudentList", (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
 
   db.Classroom.updateMany({ name: req.body.className }, { students: req.body.students })
     .lean()

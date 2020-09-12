@@ -7,6 +7,8 @@ import Button from "react-bootstrap/Button";
 import Axios from "axios";
 import Card from "react-bootstrap/Card";
 import StudentSearch from "./studentSearch";
+import TeacherSelect from "./teacher"
+
 
 class ClassCreate extends React.Component {
   state = {
@@ -22,9 +24,10 @@ class ClassCreate extends React.Component {
 
     console.log(classRoomObj);
 
-    Axios.post("/api/createClass", classRoomObj).then((res) => {
-      console.log(res);
-    });
+    Axios.post("/api/createClass", classRoomObj)
+      .then((res) => {
+        console.log(res);
+      });
 
     this.setState({
       currentClass: document.getElementById("className").value,
@@ -57,6 +60,9 @@ class ClassCreate extends React.Component {
                   </Form.Group>
                 </Form>
               </Col>
+              <Col>
+                <TeacherSelect currentClass={this.state.currentClass} />
+              </Col>
             </Row>
             <Row className="justify-content-md-center">
               <Button type="submit" onClick={(e) => this.handleClick(e)}>
@@ -68,20 +74,15 @@ class ClassCreate extends React.Component {
               {this.state.currentClass ? (
                 <h1>Currently selected class: {this.state.currentClass}</h1>
               ) : (
-                false
-              )}
+                  false
+                )}
             </Row>
 
             {this.state.currentClass ? (
-              <>
-                <StudentSearch currentClass={this.state.currentClass} />
-                {/*may end up taking this out or changing it.*/}
-                <CurrentList />
-                <StudentList />
-              </>
+              <StudentSearch currentClass={this.state.currentClass} />
             ) : (
-              false
-            )}
+                false
+              )}
           </Card.Body>
         </Card>
       </Container>
