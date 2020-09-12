@@ -9,73 +9,84 @@ import Card from "react-bootstrap/Card";
 import StudentSearch from "./studentSearch";
 
 class ClassCreate extends React.Component {
-    state = {
-        currentClass: false
+  state = {
+    currentClass: false,
+  };
+
+  handleClick(e) {
+    let classRoomObj = {
+      name: document.getElementById("className").value,
+    };
+
+    console.log(document.getElementById("className").value);
+
+    console.log(classRoomObj);
+
+    Axios.post("/api/createClass", classRoomObj).then((res) => {
+      console.log(res);
+    });
+
+    this.setState({
+      currentClass: document.getElementById("className").value,
+    });
+  }
+
+  handleSubmit(e) {
+    e.stopPropagation();
+    if (e.key === "Enter") {
+      this.handleClick();
     }
+  }
 
-    handleClick(e) {
-        let classRoomObj = {
-            name: document.getElementById("className").value,
-        };
+  render() {
+    return (
+      <Container>
+        <Card className="shadow-lg">
+          <Card.Body>
+            <Row>
+              <Col>
+                <Form onSubmit={(e) => e.preventDefault()}>
+                  <Form.Group controlId="className">
+                    <Form.Label>Class name:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Class name."
+                      contentEditable={true}
+                      onKeyPress={(e) => this.handleSubmit(e)}
+                    />
+                  </Form.Group>
+                </Form>
+              </Col>
+            </Row>
+            <Row className="justify-content-md-center">
+              <Button type="submit" onClick={(e) => this.handleClick(e)}>
+                Submit
+              </Button>
+            </Row>
 
-        console.log(document.getElementById("className").value);
+            <Row className="">
+              {this.state.currentClass ? (
+                <h1>Currently selected class: {this.state.currentClass}</h1>
+              ) : (
+                false
+              )}
+            </Row>
 
-        console.log(classRoomObj);
-
-        Axios.post("/api/createClass", classRoomObj).then(res => {
-
-            console.log(res);
-
-        });
-
-        this.setState({
-            currentClass: document.getElementById("className").value
-        });
-    }
-
-
-    handleSubmit(e) {
-        e.stopPropagation();
-        if (e.key === "Enter") {
-            this.handleClick();
-        }
-    }
-
-    render() {
-        return (
-            <Container>
-                <Card className="shadow-lg">
-                    <Card.Body>
-                        <Row>
-                            <Col>
-                                <Form onSubmit={(e) => e.preventDefault()}>
-                                    <Form.Group controlId="className">
-                                        <Form.Label>Class name:</Form.Label>
-                                        <Form.Control type="text" placeholder="Class name." contentEditable={true} onKeyPress={(e) => this.handleSubmit(e)} />
-                                    </Form.Group>
-                                </Form>
-                            </Col>
-                        </Row>
-                        <Row className="justify-content-md-center">
-                            <Button type="submit" onClick={(e) => this.handleClick(e)}>Submit</Button>
-                        </Row>
-
-                        <Row className="">
-                            {
-                                this.state.currentClass ? <h1>Currently selected class: {this.state.currentClass}</h1> : false
-                            }
-                        </Row>
-
-                        {
-                            this.state.currentClass ? <StudentSearch currentClass={this.state.currentClass} /> : false
-                        }
-
-                    </Card.Body>
-                </Card>
-
-            </Container>
-        )
-    }
+            {this.state.currentClass ? (
+              <>
+                <StudentSearch currentClass={this.state.currentClass} />
+                {/*may end up taking this out or changing it.*/}
+                <CurrentList />
+                <StudentList />
+              </>
+            ) : (
+              false
+            )}
+          </Card.Body>
+        </Card>
+      </Container>
+    );
+  }
 }
 
 export default ClassCreate;
