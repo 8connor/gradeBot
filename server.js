@@ -122,13 +122,19 @@ app.post("/api/adminCreateUser", (req, res) => {
 app.post("/api/specificGrade/", (req, res) => {
   console.log("hit here")
   console.log(req.body)
-  db.Assignment.find({ grade: { studentID: req.body.studentID } })
+  db.Assignment.find({ grades: { studentID: req.body.studentID } })
     .lean()
     .then(function (assignments) {
+
+      console.log(assignments);
+
+      // db.User.find({ _id: assignments.studentID })
+
       res.json(assignments);
     })
     .catch(err => console.log(err));
 });
+
 
 app.post("/api/studentQuery/", (req, res) => {
   console.log(req.body)
