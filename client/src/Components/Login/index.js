@@ -6,12 +6,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
 import "./index.css";
 
 class Login extends React.Component {
@@ -37,8 +31,8 @@ class Login extends React.Component {
 
     render() {
         return (
-            <Container className="loginCon">
-                <Card>
+            <Container>
+                <Card className="loginCon shadow-lg">
                     <Card.Body>
                         <Row>
                             <Col md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} sm={{ span: 6, offset: 3 }} >
@@ -52,7 +46,7 @@ class Login extends React.Component {
                                         <Form.Control type="password" placeholder="Password" />
                                     </Form.Group>
                                     <Row className="justify-content-md-center">
-                                        <Button onClick={this.handleEvent}  variant="primary" type="submit" id="subButton">
+                                        <Button onClick={this.handleEvent} variant="primary" type="submit" id="subButton">
                                             Submit
                                         </Button>
                                     </Row>

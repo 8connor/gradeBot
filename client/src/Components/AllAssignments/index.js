@@ -19,7 +19,7 @@ class AllAssignments extends React.Component {
             this.setState({
                 all: res.data
             })
-        });
+        })
     }
 
     componentDidMount() {
@@ -27,8 +27,12 @@ class AllAssignments extends React.Component {
     }
 
     renderTheNew(a) {
+        // let obj = {
+        //     studentID: a
+        // }
+
         Axios
-            .post("/api/specificGrade/", a)
+            .get("/api/allUsers/")
             .then(data => {
                 var res = data.data
 
@@ -37,7 +41,7 @@ class AllAssignments extends React.Component {
                     beenClicked: true
                 });
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
     }
 
 
@@ -54,18 +58,20 @@ class AllAssignments extends React.Component {
                                 <th>Grades</th>
                             </tr>
                         </thead>
-                        {this.state.all.map((assignments, index) =>
-                            <thead key={index}>
-                                <tr>
-                                    <th>{assignments.task}</th>
-                                    <th>{assignments.taskName}</th>
-                                    <th>{assignments.requirements}</th>
-                                    <th>
-                                        <Button onClick={() => { this.renderTheNew(assignments._id) }}>Click here for grades</Button>
-                                    </th>
-                                </tr>
-                            </thead>
-                        )}
+                        {
+                            this.state.all.map((assignments, index) =>
+                                <thead key={index}>
+                                    <tr>
+                                        <th>{assignments.task}</th>
+                                        <th>{assignments.taskName}</th>
+                                        <th>{assignments.requirements}</th>
+                                        <th>
+                                            <Button onClick={() => { this.renderTheNew(assignments._id) }}>Click here for grades</Button>
+                                        </th>
+                                    </tr>
+                                </thead>
+                            )
+                        }
                     </Table>
 
                     {
@@ -77,14 +83,16 @@ class AllAssignments extends React.Component {
                                         <th>Grade</th>
                                     </tr>
                                 </thead>
-                                {this.state.specificGrade.map((specific, index) =>
-                                    <thead key={index}>
-                                        <tr>
-                                            <th>{specific.studentName}</th>
-                                            <th>{specific.Grade}</th>
-                                        </tr>
-                                    </thead>
-                                )}
+                                {
+                                    this.state.specificGrade.map((specific, index) =>
+                                        <thead key={index}>
+                                            <tr>
+                                                <th>{specific.firstName}</th>
+                                                <th>{specific.Grade}</th>
+                                            </tr>
+                                        </thead>
+                                    )
+                                }
                             </Table>
                             : false
                     }
