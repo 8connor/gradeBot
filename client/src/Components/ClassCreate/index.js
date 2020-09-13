@@ -12,7 +12,8 @@ import TeacherSelect from "./teacher"
 
 class ClassCreate extends React.Component {
   state = {
-    currentClass: false,
+    currentClass: null,
+    classCreated: false
   };
 
   handleClick(e) {
@@ -31,7 +32,14 @@ class ClassCreate extends React.Component {
 
     this.setState({
       currentClass: document.getElementById("className").value,
+      classCreated: true
     });
+  }
+
+  handleChange(e) {
+    this.setState({
+      currentClass: e.target.value
+    })
   }
 
   handleSubmit(e) {
@@ -40,6 +48,8 @@ class ClassCreate extends React.Component {
       this.handleClick();
     }
   }
+
+
 
   render() {
     return (
@@ -56,12 +66,13 @@ class ClassCreate extends React.Component {
                       placeholder="Class name."
                       contentEditable={true}
                       onKeyPress={(e) => this.handleSubmit(e)}
+                      onChange={(e) => this.handleChange(e)}
                     />
                   </Form.Group>
                 </Form>
               </Col>
               <Col>
-                <TeacherSelect currentClass={this.state.currentClass} />
+                <TeacherSelect currentClass={this.state.currentClass} classCreated={this.state.classCreated} />
               </Col>
             </Row>
             <Row className="justify-content-md-center">

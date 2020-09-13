@@ -43,7 +43,7 @@ app.get("/api/allUsers", (req, res) => {
 });
 
 app.get("/api/allTeachers", (req, res) => {
-  db.User.find({accessType: "Teacher"})
+  db.User.find({ accessType: "Teacher" })
     .lean()
     .then(function (users) {
       res.json(users);
@@ -206,13 +206,10 @@ app.post("/api/createClass", (req, res) => {
   //req coming in
   var className = req.body;
 
-  console.log(className)
-
 
   //This will create the class.
   db.Classroom.create(className)
     .then(function (random) {
-      console.log(random);
       //this responds with the assignment that has been added.
       res.json(random);
     })
@@ -227,11 +224,23 @@ app.post("/api/addStudentList", (req, res) => {
   db.Classroom.updateMany({ name: req.body.className }, { students: req.body.students })
     .lean()
     .then(classRoomAdd => {
-      console.log(classRoomAdd);
+   
 
       res.send("you hit here !");
     });
 });
+
+app.post("/api/updateTeacher", (req, res) => {
+  console.log(req.body)
+
+  db.Assignment.updateMany({ name: req.body.classRoom }, { teacher: req.body.teacherName })
+    .lean()
+    .then(newObj => {
+      console.log(newObj)
+
+      res.json(newObj)
+    })
+})
 
 // Send every other request to the React app
 // Define any API routes before this runs
