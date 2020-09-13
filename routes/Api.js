@@ -1,4 +1,4 @@
-
+const path = require("path")
 const express = require("express");
 const userRouter = express.Router();
 const JWT = require("jsonwebtoken");
@@ -34,6 +34,19 @@ userRouter.get("/allUsers", (req, res) => {
     console.log("In get all users api")
 
     db.User.find({})
+      .lean()
+      .then(function (users) {
+        res.json(users);
+      })
+      .catch(err => console.log(err));
+  });
+
+
+  userRouter.get("/allTeachers", (req, res) => {
+
+    console.log("In get all teachers api")
+
+    db.User.find({accessType: "Teacher"})
       .lean()
       .then(function (users) {
         res.json(users);
@@ -123,7 +136,7 @@ userRouter.get("/allAssignments", (req, res) => {
   });
   
   
-  userRouter.post("/specificGrade/", (req, res) => {
+  userRouter.post("/specificGrade", (req, res) => {
   
     db.Assignment.find({})
       .lean()
@@ -189,7 +202,7 @@ userRouter.get("/allAssignments", (req, res) => {
   // Send every other request to the React app
   // Define any API routes before this runs
   userRouter.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "./client/build/index.html"));
+    res.sendFile(path.join(__dirname, "../client/public/index.html"));
   });
   
 
