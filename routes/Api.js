@@ -5,8 +5,7 @@ const JWT = require("jsonwebtoken");
 const passport = require("passport");
 const passportConfig = require("../passport"); // passport file
 
-var db = require('./models');
-
+var db = require("../models")
 
 const signToken = userID => {
     
@@ -28,8 +27,12 @@ const signToken = userID => {
 
 //GET ROUTES BELOW HERE
 
+
 // =============================================================================
-userRouter.get("/api/allUsers", (req, res) => {
+userRouter.get("/allUsers", (req, res) => {
+
+    console.log("In get all users api")
+
     db.User.find({})
       .lean()
       .then(function (users) {
@@ -37,21 +40,10 @@ userRouter.get("/api/allUsers", (req, res) => {
       })
       .catch(err => console.log(err));
   });
-// =============================================================================
-userRouter.get("/api/allUsers", (req, res) => {
-    db.User.find({})
-      .lean()
-      .then(function (users) {
-        res.json(users);
-      })
-      .catch(err => console.log(err));
-  });
 
 
 
-
-
-userRouter.get("/api/allAssignments", (req, res) => {
+userRouter.get("/allAssignments", (req, res) => {
     db.Assignment.find({})
       .lean()
       .then(function (assignments) {
@@ -60,7 +52,7 @@ userRouter.get("/api/allAssignments", (req, res) => {
       .catch(err => console.log(err));
   });
   
-  userRouter.get("/api/checkUser", (req, res) => {
+  userRouter.get("/checkUser", (req, res) => {
     db.Classroom.find({})
       .lean()
       .then(function (classes) {
@@ -70,7 +62,7 @@ userRouter.get("/api/allAssignments", (req, res) => {
   });
   
   
-  userRouter.get("/api/average", (req, res) => {
+  userRouter.get("/average", (req, res) => {
     //req coming in
     var studentId = req.body._id
   
@@ -98,7 +90,7 @@ userRouter.get("/api/allAssignments", (req, res) => {
   
   // =============================================================================
   
-  userRouter.post("/api/adminCreateUser", (req, res) => {
+  userRouter.post("/adminCreateUser", (req, res) => {
   
     console.log(req.body);
     
@@ -131,7 +123,7 @@ userRouter.get("/api/allAssignments", (req, res) => {
   });
   
   
-  userRouter.post("/api/specificGrade/", (req, res) => {
+  userRouter.post("/specificGrade/", (req, res) => {
   
     db.Assignment.find({})
       .lean()
@@ -143,7 +135,7 @@ userRouter.get("/api/allAssignments", (req, res) => {
   
   
   
-  userRouter.post("/api/changeGrade", (req, res) => {
+  userRouter.post("/changeGrade", (req, res) => {
     //req coming in
     var studentId = req.body._id
   
@@ -163,7 +155,7 @@ userRouter.get("/api/allAssignments", (req, res) => {
       .catch(err => console.log(err));
   });
   
-  userRouter.post("/api/createAssignment", (req, res) => {
+  userRouter.post("/createAssignment", (req, res) => {
     //req coming in
     var Assignment = req.body
   
@@ -177,7 +169,7 @@ userRouter.get("/api/allAssignments", (req, res) => {
       .catch(err => console.log(err));
   });
   
-  userRouter.post("/api/createClass", (req, res) => {
+  userRouter.post("/createClass", (req, res) => {
     //req coming in
     var className = req.body;
   
@@ -199,4 +191,9 @@ userRouter.get("/api/allAssignments", (req, res) => {
   userRouter.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "./client/build/index.html"));
   });
+  
+
+  module.exports = userRouter;
+
+
   

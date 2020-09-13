@@ -1,7 +1,6 @@
 
 
 const express = require("express");
-const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
 const mongoose = require('mongoose');
@@ -10,8 +9,6 @@ const bcrypt = require("bcryptjs");
 
 //----------------------------------------- END OF DEPENDENCIES---------------------------------------------------
 
-
-var db = require('./models');
 
 mongoose.connect('mongodb://localhost/gradeBot', {useNewUrlParser: true, useUnifiedTopology: true }, ()=>{
   console.log("Successfully connected to Database");
@@ -27,7 +24,9 @@ if (process.env.NODE_ENV === "production") {
 
 //----------------------------------------- END OF MIDDLEWARE ---------------------------------------------------
 
+const userRouter = require("./routes/Api");
 
+app.use("/api", userRouter);
 
 
 app.listen(PORT, () => {
