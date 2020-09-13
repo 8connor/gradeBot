@@ -1,5 +1,3 @@
-
-
 const express = require("express");
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -24,7 +22,7 @@ if (process.env.NODE_ENV === "production") {
 
 //----------------------------------------- END OF MIDDLEWARE ---------------------------------------------------
 
-const userRouter = require("./routes/Api");
+const userRouter = require("./routes/Api.js");
 
 app.use("/api", userRouter);
 
