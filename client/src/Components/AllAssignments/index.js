@@ -27,12 +27,12 @@ class AllAssignments extends React.Component {
     }
 
     renderTheNew(a) {
-        let obj = {
-            studentID: a
-        }
+        // let obj = {
+        //     studentID: a
+        // }
 
         Axios
-            .post("/api/specificGrade/", obj)
+            .get("/api/allUsers/")
             .then(data => {
                 var res = data.data
 
@@ -87,7 +87,7 @@ class AllAssignments extends React.Component {
                                     this.state.specificGrade.map((specific, index) =>
                                         <thead key={index}>
                                             <tr>
-                                                <th>{specific.studentName}</th>
+                                                <th>{specific.firstName}</th>
                                                 <th>{specific.Grade}</th>
                                             </tr>
                                         </thead>

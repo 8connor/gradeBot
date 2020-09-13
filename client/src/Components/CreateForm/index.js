@@ -13,7 +13,7 @@ class CreateForm extends React.Component {
     }
 
     checkUser() {
-        Axios.get("/api/checkUser").then(res => {
+        Axios.get("/api/allClasses").then(res => {
 
             console.log(res);
 
