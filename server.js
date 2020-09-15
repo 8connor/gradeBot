@@ -7,7 +7,6 @@ const bcrypt = require("bcryptjs");
 
 //----------------------------------------- END OF DEPENDENCIES---------------------------------------------------
 
-
 mongoose.connect('mongodb://localhost/gradeBot', {useNewUrlParser: true, useUnifiedTopology: true }, ()=>{
   console.log("Successfully connected to Database");
 });
@@ -25,7 +24,6 @@ if (process.env.NODE_ENV === "production") {
 const userRouter = require("./routes/Api.js");
 
 app.use("/api", userRouter);
-
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);

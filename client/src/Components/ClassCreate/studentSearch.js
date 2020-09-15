@@ -124,7 +124,7 @@ class StudentSearch extends React.Component {
             </Form.Group>
           </Col>
         </Row>
-        <Row className="justify-content-md-center">
+        <Row className="justify-content-center">
           <Button type="submit" onClick={() => this.handleClick()}>
             Search
           </Button>
