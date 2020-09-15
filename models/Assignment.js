@@ -34,7 +34,7 @@ const AssignmentSchema = new Schema({
     classroom: {
         // _id
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Class"
+        ref: "Classroom"
     }
 },
     { versionKey: false });
