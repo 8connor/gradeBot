@@ -13,7 +13,8 @@ import TeacherSelect from "./teacher"
 class ClassCreate extends React.Component {
   state = {
     currentClass: null,
-    classCreated: false
+    classCreated: false,
+    errorHandle: false
   };
 
   handleClick(e) {
@@ -28,6 +29,14 @@ class ClassCreate extends React.Component {
     Axios.post("/api/createClass", classRoomObj)
       .then((res) => {
         console.log(res);
+
+        if (res.data.name === "MongoError") {
+          this.setState({
+            errorHandle: true
+          })
+        } else {
+          this.setState({ errorHandle: false })
+        }
       });
 
     this.setState({
@@ -75,13 +84,17 @@ class ClassCreate extends React.Component {
                 <TeacherSelect currentClass={this.state.currentClass} classCreated={this.state.classCreated} />
               </Col>
             </Row>
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-center">
               <Button type="submit" onClick={(e) => this.handleClick(e)}>
                 Submit
               </Button>
             </Row>
+            <Row className="justify-content-center">
+              {this.state.errorHandle && <p className="text-danger">Error this class has already been made!</p>}
+            </Row>
 
-            <Row className="">
+
+            <Row>
               {this.state.currentClass ? (
                 <h1>Currently selected class: {this.state.currentClass}</h1>
               ) : (
