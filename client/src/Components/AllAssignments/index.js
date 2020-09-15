@@ -5,6 +5,8 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button"
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
+import InputGroup from "react-bootstrap/InputGroup";
+import Form from "react-bootstrap/Form"
 import Axios from "axios";
 import "./index.css";
 
@@ -13,6 +15,7 @@ class AllAssignments extends React.Component {
         all: [],
         specificGrade: [],
         classList: [],
+        gradeEdits: [],
         selectedClass: "",
         beenClicked: false,
         filled: false
@@ -78,6 +81,21 @@ class AllAssignments extends React.Component {
             .catch(err => console.log(err));
     }
 
+    handleEdit(specific, index) {
+        let editObj = {
+            assignmentID: specific['assignmentID'],
+            studentID: specific['_id'],
+            newGrade: document.getElementById(`cell${index}`).value
+        }
+
+        console.log(editObj)
+
+        Axios.post("/api/changeGrade", editObj)
+            .then(res => {
+                console.log(res)
+            }).catch(err => console.log(err))
+    }
+
     componentDidMount() {
         this.classes();
     }
@@ -99,7 +117,6 @@ class AllAssignments extends React.Component {
                         }
                     </DropdownButton>
                 </Row>
-
                 <Row className="mt-5">
                     {
                         this.state.filled &&
@@ -129,7 +146,6 @@ class AllAssignments extends React.Component {
 
                         </Table>
                     }
-
                     {
                         this.state.beenClicked &&
                         <Table striped bordered hover variant="dark" responsive>
@@ -137,23 +153,36 @@ class AllAssignments extends React.Component {
                                 <tr>
                                     <th>Student name</th>
                                     <th>Grade</th>
+                                    <th>Modify grade</th>
                                 </tr>
                             </thead>
                             {
                                 this.state.specificGrade.map((specific, index) =>
                                     <tbody key={index}>
                                         <tr>
-                                            <th>{specific.firstName}</th>
-                                            <th>{specific.grade}</th>
+                                            <td>{specific.firstName}</td>
+                                            <td>{specific.grade}</td>
+                                            <td>
+                                                <InputGroup className="mb-3">
+                                                    <Form.Control
+                                                        placeholder="New grade"
+                                                        aria-label="New grade"
+                                                        aria-describedby="basic-addon2"
+                                                        id={`cell${index}`}
+                                                    />
+                                                    <InputGroup.Append>
+                                                        <Button variant="outline-secondary" onClick={() => this.handleEdit(specific, index)}>Button</Button>
+                                                    </InputGroup.Append>
+                                                </InputGroup>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 )
                             }
                         </Table>
                     }
-
                 </Row>
-            </Container>
+            </Container >
         )
     }
 

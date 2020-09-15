@@ -147,7 +147,6 @@ userRouter.post("/adminCreateUser", (req, res) => {
 });
 
 userRouter.post("/specificGrade", (req, res) => {
-  console.log("hit")
   db.Assignment.findOne({ _id: req.body.assignmentID })
     .populate(
       {
@@ -158,9 +157,9 @@ userRouter.post("/specificGrade", (req, res) => {
     .lean()
     .then(function (assignments) {
       // THIS RIGHT HERE IS WHERE I WILL HAVE TO NEST A FIND TO FIX THE SPECIFIC ASSIGNMENT RENDER INSIDE OF TABLE ON THE ASSIGNMENTS PAGE
-      console.log(assignments.grades)
+
       let assignArr = assignments.grades.map((student, i) => {
-        rObj = { firstName: student.studentID.firstName, grade: student.grade }
+        rObj = { _id: student.studentID._id, assignmentID: assignments._id, firstName: student.studentID.firstName, grade: student.grade }
         return rObj
       })
 
@@ -186,17 +185,20 @@ userRouter.post("/specificClass", (req, res) => {
 
 userRouter.post("/changeGrade", (req, res) => {
   //req coming in
-  var studentId = req.body._id
+  var studentId = req.body.studentID
+  console.log(req.body)
 
-  db.Assignment.UpdateOne({
-    studentId: studentId
-  })
+  db.Assignment
+    .updateMany(
+      { _id: req.body.assignmentID },
+      { $set: { 'grades.$[i].grade': req.body.newGrade } },
+      { arrayFilters: [{ 'i.studentID': req.body.studentID }] }
+    )
     .lean()
-    .then(function (users) {
-      // this is where the user object can be manipulated
-
-      // orm.averageCalculation(users);
-
+    .then(function (assignmentEdit) {
+      console.log("made it to then")
+      console.log(assignmentEdit)
+      res.json(assignmentEdit)
     })
     .then(Average => res.json(Average))
     .catch(err => console.log(err));
@@ -240,7 +242,7 @@ userRouter.post("/updateTeacher", (req, res) => {
   var incObj = req.body
 
   db.Classroom.updateOne(
-    { name: incObj.classRoom }, 
+    { name: incObj.classRoom },
     { teacherName: incObj.teacherName })
     .lean()
     .then(function (response) {
