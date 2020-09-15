@@ -54,7 +54,8 @@ class AllAssignments extends React.Component {
         console.log(e)
         this.setState({
             selectedClass: e
-        })
+        });
+        
         this.assignments(e);
     }
 

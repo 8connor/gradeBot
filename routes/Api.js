@@ -148,19 +148,17 @@ userRouter.post("/adminCreateUser", (req, res) => {
 
 userRouter.post("/specificGrade", (req, res) => {
   console.log("hit")
-  db.Assignment.find({ grades: [{ studentID: req.body.studentID }] })
+  db.Assignment.find({ grades: { studentID: req.body.studentID } })
     .lean()
     .then(function (assignments) {
+      // THIS RIGHT HERE IS WHERE I WILL HAVE TO NEST A FIND TO FIX THE SPECIFIC ASSIGNMENT RENDER INSIDE OF TABLE ON THE ASSIGNMENTS PAGE
       console.log(assignments)
       res.json(assignments);
     })
     .catch(err => res.json(err));
 });
 
-var counter = 0;
-
 userRouter.post("/specificClass", (req, res) => {
-
   db.Classroom.find({ name: req.body.name })
     .lean()
     .then(function (classroom) {
@@ -193,6 +191,38 @@ userRouter.post("/changeGrade", (req, res) => {
     .catch(err => console.log(err));
 });
 
+userRouter.post("/studentQuery", (req, res) => {
+
+  db.User.find({
+    firstName: req.body.firstName
+  })
+    .lean()
+    .then(e => {
+
+      let studentsArr = e.map((student, i) => {
+        rObj = {};
+        return { _id: student._id, firstName: student.firstName }
+      })
+
+
+      res.json(studentsArr)
+    })
+    .catch(err => console.log(err));
+});
+
+userRouter.post("/addStudentList", (req, res) => {
+
+  let studentsArr = req.body.students.map((student, i) => {
+    rObj = {};
+    return { studentID: student._id }
+  })
+
+  db.Classroom.updateMany({ name: req.body.className },
+    { students: studentsArr })
+    .lean()
+    .then(e => res.json(e))
+    .catch(err => console.log(err));
+});
 
 userRouter.post("/updateTeacher", (req, res) => {
   //req coming in
@@ -213,22 +243,32 @@ userRouter.post("/updateTeacher", (req, res) => {
 userRouter.post("/createAssignment", (req, res) => {
   //req coming in
   db.Classroom.find({ name: req.body.classroom }).lean()
-  .then(newRes => {
-    console.log(newRes)
-    //This will create the assignment.
-    db.Assignment.create({
-      task: req.body.task,
-      taskName: req.body.taskName,
-      requirements: req.body.requirements,
-      classroom: newRes[0]._id
-    })
-      .then(function (assignment) {
-        console.log(assignment);
-        //this responds with the assignment that has been added.
-        res.json(assignment)
+    .then(newRes => {
+
+      let studentsArr = newRes[0].students.map((student, i) => {
+        rObj = { studentID: student.studentID, grade: "A" };
+        return rObj
       })
-      .catch(err => console.log(err));
-  }).catch(err => console.log(err));
+
+      console.log(studentsArr)
+      //This will create the assignment.
+      db.Assignment.create({
+        task: req.body.task,
+        taskName: req.body.taskName,
+        requirements: req.body.requirements,
+        grades: studentsArr,
+        classroom: newRes[0]._id
+      })
+        .then(function (assignment) {
+
+          console.log(assignment);
+
+          console.log(assignment.grades)
+          //this responds with the assignment that has been added.
+          res.json(assignment)
+        })
+        .catch(err => console.log(err));
+    }).catch(err => console.log(err));
 
 });
 
