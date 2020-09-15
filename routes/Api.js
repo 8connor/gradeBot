@@ -148,12 +148,13 @@ userRouter.post("/adminCreateUser", (req, res) => {
 
 userRouter.post("/specificGrade", (req, res) => {
   console.log("hit")
-  db.Assignment.findOne({ _id: req.body.assignmentID }).populate(
-    {
-      path: 'grades.studentID',
-      model: 'User'
-    }
-  )
+  db.Assignment.findOne({ _id: req.body.assignmentID })
+    .populate(
+      {
+        path: 'grades.studentID',
+        model: 'User'
+      }
+    )
     .lean()
     .then(function (assignments) {
       // THIS RIGHT HERE IS WHERE I WILL HAVE TO NEST A FIND TO FIX THE SPECIFIC ASSIGNMENT RENDER INSIDE OF TABLE ON THE ASSIGNMENTS PAGE
@@ -188,9 +189,7 @@ userRouter.post("/changeGrade", (req, res) => {
   var studentId = req.body._id
 
   db.Assignment.UpdateOne({
-    where: {
-      studentId: studentId
-    }
+    studentId: studentId
   })
     .lean()
     .then(function (users) {
@@ -240,7 +239,9 @@ userRouter.post("/updateTeacher", (req, res) => {
   //req coming in
   var incObj = req.body
 
-  db.Classroom.updateOne({ name: incObj.classRoom }, { teacherName: incObj.teacherName })
+  db.Classroom.updateOne(
+    { name: incObj.classRoom }, 
+    { teacherName: incObj.teacherName })
     .lean()
     .then(function (response) {
       console.log(response);
