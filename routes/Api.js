@@ -159,7 +159,14 @@ userRouter.post("/specificGrade", (req, res) => {
       // THIS RIGHT HERE IS WHERE I WILL HAVE TO NEST A FIND TO FIX THE SPECIFIC ASSIGNMENT RENDER INSIDE OF TABLE ON THE ASSIGNMENTS PAGE
 
       let assignArr = assignments.grades.map((student, i) => {
-        rObj = { _id: student.studentID._id, assignmentID: assignments._id, firstName: student.studentID.firstName, grade: student.grade }
+        rObj = {
+          _id: student.studentID._id,
+          assignmentID: assignments._id,
+          firstName: student.studentID.firstName,
+          lastName: student.studentID.lastName,
+          grade: student.grade
+        }
+        
         return rObj
       })
 

@@ -1,6 +1,7 @@
 import React from "react";
 import Table from 'react-bootstrap/Table';
 import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button"
 import DropdownButton from "react-bootstrap/DropdownButton";
@@ -15,7 +16,6 @@ class AllAssignments extends React.Component {
         all: [],
         specificGrade: [],
         classList: [],
-        gradeEdits: [],
         selectedClass: "",
         beenClicked: false,
         filled: false
@@ -92,8 +92,11 @@ class AllAssignments extends React.Component {
 
         Axios.post("/api/changeGrade", editObj)
             .then(res => {
-                console.log(res)
-            }).catch(err => console.log(err))
+                document.getElementById(`gradeCell${index}`).innerHTML = editObj.newGrade;
+
+                console.log(res);
+            })
+            .catch(err => console.log(err))
     }
 
     componentDidMount() {
@@ -160,10 +163,11 @@ class AllAssignments extends React.Component {
                                 this.state.specificGrade.map((specific, index) =>
                                     <tbody key={index}>
                                         <tr>
-                                            <td>{specific.firstName}</td>
-                                            <td>{specific.grade}</td>
+                                            <td>{specific.firstName} {specific.lastName}</td>
+                                            <td id={`gradeCell${index}`}>{specific.grade}</td>
                                             <td>
-                                                <InputGroup className="mb-3">
+                                                <Col lg={{ offset: 3, span: 6 }} md={{ offset: 3, span: 6 }} sm={{ offset: 3, span: 6 }}>
+                                                    <InputGroup className="mb-3">
                                                     <Form.Control
                                                         placeholder="New grade"
                                                         aria-label="New grade"
@@ -171,9 +175,11 @@ class AllAssignments extends React.Component {
                                                         id={`cell${index}`}
                                                     />
                                                     <InputGroup.Append>
-                                                        <Button variant="outline-secondary" onClick={() => this.handleEdit(specific, index)}>Button</Button>
+                                                        <Button variant="success" onClick={() => this.handleEdit(specific, index)}>Submit</Button>
                                                     </InputGroup.Append>
                                                 </InputGroup>
+                                                </Col>
+
                                             </td>
                                         </tr>
                                     </tbody>
