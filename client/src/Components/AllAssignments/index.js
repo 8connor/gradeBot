@@ -61,14 +61,14 @@ class AllAssignments extends React.Component {
 
     renderTheNew(a) {
         let obj = {
-            studentID: a
+            assignmentID: a
         }
 
         Axios
             .post("/api/specificGrade", obj)
             .then(data => {
                 var res = data.data
-
+                console.log(res)
                 this.setState({
                     specificGrade: res,
                     beenClicked: true
@@ -139,7 +139,7 @@ class AllAssignments extends React.Component {
                                     <thead key={index}>
                                         <tr>
                                             <th>{specific.firstName}</th>
-                                            <th>{specific.Grade}</th>
+                                            <th>{specific.grade}</th>
                                         </tr>
                                     </thead>
                                 )

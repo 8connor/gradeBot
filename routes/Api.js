@@ -148,22 +148,34 @@ userRouter.post("/adminCreateUser", (req, res) => {
 
 userRouter.post("/specificGrade", (req, res) => {
   console.log("hit")
-  db.Assignment.find({ grades: { studentID: req.body.studentID } })
+  db.Assignment.findOne({ _id: req.body.assignmentID }).populate(
+    {
+      path: 'grades.studentID',
+      model: 'User'
+    }
+  )
     .lean()
     .then(function (assignments) {
       // THIS RIGHT HERE IS WHERE I WILL HAVE TO NEST A FIND TO FIX THE SPECIFIC ASSIGNMENT RENDER INSIDE OF TABLE ON THE ASSIGNMENTS PAGE
-      console.log(assignments)
-      res.json(assignments);
+      console.log(assignments.grades)
+      let assignArr = assignments.grades.map((student, i) => {
+        rObj = { firstName: student.studentID.firstName, grade: student.grade }
+        return rObj
+      })
+
+      console.log(assignArr)
+
+      res.json(assignArr)
     })
     .catch(err => res.json(err));
 });
 
 userRouter.post("/specificClass", (req, res) => {
-  db.Classroom.find({ name: req.body.name })
+  db.Classroom.findOne({ name: req.body.name })
     .lean()
     .then(function (classroom) {
       console.log(classroom)
-      db.Assignment.find({ classroom: classroom[0]._id }).lean().then(newResponse => {
+      db.Assignment.find({ classroom: classroom._id }).lean().then(newResponse => {
         console.log(newResponse)
         res.json(newResponse)
       })
@@ -200,8 +212,8 @@ userRouter.post("/studentQuery", (req, res) => {
     .then(e => {
 
       let studentsArr = e.map((student, i) => {
-        rObj = {};
-        return { _id: student._id, firstName: student.firstName }
+        rObj = { _id: student._id, firstName: student.firstName };
+        return rObj
       })
 
 
@@ -242,10 +254,10 @@ userRouter.post("/updateTeacher", (req, res) => {
 
 userRouter.post("/createAssignment", (req, res) => {
   //req coming in
-  db.Classroom.find({ name: req.body.classroom }).lean()
+  db.Classroom.findOne({ name: req.body.classroom }).lean()
     .then(newRes => {
 
-      let studentsArr = newRes[0].students.map((student, i) => {
+      let studentsArr = newRes.students.map((student, i) => {
         rObj = { studentID: student.studentID, grade: "A" };
         return rObj
       })
@@ -257,7 +269,7 @@ userRouter.post("/createAssignment", (req, res) => {
         taskName: req.body.taskName,
         requirements: req.body.requirements,
         grades: studentsArr,
-        classroom: newRes[0]._id
+        classroom: newRes._id
       })
         .then(function (assignment) {
 
