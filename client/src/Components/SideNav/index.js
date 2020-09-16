@@ -8,7 +8,7 @@ function SideNav() {
         <div className="container-fluid navHidden" id="sideNav">
             <div className="row">
                 <div className="sideNav bg-dark" id="sideBar">
-                    <nav id="sidebarMenu" className="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                    <nav id="sidebarMenu" className="col-md-3 col-lg-2 d-md-block bg-dark sidebar">
                         <div className="sidebar-sticky pt-3">
                             <ul className="nav flex-column">
                                 <li className="nav-item">

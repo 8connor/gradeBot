@@ -38,8 +38,6 @@ function TeacherSelect(props) {
         setSelectedTeacher(e);
     }
 
-
-
     return (
         <>
             <p>

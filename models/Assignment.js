@@ -21,6 +21,7 @@ const AssignmentSchema = new Schema({
     grades:
         [
             {
+                _id: false,
                 studentID: {
                     // _id
                     type: mongoose.Schema.Types.ObjectId,
@@ -34,7 +35,7 @@ const AssignmentSchema = new Schema({
     classroom: {
         // _id
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Class"
+        ref: "Classroom"
     }
 },
     { versionKey: false });
