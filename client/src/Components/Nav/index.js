@@ -38,7 +38,7 @@ const Top = props => {
 
 
     const unauthenticatedNavBar = ()=>{
-        console.log("In unauthenticatedNavBar")
+
         return (
             <>
                 {/* It's only here to create a link */}

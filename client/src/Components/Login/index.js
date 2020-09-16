@@ -16,15 +16,17 @@ const Login = props => {
         e.preventDefault();
 
         setUser({...user,[e.target.name] : e.target.value});
-        console.log(user);
     }
 
     const onSubmit = e => {
         e.preventDefault();
 
+        console.log("IN on Submit")
+        console.log(user);
+        
         AuthService.login(user).then(data => {
            
-            console.log("In Auth Service Login")
+            console.log("in Login about to make Call")
             console.log(data);
             
             const {isAuthenticated, user, message} = data;
