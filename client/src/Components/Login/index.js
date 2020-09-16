@@ -1,63 +1,80 @@
-import React from "react";
-import Card from "react-bootstrap/Card";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import Axios from "axios";
-import "./index.css";
-
-class Login extends React.Component {
 
 
-    handleEvent(e) {
+import React, {useState, useContext} from "react";
+import AuthService from  "../../Services/AuthService";
+import Message from "../Message"; // Message from the server
+import {AuthContext} from "../../Context/AuthContext"; // Global State components
+
+
+
+const Login = props => {
+    const [user,setUser] = useState({email: "", password : ""});
+    const [message, setMessage] = useState(null);
+    const authContext = useContext(AuthContext);
+
+    const onChange = (e) => {
         e.preventDefault();
 
-
-        Axios
-            .get("/api/allUsers")
-            .then(res => {
-
-                console.log("here")
-
-                console.log(res.data);
-            })
-            .catch(err => console.log(err));
-
+        setUser({...user,[e.target.name] : e.target.value});
+        console.log(user);
     }
 
+    const onSubmit = e => {
+        e.preventDefault();
 
+        AuthService.login(user).then(data => {
+            console.log(data);
+            
+            const {isAuthenticated, user, message} = data;
 
-    render() {
-        return (
-            <Container>
-                <Card className="loginCon shadow-lg">
-                    <Card.Body>
-                        <Row>
-                            <Col md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} sm={{ span: 6, offset: 3 }} >
-                                <Form>
-                                    <Form.Group controlId="formGroupEmail">
-                                        <Form.Label>Email address</Form.Label>
-                                        <Form.Control type="email" placeholder="Enter email" />
-                                    </Form.Group>
-                                    <Form.Group controlId="formGroupPassword">
-                                        <Form.Label>Password</Form.Label>
-                                        <Form.Control type="password" placeholder="Password" />
-                                    </Form.Group>
-                                    <Row className="justify-content-md-center">
-                                        <Button onClick={this.handleEvent} variant="primary" type="submit" id="subButton">
-                                            Submit
-                                        </Button>
-                                    </Row>
-                                </Form>
-                            </Col>
-                        </Row>
-                    </Card.Body>
-                </Card>
-            </Container>
-        )
+            if(isAuthenticated){
+                authContext.setUser(user);
+                authContext.setIsAuthenticated(isAuthenticated);
+
+                // here we going to navigate to our todos page
+                props.history.push("/dashboard");
+            }
+            else {
+                setMessage(message);
+            }
+        })
     }
+    return(
+        <div>
+            <form onSubmit={onSubmit}>
+                <h3>Please Sign In</h3>
+                <label htmlFor="email" className="sr-only">Email : </label>
+                <input 
+                    type="text" 
+                    name="email" 
+                    onChange={onChange} 
+                    className="form-control" 
+                    placeholder="Enter Email"/>
+
+                <label htmlFor="password" className="sr-only">Password : </label>
+                <input 
+                    type="password" 
+                    name="password" 
+                    onChange={onChange} 
+                    className="form-control" 
+                    placeholder="Enter Password"/>
+
+                <button 
+                    className="btn btn-lg btn-primary btn-block" 
+                    type="submit">Log In</button>
+
+
+            </form>
+
+            {/* In case we have a message to display */}
+            {message ? <Message message={message}/> : null}
+
+        </div>
+    )
 }
 
+
+
 export default Login;
+
+
