@@ -24,18 +24,11 @@ class StudentSearch extends React.Component {
     Axios.post("/api/studentQuery", this.state.search)
       .then((res) => {
         console.log(res);
-        if (res.data.length === 0) {
-          this.setState({
-            error: true,
-            filled: false,
-          });
-        } else if (res.data.length > 0) {
-          this.setState({
-            studentArr: res.data,
-            filled: true,
-            error: false,
-          });
-        }
+        this.setState({
+          studentArr: res.data,
+          error: res.data.length === 0 ? true : false,
+          filled: res.data.length === 0 ? false : true,
+        });
       })
       .catch((err) => {
         this.setState({
@@ -74,16 +67,12 @@ class StudentSearch extends React.Component {
 
     tempArr.splice(index, 1);
 
-    if (this.state.currentList.length === 0) {
-      this.setState({
-        currentList: tempArr,
-        currentListFilled: false,
-      });
-    } else {
-      this.setState({
-        currentList: tempArr,
-      });
-    }
+
+    this.setState({
+      currentList: tempArr,
+      currentListFilled: this.state.currentList.length === 0 ? false : true,
+    });
+
   }
 
   handleAdd(index) {
@@ -134,37 +123,37 @@ class StudentSearch extends React.Component {
             {this.state.filled ? <h4>Search Results: </h4> : false}
             {this.state.filled
               ? this.state.studentArr.map((students, index) => (
-                  <>
-                    <p key={index} id={`searchNum${index}`}>
-                      {students.firstName}
-                    </p>
-                    <Button key={index} onClick={() => this.handleAdd(index)}>
-                      Add
+                <>
+                  <p key={index} id={`searchNum${index}`}>
+                    {students.firstName}
+                  </p>
+                  <Button key={index} onClick={() => this.handleAdd(index)}>
+                    Add
                     </Button>
-                  </>
-                ))
+                </>
+              ))
               : false}
           </Col>
           <Col sm={12} md={12} lg={12} id="listDiv">
             {this.state.currentListFilled ? (
               <h4>Current students you wish to add: </h4>
             ) : (
-              false
-            )}
+                false
+              )}
             {this.state.currentListFilled
               ? this.state.currentList.map((students, index) => (
-                  <>
-                    <p key={index} id={`listNum${index}`}>
-                      {students.firstName}
-                    </p>
-                    <Button
-                      key={index}
-                      onClick={() => this.handleDelete(index)}
-                    >
-                      Delete
+                <>
+                  <p key={index} id={`listNum${index}`}>
+                    {students.firstName}
+                  </p>
+                  <Button
+                    key={index}
+                    onClick={() => this.handleDelete(index)}
+                  >
+                    Delete
                     </Button>
-                  </>
-                ))
+                </>
+              ))
               : false}
           </Col>
           {this.state.error ? <p>Search Failed! Please try again.</p> : false}
@@ -174,8 +163,8 @@ class StudentSearch extends React.Component {
             <Button onClick={() => this.handleSubmit()}>submit the list</Button>
           </Row>
         ) : (
-          false
-        )}
+            false
+          )}
       </>
     );
   }

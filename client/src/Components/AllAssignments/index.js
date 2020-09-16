@@ -1,10 +1,13 @@
 import React from "react";
 import Table from 'react-bootstrap/Table';
 import Container from "react-bootstrap/Container";
+import Col from "react-bootstrap/Col"
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button"
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
+import InputGroup from "react-bootstrap/InputGroup";
+import Form from "react-bootstrap/Form"
 import Axios from "axios";
 import "./index.css";
 
@@ -44,7 +47,7 @@ class AllAssignments extends React.Component {
             console.log(res)
             this.setState({
                 all: res.data,
-                filled: true
+                filled: res.data.length === 0 ? false : true
             })
         })
     }
@@ -53,9 +56,10 @@ class AllAssignments extends React.Component {
     handleSelect = (e) => {
         console.log(e)
         this.setState({
-            selectedClass: e
+            selectedClass: e,
+            beenClicked: false
         });
-        
+
         this.assignments(e);
     }
 
@@ -71,10 +75,28 @@ class AllAssignments extends React.Component {
                 console.log(res)
                 this.setState({
                     specificGrade: res,
-                    beenClicked: true
+                    beenClicked: res.length === 0 ? false : true
                 });
             })
             .catch(err => console.log(err));
+    }
+
+    handleEdit(specific, index) {
+        let editObj = {
+            assignmentID: specific['assignmentID'],
+            studentID: specific['_id'],
+            newGrade: document.getElementById(`cell${index}`).value
+        }
+
+        console.log(editObj)
+
+        Axios.post("/api/changeGrade", editObj)
+            .then(res => {
+                document.getElementById(`gradeCell${index}`).innerHTML = editObj.newGrade;
+
+                console.log(res);
+            })
+            .catch(err => console.log(err))
     }
 
     componentDidMount() {
@@ -86,6 +108,7 @@ class AllAssignments extends React.Component {
             <Container>
                 <Row className="justify-content-center">
                     <DropdownButton
+                        size="lg"
                         title={this.state.selectedClass === "" ? "Select a class" : this.state.selectedClass}
                         onSelect={(e) => this.handleSelect(e)}
                     >
@@ -97,58 +120,75 @@ class AllAssignments extends React.Component {
                         }
                     </DropdownButton>
                 </Row>
-
                 <Row className="mt-5">
-                    <Table striped bordered hover variant="dark">
-                        <thead>
-                            <tr>
-                                <th>Task type</th>
-                                <th>Task name</th>
-                                <th>Requirements</th>
-                                <th>Grades</th>
-                            </tr>
-                        </thead>
-                        {
-                            this.state.filled ?
-                                this.state.all.map((assignments, index) =>
-                                    <thead key={index}>
-                                        <tr>
-                                            <th>{assignments.task}</th>
-                                            <th>{assignments.taskName}</th>
-                                            <th>{assignments.requirements}</th>
-                                            <th>
-                                                <Button onClick={() => { this.renderTheNew(assignments._id) }}>Click here for grades</Button>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                ) : false
-                        }
-                    </Table>
+                    {
+                        this.state.filled &&
+                        <Table striped bordered hover variant="dark" responsive>
 
+                            <thead>
+                                <tr>
+                                    <th>Task type</th>
+                                    <th>Task name</th>
+                                    <th>Requirements</th>
+                                    <th>Grades</th>
+                                </tr>
+                            </thead>
+
+                            {this.state.all.map((assignments, index) =>
+                                <tbody key={index}>
+                                    <tr>
+                                        <th>{assignments.task}</th>
+                                        <th>{assignments.taskName}</th>
+                                        <th>{assignments.requirements}</th>
+                                        <th>
+                                            <Button onClick={() => { this.renderTheNew(assignments._id) }}>Click here for grades</Button>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            )}
+
+                        </Table>
+                    }
                     {
                         this.state.beenClicked &&
-                        <Table striped bordered hover variant="dark">
+                        <Table striped bordered hover variant="dark" responsive>
                             <thead>
                                 <tr>
                                     <th>Student name</th>
                                     <th>Grade</th>
+                                    <th>Modify grade</th>
                                 </tr>
                             </thead>
                             {
                                 this.state.specificGrade.map((specific, index) =>
-                                    <thead key={index}>
+                                    <tbody key={index}>
                                         <tr>
-                                            <th>{specific.firstName}</th>
-                                            <th>{specific.grade}</th>
+                                            <td>{specific.firstName} {specific.lastName}</td>
+                                            <td id={`gradeCell${index}`}>{specific.grade}</td>
+                                            <td>
+                                                <Col lg={{ offset: 3, span: 6 }} md={{ offset: 3, span: 6 }} sm={{ offset: 3, span: 6 }}>
+                                                    <InputGroup className="mb-3">
+                                                    <Form.Control
+                                                        placeholder="New grade"
+                                                        aria-label="New grade"
+                                                        aria-describedby="basic-addon2"
+                                                        id={`cell${index}`}
+                                                    />
+                                                    <InputGroup.Append>
+                                                        <Button variant="success" onClick={() => this.handleEdit(specific, index)}>Submit</Button>
+                                                    </InputGroup.Append>
+                                                </InputGroup>
+                                                </Col>
+
+                                            </td>
                                         </tr>
-                                    </thead>
+                                    </tbody>
                                 )
                             }
                         </Table>
                     }
-
                 </Row>
-            </Container>
+            </Container >
         )
     }
 

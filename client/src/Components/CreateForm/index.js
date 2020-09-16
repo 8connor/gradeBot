@@ -80,7 +80,7 @@ function CreateForm(props) {
                     </Form>
                 </Col>
             </Row>
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-center">
                 <Button type="submit" onClick={handleClick}>Submit</Button>
             </Row>
         </Container>
