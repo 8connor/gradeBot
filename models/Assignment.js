@@ -28,7 +28,7 @@ const AssignmentSchema = new Schema({
                     ref: 'User',
                 },
                 grade: {
-                    type: String
+                    type: Number
                 }
             }
         ],

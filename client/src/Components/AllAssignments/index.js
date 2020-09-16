@@ -93,6 +93,7 @@ class AllAssignments extends React.Component {
         Axios.post("/api/changeGrade", editObj)
             .then(res => {
                 document.getElementById(`gradeCell${index}`).innerHTML = editObj.newGrade;
+                document.getElementById(`cell${index}`).value = "";
 
                 console.log(res);
             })
