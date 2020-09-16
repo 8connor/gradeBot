@@ -5,6 +5,8 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const mongoose = require('mongoose');
 const bcrypt = require("bcryptjs");
+const cookieParser = require("cookie-parser");
+
 
 
 //----------------------------------------- END OF DEPENDENCIES---------------------------------------------------
@@ -15,8 +17,10 @@ mongoose.connect('mongodb://localhost/gradeBot', {useNewUrlParser: true, useUnif
 });
 
 // Define middleware here
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));

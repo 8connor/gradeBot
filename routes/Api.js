@@ -14,7 +14,7 @@ const signToken = userID => {
     return JWT.sign({
         iss: "NoobCoder", // who sent it
         sub: userID// subject - who is it for
-    }, "NoobCoder", {expiresIn : "50000"}); 
+    }, "NoobCoder", {expiresIn : "1h"}); 
     // when you sign you're creating this jwt token, this has to match with the secret key in passport config file
     // 5000 milliseconds
 }
@@ -76,8 +76,7 @@ userRouter.post("/login", passport.authenticate('local', {session: false}), (req
       // Below we are using the same MongoDb Object_Id of the User collection
       const token = signToken(_id);
 
-      console.log("after creating token");
-      console.log(token);
+
       
       // http only on the client you cannot touch this cookie using javascript preventing cross site scripting attacks
       // same site will prevent cross site request forgery attacks
@@ -105,7 +104,7 @@ userRouter.get("/logout", passport.authenticate("jwt", {session : false}), (req,
 // Make sure the front end and back end are in sync
 // If the browser is closed and re-opened we will make sure to show the user was authenticated
 userRouter.get('/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
-  
+    
   console.log("In authenticated api route");
   console.log(req.user);
 

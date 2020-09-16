@@ -1,9 +1,5 @@
 
-
-// This will seperate concerns so we don't store everything within our components
 export default {
-    
-     // To login with our form
     login : user =>{
         console.log(user);
         return fetch('/api/login',{
@@ -15,7 +11,7 @@ export default {
         }).then(res => {
             if(res.status !== 401)
                 return res.json().then(data => data);
-            else   // passport is sending a 401 code
+            else
                 return { isAuthenticated : false, user : {email : "",accessType : ""}};
         })
     },
@@ -35,19 +31,14 @@ export default {
                 .then(res => res.json())
                 .then(data => data);
     },
-
-
-    // persist authentication, set a state within our app react letting the client know that our user has been authenticated
-    // This will sync both back and front ends
     isAuthenticated : ()=>{
         return fetch('/api/authenticated')
                 .then(res=>{
-                    
-                    // Means that this is a response we wrote ourselves
-                    // passport actually sends a 401
+                    console.log("in is Authenticated Service")
+                    console.log(res);
                     if(res.status !== 401)
                         return res.json().then(data => data);
-                    else  // passport is sending a 401 code
+                    else
                         return { isAuthenticated : false, user : {email : "",accessType : ""}};
                 });
     }
