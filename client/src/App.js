@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+
+import Home from "./Components/Home";
 import Top from "./Components/Nav";
 import Bottom from "./Components/Foot";
 import Login from "./Components/Login";
@@ -8,6 +10,11 @@ import CreateForm from "./Components/CreateForm";
 import AllAssignments from "./Components/AllAssignments";
 import AdminCreateUser from "./Components/AdminCreateUser";
 import ClassCreate from "./Components/ClassCreate/";
+
+
+import PrivateRoute from './hocs/PrivateRoute';
+import UnPrivateRoute from './hocs/UnPrivateRoute';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,7 +29,8 @@ class App extends Component {
       <Router>
         <Top />
         <Switch>
-          <Route exact path="/" component={Login} />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
           <Route exact path="/dashboard" render={
             () => {
               return (

@@ -1,12 +1,12 @@
 
 
-
 // This will seperate concerns so we don't store everything within our components
 export default {
-    
     // To login with our form
     login : user => {
 
+        console.log("In login");
+        console.log(user);
         // "http://localhost:4000"
         fetch("/api/login", {
             method : "post",
@@ -80,4 +80,3 @@ export default {
 
 
 }
-
