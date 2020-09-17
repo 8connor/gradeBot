@@ -1,5 +1,3 @@
-
-
 const express = require("express");
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -10,7 +8,6 @@ const cookieParser = require("cookie-parser"); // required to read the cookie an
 
 
 //----------------------------------------- END OF DEPENDENCIES---------------------------------------------------
-
 
 mongoose.connect('mongodb://localhost/gradeBot', {useNewUrlParser: true, useUnifiedTopology: true }, ()=>{
   console.log("Successfully connected to Database");
@@ -28,10 +25,9 @@ if (process.env.NODE_ENV === "production") {
 
 //----------------------------------------- END OF MIDDLEWARE ---------------------------------------------------
 
-const userRouter = require("./routes/Api");
+const userRouter = require("./routes/Api.js");
 
 app.use("/api", userRouter);
-
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
