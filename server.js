@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 const mongoose = require('mongoose');
 const bcrypt = require("bcryptjs");
-const cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser"); // required to read the cookie and JWT to work
 
 
 
