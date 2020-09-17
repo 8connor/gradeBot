@@ -9,6 +9,8 @@ import "./index.css";
 function Dashboard() {
     const [options, setOptions] = useState();
 
+    
+
     const handleChart = () => {
         Axios.get("/api/allGrades")
             .then(res => {
