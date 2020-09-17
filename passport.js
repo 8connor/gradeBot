@@ -2,7 +2,8 @@
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const JwtStrategy = require("passport-jwt").Strategy;
+const JwtStrategy = require('passport-jwt').Strategy,
+    ExtractJwt = require('passport-jwt').ExtractJwt;
 
 // We are going to be authenticating against the User model
 const User = require("./models/User");
@@ -27,6 +28,9 @@ passport.use(new JwtStrategy({
     jwtFromRequest : cookieExtractor, // custom function we are providing to extract the jwt token from the request
     secretOrKey : "NoobCoder" // used to verify the token is legitimate
 },(payload, done) =>{
+
+    console.log("In JWT strategy")
+
     // payload is the data we set with our JWT token
     User.findById({_id : payload.sub}, (err, user) => {
         if(err) return done(err, false);
@@ -42,17 +46,22 @@ passport.use(new JwtStrategy({
 // authenticated local strategy using username and password
 // done is a function that will get executed when done
 // this below gets called when rendering the following passport.authenticate("local")
-passport.use(new LocalStrategy((username, password, done) =>{
+// in C# the done function below is used similarly as a "REF"
+passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+},(email, password, done) =>{
 
     // After authenticated we are going to set up the jwt cookie
-    
     // check if the user exists
-    User.findOne({username}, (err, user) => {
+    User.findOne({email}, (err, user) => {
+
         // something went wrong
         if(err) return done(err);
 
         // signin to an account that doesnt exist
         if(!user) return done(null, false);
+
 
         // successfully found the user
         // this is function created in our User model
@@ -60,6 +69,9 @@ passport.use(new LocalStrategy((username, password, done) =>{
         user.comparePassword(password,done);
     })
 }));
+
+
+
 
 
 
