@@ -140,6 +140,8 @@ userRouter.get("/allClasses", (req, res) => {
   db.Classroom.find({})
     .lean()
     .then(function (classes) {
+      console.log("classes");
+      console.log(classes);
       res.json(classes);
     })
     .catch(err => console.log(err));

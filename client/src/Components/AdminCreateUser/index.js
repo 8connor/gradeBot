@@ -1,6 +1,6 @@
 
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
@@ -42,13 +42,24 @@ function AdminCreateUser (){
 
     // At the beginning of the app we can make the api call instead of making several api calls 
     // when a teacher or student access type is selected
-    const [classrooms, setCountryList] = React.useState(
-        [
-            {id: 'Class1', name: 'Class1'},
-            {id: 'Class2', name: 'Class2'},
-            {id: 'Class3', name: 'Class3'}
-        ]);
+    const [classrooms, setClassroomList] = useState([{id : "", name : ""}]);
 
+
+    // Need to load the Classroom list right before the component is loaded
+    useEffect(
+        () => {
+            // Creating an asynchronous function so the classroom is listed before the component is loaded
+            const call = async () => {
+                await AdminCreateUserService.getAllClass().then( result => {
+
+                    setClassroomList(result);
+                })
+            }
+
+            // create the function within the useEffect first and then call it
+            call();
+
+        }, [])
 
 
     const handleSelect=(e)=>{
@@ -162,23 +173,20 @@ function AdminCreateUser (){
                                 {
                                     hideState ?
                                         <DropdownButton
-                                        alignRight
-                                        title={(titleState === "Student") ? "Select Student Classroom" : "Select Teacher Class"}
-                                        onSelect={handleClassroom}
-                                    >
-                                        {
-                                            classrooms.map((item,i) => (
-                                                <Dropdown.Item key={i} eventKey={item.name} value={item.id}>{item.name}</Dropdown.Item>
-                                            ))
-                                        }
-                                       
-                                        
 
-                                    </DropdownButton> 
-                                    :null
-                                }                           
-                           
-                            </Form.Group> 
+                                            alignRight
+                                            title={classroomState === "" ? "Pick" : classroomState}
+                                            onSelect={handleClassroom}
+                                        >
+                                            {
+                                                classrooms.map((item, i) => (
+                                                    <Dropdown.Item key={i} eventKey={item.name} value={item.id}>{item.name}</Dropdown.Item>
+                                                ))
+                                            }
+                                        </DropdownButton>
+                                        : null
+                                }
+                            </Form.Group>
 
 
                             {/* Button to make Axios call to register user */}

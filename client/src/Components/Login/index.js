@@ -57,7 +57,7 @@ const Login = props => {
     }
     return(
 
-        <Container className = "loginCon">
+        <Container className = "loginCon shadow-lg">
             <Card>
                 <Card.Body>
                     <Row>
