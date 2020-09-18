@@ -1,6 +1,8 @@
 
 export default {
+    
     login : user =>{
+        
         console.log(user);
         return fetch('/api/login',{
             method : "post",
@@ -15,6 +17,7 @@ export default {
                 return { isAuthenticated : false, user : {email : "",accessType : ""}};
         })
     },
+
     register : user =>{
         console.log(user);
         return fetch('/api/register',{
@@ -26,11 +29,13 @@ export default {
         }).then(res => res.json())
           .then(data => data);
     },
+
     logout : ()=>{
         return fetch('/api/logout')
                 .then(res => res.json())
                 .then(data => data);
     },
+
     isAuthenticated : ()=>{
         return fetch('/api/authenticated')
                 .then(res=>{

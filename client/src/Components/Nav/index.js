@@ -58,7 +58,8 @@ const Top = props => {
                 <Nav.Link href="/grade">Grade</Nav.Link>
                 <Nav.Link href="/adminCreateUser">Admin Create User</Nav.Link>
                 <Nav.Link href="/createClass">Create Class</Nav.Link>
-
+                {/* <Nav.Link onClick={onSubmit}  href="/logout">Logout</Nav.Link> */}
+                <Nav.Link onClick={onClickLogoutHandler} >Logout</Nav.Link>
             </>
         )
     }
