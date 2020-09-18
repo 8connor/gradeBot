@@ -1,9 +1,18 @@
-import React from "react";
-import ReactDOM from "react-dom";
 
-import App from "./App";
-import registerServiceWorker from "./registerServiceWorker";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import AuthProvider from "./Context/AuthContext"
 
-registerServiceWorker();
+
+// The App component below will get passed to children under the AuthProvider 
+// The entire app will now have access to user and isAuthenticated global states 
+ReactDOM.render(
+    <AuthProvider>
+        <App />
+    </AuthProvider>,
+    document.getElementById('root')
+    );
+    
+// registerServiceWorker();
