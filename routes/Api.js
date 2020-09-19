@@ -106,9 +106,6 @@ userRouter.get("/logout", passport.authenticate("jwt", {session : false}), (req,
 // If the browser is closed and re-opened we will make sure to show the user was authenticated
 userRouter.get('/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
     
-  console.log("In authenticated api route");
-  console.log(req.user);
-
   // Here jwt strategy will return the role
   const {email, accessType} = req.user;
   res.status(200).json({isAuthenticated : true, user : {email, accessType}});
