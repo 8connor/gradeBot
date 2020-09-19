@@ -16,12 +16,12 @@ export default {
         })
     },
 
-    changeGrade : () => {
+    changeGrade : (grade) => {
 
         // Need to change the API Route to put instead of POST to make the updates
         return fetch('/api/changeGrade',{
             method : "POST",
-            body : JSON.stringify(user),
+            body : JSON.stringify(grade),
             headers : {
                 'Content-Type' : 'application/json'
             }
@@ -38,11 +38,11 @@ export default {
 
     },
 
-    postAssignment : () => {
+    postAssignment : (assignment) => {
 
           return fetch('/api/specificClass',{
             method : "POST",
-            body : JSON.stringify(user),
+            body : JSON.stringify(assignment),
             headers : {
                 'Content-Type' : 'application/json'
             }
@@ -58,11 +58,11 @@ export default {
         })
     },
 
-    postSpecificGrades : () => {
+    postSpecificGrades : (grades) => {
 
         return fetch('/api/specificGrade',{
             method : "POST",
-            body : JSON.stringify(user),
+            body : JSON.stringify(grades),
             headers : {
                 'Content-Type' : 'application/json'
             }

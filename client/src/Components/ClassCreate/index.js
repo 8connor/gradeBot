@@ -5,7 +5,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import Axios from "axios";
 import Card from "react-bootstrap/Card";
 import StudentSearch from "./studentSearch";
 import TeacherSelect from "./teacher";
@@ -15,7 +14,7 @@ import CreateClassService from "../../Services/ClassCreateService";
 import { AuthContext } from "../../Context/AuthContext";
 
 
-function ClassCreate {
+function ClassCreate () {
 
   const authContext = useContext(AuthContext);
 
@@ -24,7 +23,7 @@ function ClassCreate {
   const [errorHandle, setErrorHandle] = useState(false);
 
 
-  const handleClick(e) {
+  const handleClick = (e) => {
     let classRoomObj = {
       name: document.getElementById("className").value,
     };
@@ -54,13 +53,13 @@ function ClassCreate {
     
   }
 
-  const handleChange(e) {
+  const handleChange = (e) => {
     
     setCurrentClass(e.target.value);
     
   }
 
-  const handleSubmit(e) {
+  const handleSubmit = (e) => {
     // Checks to see if you entered the "RETURN" key
     e.stopPropagation();
     if (e.key === "Enter") {

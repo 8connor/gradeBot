@@ -19,7 +19,7 @@ function StudentSearch () {
   const [error, setError] = useEffect(false);
 
 
-  const handleClick() {
+  const handleClick = () => {
     this.setState({
       studentArr: [],
     });
@@ -42,7 +42,7 @@ function StudentSearch () {
   // End HandlClick
 
 
-  const handleChange(e) {
+  const handleChange = (e) => {
 
     let studentName = {
       firstName: e.target.value,
@@ -51,7 +51,7 @@ function StudentSearch () {
     setSearch(studentName);
   }
 
-  const handleSubmit() {
+  const handleSubmit = () => {
     console.log("made it here");
 
     let listObj = {
@@ -68,7 +68,7 @@ function StudentSearch () {
       
   }
 
-  const handleDelete(index) {
+  const handleDelete = (index) => {
     let tempArr = currentList.slice();
 
     tempArr.splice(index, 1);
@@ -78,7 +78,7 @@ function StudentSearch () {
 
   }
 
-  const handleAdd(index) {
+  const handleAdd = (index) => {
     let tempArr = currentList.slice();
     let secondTemp = studentArr.slice();
 

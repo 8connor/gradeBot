@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 function TeacherSelect(props) {
     const [teacherList, setTeacherList] = useState();
     const [selectedTeacher, setSelectedTeacher] = useState("");
-    const [classToCreate, setClassToCreate] = useState()
+    // const [classToCreate, setClassToCreate] = useState(); // Where is this at? 
 
 
     useEffect(() => {
@@ -25,8 +25,8 @@ function TeacherSelect(props) {
 
     const assignTeacher = () => {
         let teachObj = {
-            teacherName: selectedTeacher,
-            classRoom: classToCreate
+            teacherName: selectedTeacher
+            // ,classRoom: classToCreate // Where is this being used? 
         }
 
         Axios.post("/api/updateTeacher", teachObj).then(res => console.log(res));
