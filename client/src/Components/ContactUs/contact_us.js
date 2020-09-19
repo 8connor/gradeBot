@@ -1,5 +1,5 @@
 import React from "react";
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+// import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
 
 const mapStyles = {
   width: '100%',
@@ -17,7 +17,7 @@ const contactinfo = [
     icon: 'fas fa-phone',
     primary: '(800) 867 5309'
   },
-  
+
   {
     icon: 'fas fa-envelope',
     primary: 'mail@mail.com'
@@ -27,7 +27,7 @@ const contactinfo = [
 
 
 
-{/* const contactinfoList = contactinfo.map((item) =>
+const contactinfoList = contactinfo.map((item) =>
   <div className="contact-address-details" key={item.icon}>
     <div className="address-icon relative-position text-center float-left">
       <i className={item.icon} />
@@ -43,14 +43,14 @@ const contactinfo = [
       </ul>
     </div>
   </div>
-); */}
+);
 
 
 
 export class ContactUs extends React.Component {
-  
+
   render() {
-    
+
     return (
       <section
         id="contact-area"
@@ -85,7 +85,7 @@ export class ContactUs extends React.Component {
               <div className="col-md-6">
                 <div id="contact-map" className="contact-map-section">
                   <div id="google-map">
-                   {/*  <Map
+                    {/*  <Map
                       google={this.props.google}
                       zoom={14}
                       style={mapStyles}
@@ -104,6 +104,4 @@ export class ContactUs extends React.Component {
   }
 }
 
-export default GoogleApiWrapper({
-  apiKey: 'AIzaSyC1vKxER7KD_3cih5p6n8921PRgzh1-nbA'
-})(ContactUs); 
+export default ContactUs; 

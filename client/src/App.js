@@ -1,18 +1,32 @@
-
 // we going to bring in the hook, since this is a functional component
 import React from 'react';
 
-import Top from "./Components/Nav";
-import Bottom from "./Components/Foot";
-import SideNav from "./Components/SideNav";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './assets/css/fontawesome-all.css';
+import './assets/css/flaticon.css';
+import './assets/css/video.min.css';
+import './assets/css/progess.css';
+import './assets/css/animate.min.css';
+//main css
+import './assets/scss/style.scss';
+import 'bootstrap';
 
-import Home from "./Components/Home";
 import Login from "./Components/Login";
 import Dashboard from "./Components/Dashboard";
 import CreateForm from "./Components/CreateForm";
 import AllAssignments from "./Components/AllAssignments";
 import AdminCreateUser from "./Components/AdminCreateUser";
 import ClassCreate from "./Components/ClassCreate";
+
+import Header from './Components/Header/header';
+import Particles from './Components/Particles/particles';
+import AboutUs from './Components/AboutUs/aboutus';
+import LatestNews from './Components/LatestNews/latest_news';
+import Teachers from './Components/Teachers/teachers';
+import Courses from './Components/Courses/courses';
+import ContactUs from './Components/ContactUs/contact_us';
+import Footer from './Components/Footer/footer';
+
 
 import PrivateRoute from './hocs/PrivateRoute';
 import UnPrivateRoute from './hocs/UnPrivateRoute';
@@ -26,35 +40,30 @@ import {
 
 
 function App() {
-  
+
   // exact will match the route exactly 
   return (
-    <Router>
-      <Top/>
-
-        <Route exact path="/" component={Home} />
-        <UnPrivateRoute path="/login" component={Login}/>
-        
-        {/* Allows to view assignments */}
-        <PrivateRoute path="/dashboard" roles={["student","admin","teacher"]} component={Dashboard}/>
-        
-        {/* Create Assignment */}
-        <PrivateRoute path="/createForm" roles={["student","admin","teacher"]} component={CreateForm}/> 
-
-        {/* Shows the Assignments for a specific Class */}
-        <PrivateRoute path="/allAssignments" roles={["student","admin","teacher"]} component={AllAssignments}/>
-
-
+  
+      <Router>
+        <Header />
+        <Route exact path="/">
+          <AboutUs />
+          <LatestNews />
+          <Teachers />
+          <Courses />
+          <ContactUs />
+        </Route>
+        <UnPrivateRoute path="/login" component={Login} />
+        <PrivateRoute path="/dashboard" roles={["student", "admin", "teacher"]} component={Dashboard} />
+        <PrivateRoute path="/createForm" roles={["student", "admin", "teacher"]} component={CreateForm} />
+        <PrivateRoute path="/allAssignments" roles={["student", "admin", "teacher"]} component={AllAssignments} />
+        <PrivateRoute path="/classCreate" roles={["student", "admin", "teacher"]} component={ClassCreate} />
         {/* Only Admin has access to the links below */}
+        <PrivateRoute path="/adminCreateUser" roles={["admin"]} component={AdminCreateUser} />
+        <Footer />
+      </Router>
 
-        {/* Creating a Classroom. Add Students to the Class */}
-        <PrivateRoute path="/createClass" roles={["admin"]} component={ClassCreate}/>
 
-        {/* Create New Users */}
-        <PrivateRoute path="/adminCreateUser" roles={["admin"]} component={AdminCreateUser}/>
-
-      <Bottom/>
-    </Router>
   );
 }
 

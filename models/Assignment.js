@@ -28,12 +28,12 @@ const AssignmentSchema = new Schema({
                     ref: 'User',
                 },
                 grade: {
-                    type: String
+                    type: Number
                 }
             }
         ],
     classroom: {
-        // _id
+        _id: false,
         type: mongoose.Schema.Types.ObjectId,
         ref: "Classroom"
     }
