@@ -19,6 +19,8 @@ function TeacherSelect(props) {
         }
 
         get();
+
+
     }, [])
 
     const assignTeacher = () => {
@@ -30,6 +32,7 @@ function TeacherSelect(props) {
         Axios.post("/api/updateTeacher", teachObj).then(res => console.log(res));
     }
 
+    // Does this need to be in useEffect?
     if (props.classCreated === true) {
         assignTeacher();
     }

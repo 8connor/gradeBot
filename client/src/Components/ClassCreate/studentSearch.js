@@ -1,53 +1,57 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Axios from "axios";
 
-class StudentSearch extends React.Component {
-  state = {
-    studentArr: [],
-    currentList: [],
-    studentSearch: false,
-    filled: false,
-    currentListFilled: false,
-    search: false,
-    error: false,
-  };
+import ClassCreateService from "../../Services/ClassCreateService";
 
-  handleClick() {
+
+function StudentSearch () {
+
+  const [studentArr, setStudentArr] = useEffect([]);
+  const [currentList, setCurrentList] = useEffect([]);
+  const [studentSearch, setStudentSearch] = useEffect(false);
+  const [filled, setFilled] = useEffect(false);
+  const [currentListFilled, setCurrentListFilled] = useEffect(false);
+  const [search, setSearch] = useEffect(false);
+  const [error, setError] = useEffect(false);
+
+
+  const handleClick() {
     this.setState({
       studentArr: [],
     });
 
-    Axios.post("/api/studentQuery", this.state.search)
-      .then((res) => {
-        console.log(res);
-        this.setState({
-          studentArr: res.data,
-          error: res.data.length === 0 ? true : false,
-          filled: res.data.length === 0 ? false : true,
-        });
-      })
-      .catch((err) => {
-        this.setState({
-          error: true,
-        });
-      });
-  }
+    ClassCreateService.createStudentQuery(search)
+    .then((res) => {
+      console.log(res);
 
-  handleChange(e) {
+      setStudentArr(res.data);
+      setError(res.data.length === 0 ? true : false);
+      setFilled(res.data.length === 0 ? false : true);
+
+    })
+    .catch((err) => {
+
+      setError(true);
+
+    });
+  }
+  // End HandlClick
+
+
+  const handleChange(e) {
+
     let studentName = {
       firstName: e.target.value,
     };
 
-    this.setState({
-      search: studentName,
-    });
+    setSearch(studentName);
   }
 
-  handleSubmit() {
+  const handleSubmit() {
     console.log("made it here");
 
     let listObj = {
@@ -57,27 +61,26 @@ class StudentSearch extends React.Component {
 
     console.log(this.props.currentClass);
 
-    Axios.post("/api/addStudentList", listObj)
+    ClassCreateService.addStudentList(listObj)
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
+
+      
   }
 
-  handleDelete(index) {
-    let tempArr = this.state.currentList.slice();
+  const handleDelete(index) {
+    let tempArr = currentList.slice();
 
     tempArr.splice(index, 1);
 
-
-    this.setState({
-      currentList: tempArr,
-      currentListFilled: this.state.currentList.length === 0 ? false : true,
-    });
+    setCurrentList(tempArr);
+    setCurrentListFilled(currentList.length === 0 ? false : true);
 
   }
 
-  handleAdd(index) {
-    let tempArr = this.state.currentList.slice();
-    let secondTemp = this.state.studentArr.slice();
+  const handleAdd(index) {
+    let tempArr = currentList.slice();
+    let secondTemp = studentArr.slice();
 
     tempArr.push(secondTemp[index]);
 
@@ -86,88 +89,89 @@ class StudentSearch extends React.Component {
     console.log(tempArr);
 
     if (secondTemp.length === 0) {
-      this.setState({
-        studentArr: secondTemp,
-        filled: false,
-      });
+      setStudentArr(secondTemp);
+      setFilled(false);
     }
 
-    this.setState({
-      currentList: tempArr,
-      currentListFilled: true,
-    });
+    setCurrentList(tempArr);
+    setCurrentListFilled(true);
+    
   }
 
-  render() {
-    return (
-      <>
-        <Row>
-          <Col>
-            <Form.Group>
-              <Form.Control
-                size="lg"
-                type="text"
-                placeholder="Student name"
-                onChange={(e) => this.handleChange(e)}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
+
+  return (
+    <>
+      <Row>
+        <Col>
+          <Form.Group>
+            <Form.Control
+              size="lg"
+              type="text"
+              placeholder="Student name"
+              onChange={(e) => handleChange(e)}
+            />
+          </Form.Group>
+        </Col>
+      </Row>
+      <Row className="justify-content-center">
+        <Button type="submit" onClick={() => handleClick()}>
+          Search
+        </Button>
+      </Row>
+      <Row className="justify-content-center">
+        <Col sm={12} md={12} lg={12} id="searchDiv">
+          {this.state.filled ? <h4>Search Results: </h4> : false}
+          {this.state.filled
+            ? this.state.studentArr.map((students, index) => (
+              <>
+                <p key={index} id={`searchNum${index}`}>
+                  {students.firstName}
+                </p>
+                <Button key={index} onClick={() => handleAdd(index)}>
+                  Add
+                  </Button>
+              </>
+            ))
+            : false}
+        </Col>
+        <Col sm={12} md={12} lg={12} id="listDiv">
+          {this.state.currentListFilled ? (
+            <h4>Current students you wish to add: </h4>
+          ) : (
+              false
+            )}
+          {this.state.currentListFilled
+            ? this.state.currentList.map((students, index) => (
+              <>
+                <p key={index} id={`listNum${index}`}>
+                  {students.firstName}
+                </p>
+                <Button
+                  key={index}
+                  onClick={() => handleDelete(index)}
+                >
+                  Delete
+                  </Button>
+              </>
+            ))
+            : false}
+        </Col>
+        {this.state.error ? <p>Search Failed! Please try again.</p> : false}
+      </Row>
+      {this.state.currentListFilled ? (
         <Row className="justify-content-center">
-          <Button type="submit" onClick={() => this.handleClick()}>
-            Search
-          </Button>
+          <Button onClick={() => handleSubmit()}>submit the list</Button>
         </Row>
-        <Row className="justify-content-center">
-          <Col sm={12} md={12} lg={12} id="searchDiv">
-            {this.state.filled ? <h4>Search Results: </h4> : false}
-            {this.state.filled
-              ? this.state.studentArr.map((students, index) => (
-                <>
-                  <p key={index} id={`searchNum${index}`}>
-                    {students.firstName}
-                  </p>
-                  <Button key={index} onClick={() => this.handleAdd(index)}>
-                    Add
-                    </Button>
-                </>
-              ))
-              : false}
-          </Col>
-          <Col sm={12} md={12} lg={12} id="listDiv">
-            {this.state.currentListFilled ? (
-              <h4>Current students you wish to add: </h4>
-            ) : (
-                false
-              )}
-            {this.state.currentListFilled
-              ? this.state.currentList.map((students, index) => (
-                <>
-                  <p key={index} id={`listNum${index}`}>
-                    {students.firstName}
-                  </p>
-                  <Button
-                    key={index}
-                    onClick={() => this.handleDelete(index)}
-                  >
-                    Delete
-                    </Button>
-                </>
-              ))
-              : false}
-          </Col>
-          {this.state.error ? <p>Search Failed! Please try again.</p> : false}
-        </Row>
-        {this.state.currentListFilled ? (
-          <Row className="justify-content-center">
-            <Button onClick={() => this.handleSubmit()}>submit the list</Button>
-          </Row>
-        ) : (
-            false
-          )}
-      </>
-    );
-  }
+      ) : (
+          false
+        )}
+    </>
+  );
+
+  
 }
 
+
 export default StudentSearch;
+
+
