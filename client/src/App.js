@@ -37,12 +37,15 @@ function App() {
         
         {/* Allows to view assignments */}
         <PrivateRoute path="/dashboard" roles={["student","admin","teacher"]} component={Dashboard}/>
-        
-        {/* Create Assignment */}
-        <PrivateRoute path="/createForm" roles={["student","admin","teacher"]} component={CreateForm}/> 
 
         {/* Shows the Assignments for a specific Class */}
         <PrivateRoute path="/allAssignments" roles={["student","admin","teacher"]} component={AllAssignments}/>
+
+
+        {/* Only Teachers and Admin can access the links below  */}
+                
+        {/* Create Assignment */}
+        <PrivateRoute path="/createForm" roles={["admin","teacher"]} component={CreateForm}/> 
 
 
         {/* Only Admin has access to the links below */}
