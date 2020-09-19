@@ -10,7 +10,7 @@ class Teachers extends React.Component {
             <div className="section-title mb20 headline text-center ">
               <span className="subtitle text-uppercase">MEET OUR</span>
               <h2>
-                7th Grade <span>Teachers.</span>
+                <span>Teachers.</span>
               </h2>
             </div>
             <div className="teacher-list">

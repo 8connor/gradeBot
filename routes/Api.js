@@ -202,7 +202,7 @@ userRouter.get("/allGrades", (req, res) => {
         }
       }
 
-      return newArr;
+      return average(newArr);
     }).then(newest => {
 
       console.log(newest);
@@ -379,7 +379,7 @@ userRouter.post("/createAssignment", (req, res) => {
     .then(newRes => {
 
       let studentsArr = newRes.students.map((student, i) => {
-        rObj = { studentID: student.studentID, grade: "A" };
+        rObj = { studentID: student.studentID, grade: 100 };
         return rObj
       })
 

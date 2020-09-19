@@ -9,7 +9,7 @@ class Courses extends React.Component {
           <div className="section-title mb45 headline text-center ">
             <span className="subtitle text-uppercase">COURSE CATEGORIES</span>
             <h2>
-              Browse Courses<span> By Category.</span>
+              Browse Courses
             </h2>
           </div>
           <div className="category-item">

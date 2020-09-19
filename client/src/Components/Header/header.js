@@ -22,7 +22,7 @@ function Header() {
         listener = document.addEventListener("scroll", e => {
             var scrolled = document.scrollingElement.scrollTop
             if (scrolled >= 120) {
-                if (scrollState !== "amir") {
+                if (scrollState !== "bg-dark") {
                     setScrollState("bg-dark")
                 }
             } else {
@@ -51,34 +51,7 @@ function Header() {
                             <Button variant={"dark"}>
                                 Hello
                             </Button>
-                            <div className="cart-search float-right ul-li">
-                                <ul>
-                                    <li>
-                                        <button
-                                            type="button"
-                                            className="toggle-overlay search-btn"
-                                        >
-                                            <i className="fas fa-search" />
-                                        </button>
-                                        <div className="search-body">
-                                            <div className="search-form">
-                                                <form action="#">
-                                                    <input
-                                                        className="search-input"
-                                                        type="search"
-                                                        placeholder="Search Here"
-                                                    />
-                                                    <div className="outer-close toggle-overlay">
-                                                        <button type="button" className="search-close">
-                                                            <i className="fas fa-times" />
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+                            
                             <div className="log-in float-right">
                                 <a data-toggle="modal" data-target="#myModal" href="#">
                                     log in
