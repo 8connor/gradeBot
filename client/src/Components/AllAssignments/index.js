@@ -60,7 +60,7 @@ function AllAssignments (){
         .then(res => {
 
             setAll(res.data);
-            setFilled(res.data.length === 0 ? false : true);
+            setFilled(res.length === 0 ? false : true);
 
         })
 
@@ -122,7 +122,7 @@ function AllAssignments (){
                 <DropdownButton
                     size="lg"
                     title={selectedClass === "" ? "Select a class" : selectedClass}
-                    onSelect={(e) => this.handleSelect(e)}
+                    onSelect={(e) => handleSelect(e)}
                 >
                     {
                         classList &&

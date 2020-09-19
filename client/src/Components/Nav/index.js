@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
@@ -14,7 +14,16 @@ import { AuthContext } from '../../Context/AuthContext';
 const Top = props => {
     
     const {isAuthenticated,user,setIsAuthenticated,setUser} = useContext(AuthContext);
+
+    const [userRole, setUserRole] = useState("");
+
+    useEffect(
+        () => {
+            setUserRole(user.accessType);
+        }
+    )
     
+
     const onClickLogoutHandler = ()=>{
         AuthService.logout().then(data=>{
             if(data.success){
@@ -49,15 +58,35 @@ const Top = props => {
     }
 
 
+    const notAdminUserNavLink = () => {
+
+        return (
+            <>
+                {(userRole === "teacher") ? <Nav.Link href="/createForm">Create Assignment</Nav.Link> : null}
+                
+            </>
+        )
+    }
+
+    const adminUserNavLinks = () => {
+
+        return (
+            <>
+                <Nav.Link href="/createForm">Create Assignment</Nav.Link>
+                <Nav.Link href="/createClass">Create Class</Nav.Link>
+                <Nav.Link href="/adminCreateUser">Admin Create User</Nav.Link>
+            </>
+        )
+    }
+
+
     const authenticatedNavBar = ()=>{
         return(
             <>
                 <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-                <Nav.Link href="/createAssignment">Create Assignment</Nav.Link>
                 <Nav.Link href="/allAssignments">All Assignments</Nav.Link>
-                <Nav.Link href="/grade">Grade</Nav.Link>
-                <Nav.Link href="/adminCreateUser">Admin Create User</Nav.Link>
-                <Nav.Link href="/createClass">Create Class</Nav.Link>
+               
+                {(userRole === "admin" ) ? adminUserNavLinks() : notAdminUserNavLink()}
                 {/* <Nav.Link onClick={onSubmit}  href="/logout">Logout</Nav.Link> */}
                 <Nav.Link onClick={onClickLogoutHandler} >Logout</Nav.Link>
             </>
