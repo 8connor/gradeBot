@@ -3,11 +3,12 @@
 export default {
 
     postUser : user => {
-        return fetch("/adminCreateUser", {
-            method : "post",
+
+        return fetch("/api/adminCreateUser", {
+            method : "POST",
             body : JSON.stringify(user),
             headers : {
-                "Content-Type" : "application/json"
+                'Content-Type' : 'application/json'
             }
         })
         .then(res => {
