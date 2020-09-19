@@ -5,7 +5,7 @@ const WhiteBg = true;
 class AboutUs extends React.Component {
     render() {
         return (
-            <section id="about-us" className={this.props.WhiteBg === true ? 'about-us-section home-secound home-third' : 'about-us-section'}>
+            <section id="about-us" className={this.props.WhiteBg === true ? 'about-us-section home-second home-third parallax' : 'about-us-section parallax'}>
                 <div className="container">
                     <div className="row">
                         <div className="col-md-5">

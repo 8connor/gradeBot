@@ -1,10 +1,11 @@
 import React from "react";
+import "./index.css"
 
 class Teachers extends React.Component {
   render() {
     return (
       <section id="course-teacher" className="course-teacher-section">
-        <div className="jarallax">
+        <div className="parallax">
           <div className="container">
             <div className="section-title mb20 headline text-center ">
               <span className="subtitle text-uppercase">MEET OUR</span>
@@ -41,7 +42,7 @@ class Teachers extends React.Component {
                       </div>
                       <div className="teacher-img-category">
                         <div className="teacher-img">
-    {/* <img src={require("../../assets/img/teacher/t-1.jpg")} alt="teacher" /> */}
+                          <img src={require("../../assets/img/teacher/t-1.jpg")} alt="teacher" />
                           <div className="course-price text-uppercase text-center gradient-bg">
                             <span>Featured</span>
                           </div>
@@ -81,7 +82,7 @@ class Teachers extends React.Component {
                       </div>
                       <div className="teacher-img-category">
                         <div className="teacher-img">
-    {/* <img src={require("../../assets/img/teacher/t-2.jpg")} alt="teacher" /> */}
+                          <img src={require("../../assets/img/teacher/t-2.jpg")} alt="teacher" />
                           <div className="course-price text-uppercase text-center gradient-bg">
                             <span>Featured</span>
                           </div>
@@ -121,7 +122,7 @@ class Teachers extends React.Component {
                       </div>
                       <div className="teacher-img-category">
                         <div className="teacher-img">
-    {/* <img src={require("../../assets/img/teacher/t-3.jpg")} alt="teacher" /> */}
+                          <img src={require("../../assets/img/teacher/t-3.jpg")} alt="teacher" />
                           <div className="course-price text-uppercase text-center gradient-bg">
                             <span>Featured</span>
                           </div>
@@ -161,7 +162,7 @@ class Teachers extends React.Component {
                       </div>
                       <div className="teacher-img-category">
                         <div className="teacher-img">
-    {/* <img src={require("../../assets/img/teacher/t-4.jpg")} alt="teacher" /> */}
+                          <img src={require("../../assets/img/teacher/t-4.jpg")} alt="teacher" />
                           <div className="course-price text-uppercase text-center gradient-bg">
                             <span>Featured</span>
                           </div>
@@ -201,7 +202,7 @@ class Teachers extends React.Component {
                       </div>
                       <div className="teacher-img-category">
                         <div className="teacher-img">
-    {/* <img src={require("../../assets/img/teacher/t-6.jpg")} alt="teacher" /> */}
+                          <img src={require("../../assets/img/teacher/t-6.jpg")} alt="teacher" />
                           <div className="course-price text-uppercase text-center gradient-bg">
                             <span>Featured</span>
                           </div>
@@ -241,7 +242,7 @@ class Teachers extends React.Component {
                       </div>
                       <div className="teacher-img-category">
                         <div className="teacher-img">
-    {/* <img src={require("../../assets/img/teacher/t-5.jpg")} alt="teacher" /> */}
+                          <img src={require("../../assets/img/teacher/t-5.jpg")} alt="teacher" />
                           <div className="course-price text-uppercase text-center gradient-bg">
                             <span>Featured</span>
                           </div>
@@ -281,7 +282,7 @@ class Teachers extends React.Component {
                       </div>
                       <div className="teacher-img-category">
                         <div className="teacher-img">
-    {/* <img src={require("../../assets/img/teacher/t-7.jpg")} alt="teacher" /> */}
+                          <img src={require("../../assets/img/teacher/t-7.jpg")} alt="teacher" />
                           <div className="course-price text-uppercase text-center gradient-bg">
                             <span>Featured</span>
                           </div>
