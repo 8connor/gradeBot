@@ -6,8 +6,24 @@ import Message from "../Message"; // Message from the server
 import {AuthContext} from "../../Context/AuthContext"; // Global State components
 
 
+import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+import "./index.css";
+
+
 
 const Login = props => {
+    
     const [user,setUser] = useState({email: "", password : ""});
     const [message, setMessage] = useState(null);
     const authContext = useContext(AuthContext);
@@ -21,13 +37,9 @@ const Login = props => {
     const onSubmit = e => {
         e.preventDefault();
 
-        console.log("IN on Submit")
-        console.log(user);
         
         AuthService.login(user).then(data => {
-           
-            console.log("in Login about to make Call")
-            console.log(data);
+
             
             const {isAuthenticated, user, message} = data;
 
@@ -44,36 +56,53 @@ const Login = props => {
         })
     }
     return(
-        <div>
-            <form onSubmit={onSubmit}>
-                <h3>Please Sign In</h3>
-                <label htmlFor="email" className="sr-only">Email : </label>
-                <input 
-                    type="text" 
-                    name="email" 
-                    onChange={onChange} 
-                    className="form-control" 
-                    placeholder="Enter Email"/>
 
-                <label htmlFor="password" className="sr-only">Password : </label>
-                <input 
-                    type="password" 
-                    name="password" 
-                    onChange={onChange} 
-                    className="form-control" 
-                    placeholder="Enter Password"/>
+        <Container className = "loginCon shadow-lg">
+            <Card>
+                <Card.Body>
+                    <Row>
+                        <Col md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} sm={{ span: 6, offset: 3 }} >
+                        
+                            <Form>
 
-                <button 
-                    className="btn btn-lg btn-primary btn-block" 
-                    type="submit">Log In</button>
+                                <Form.Group controlId="email">
+                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Control 
+                                        type="email" 
+                                        name="email"
+                                        onChange={onChange}
+                                        placeholder="Enter Email" />
+                                </Form.Group>
+                                <Form.Group controlId="password">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control 
+                                        type="password" 
+                                        name="password"
+                                        onChange={onChange}
+                                        placeholder="Enter Password"/>
+                                </Form.Group>
+                                <Row className="justify-content-md-center">
+                                    <Button onClick={onSubmit}  variant="primary" type="submit" id="subButton">
+                                        Log In
+                                    </Button>
+                                </Row>
 
+                            </Form>
 
-            </form>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} sm={{ span: 6, offset: 3 }}>
+                        
+                             {/* In case we have a message to display */}
+                             {message ? <Message message={message}/> : null}
+                             
+                        </Col>
+                    </Row>
+                </Card.Body>
+            </Card>
+        </Container>
 
-            {/* In case we have a message to display */}
-            {message ? <Message message={message}/> : null}
-
-        </div>
     )
 }
 

@@ -34,12 +34,23 @@ function App() {
 
         <Route exact path="/" component={Home} />
         <UnPrivateRoute path="/login" component={Login}/>
+        
+        {/* Allows to view assignments */}
         <PrivateRoute path="/dashboard" roles={["student","admin","teacher"]} component={Dashboard}/>
-        <PrivateRoute path="/createForm" roles={["student","admin","teacher"]} component={CreateForm}/>
+        
+        {/* Create Assignment */}
+        <PrivateRoute path="/createForm" roles={["student","admin","teacher"]} component={CreateForm}/> 
+
+        {/* Shows the Assignments for a specific Class */}
         <PrivateRoute path="/allAssignments" roles={["student","admin","teacher"]} component={AllAssignments}/>
-        <PrivateRoute path="/classCreate" roles={["student","admin","teacher"]} component={ClassCreate}/>
+
 
         {/* Only Admin has access to the links below */}
+
+        {/* Creating a Classroom. Add Students to the Class */}
+        <PrivateRoute path="/createClass" roles={["admin"]} component={ClassCreate}/>
+
+        {/* Create New Users */}
         <PrivateRoute path="/adminCreateUser" roles={["admin"]} component={AdminCreateUser}/>
 
       <Bottom/>
