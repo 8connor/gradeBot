@@ -6,7 +6,7 @@ import Top from "./Components/Nav";
 import Bottom from "./Components/Foot";
 import SideNav from "./Components/SideNav";
 
-import Home from "./Components/Home";
+import Home from "./Components/Home/home";
 import Login from "./Components/Login";
 import Dashboard from "./Components/Dashboard";
 import CreateForm from "./Components/CreateForm";
@@ -26,21 +26,18 @@ import {
 
 
 function App() {
-  
+
   // exact will match the route exactly 
   return (
     <Router>
-      <Top/>
-
-        <Route exact path="/" component={Home} />
-        <UnPrivateRoute path="/login" component={Login}/>
-        <PrivateRoute path="/dashboard" roles={["student","admin","teacher"]} component={Dashboard}/>
-        <PrivateRoute path="/createForm" roles={["student","admin","teacher"]} component={CreateForm}/>
-        <PrivateRoute path="/allAssignments" roles={["student","admin","teacher"]} component={AllAssignments}/>
-        <PrivateRoute path="/classCreate" roles={["student","admin","teacher"]} component={ClassCreate}/>
-        {/* Only Admin has access to the links below */}
-        <PrivateRoute path="/adminCreateUser" roles={["admin"]} component={AdminCreateUser}/>
-      <Bottom/>
+      <Route exact path="/" component={Home} />
+      <UnPrivateRoute path="/login" component={Login} />
+      <PrivateRoute path="/dashboard" roles={["student", "admin", "teacher"]} component={Dashboard} />
+      <PrivateRoute path="/createForm" roles={["student", "admin", "teacher"]} component={CreateForm} />
+      <PrivateRoute path="/allAssignments" roles={["student", "admin", "teacher"]} component={AllAssignments} />
+      <PrivateRoute path="/classCreate" roles={["student", "admin", "teacher"]} component={ClassCreate} />
+      {/* Only Admin has access to the links below */}
+      <PrivateRoute path="/adminCreateUser" roles={["admin"]} component={AdminCreateUser} />
     </Router>
   );
 }

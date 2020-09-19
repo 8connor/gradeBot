@@ -180,8 +180,7 @@ userRouter.get("/checkUser", (req, res) => {
 
 userRouter.get("/allGrades", (req, res) => {
   //todo: this
-
-
+  var average = (array) => array.reduce((a, b) => a + b) / array.length;
 
   db.Assignment.aggregate([
     {
@@ -193,17 +192,22 @@ userRouter.get("/allGrades", (req, res) => {
     }
   ])
     .then(function (grades) {
-      let average = (array) => array.reduce((a, b) => a + b) / array.length;
+      var newArr = []
 
       for (i = 0; i < grades.length; i++) {
         if (grades[i]['grades'].length === 0) {
           continue
         } else {
-          console.log(average(grades[i]['grades']))
+          newArr.push(grades[i]['grades'])
         }
       }
 
-      res.json(grades);
+      return newArr;
+    }).then(newest => {
+
+      console.log(newest);
+
+      res.json(newArr);
     })
     .catch(err => console.log(err));
 });
@@ -217,39 +221,36 @@ userRouter.get("/allGrades", (req, res) => {
 // =============================================================================
 
 userRouter.post("/adminCreateUser", (req, res) => {
+  db.User
+    .findOne({ email: req.body.email },
+      async (err, user) => {
 
-  console.log(req.body);
+        if (err) throw err;
+        if (user) res.send("User alread exists");
+        if (!user) {
+          const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-  db.User.findOne({ email: req.body.email }, async (err, user) => {
+          const newUser = new db.User({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            password: hashedPassword,
+            accessType: req.body.accessType
+          });
 
-    if (err) throw err;
-    if (user) res.send("User alread exists");
-    if (!user) {
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+          await newUser.save();
 
-      const newUser = new db.User({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: hashedPassword,
-        accessType: req.body.accessType
-      });
-
-      await newUser.save();
-
-      res.send("User Created");
-
-    }
-  })
+          res.send("User Created");
+        }
+      })
     .catch((err) => {
       console.log(err);
     })
-
-
 });
 
 userRouter.post("/specificGrade", (req, res) => {
-  db.Assignment.findOne({ _id: req.body.assignmentID })
+  db.Assignment
+    .findOne({ _id: req.body.assignmentID })
     .populate(
       {
         path: 'grades.studentID',
@@ -280,14 +281,19 @@ userRouter.post("/specificGrade", (req, res) => {
 });
 
 userRouter.post("/specificClass", (req, res) => {
-  db.Classroom.findOne({ name: req.body.name })
+  db.Classroom
+    .findOne({ name: req.body.name })
     .lean()
     .then(function (classroom) {
       console.log(classroom)
-      db.Assignment.find({ classroom: classroom._id }).lean().then(newResponse => {
-        console.log(newResponse)
-        res.json(newResponse)
-      })
+      db.Assignment.find({ classroom: classroom._id })
+        .lean()
+        .then(newResponse => {
+
+          console.log(newResponse);
+
+          res.json(newResponse);
+        })
     })
     .catch(err => res.json(err));
 });
@@ -315,9 +321,10 @@ userRouter.post("/changeGrade", (req, res) => {
 
 userRouter.post("/studentQuery", (req, res) => {
 
-  db.User.find({
-    firstName: req.body.firstName
-  })
+  db.User
+    .find({
+      firstName: req.body.firstName
+    })
     .lean()
     .then(e => {
 
@@ -366,7 +373,9 @@ userRouter.post("/updateTeacher", (req, res) => {
 
 userRouter.post("/createAssignment", (req, res) => {
   //req coming in
-  db.Classroom.findOne({ name: req.body.classroom }).lean()
+  db.Classroom
+    .findOne({ name: req.body.classroom })
+    .lean()
     .then(newRes => {
 
       let studentsArr = newRes.students.map((student, i) => {
@@ -404,7 +413,8 @@ userRouter.post("/createClass", (req, res) => {
 
 
   //This will create the class.
-  db.Classroom.create(className)
+  db.Classroom
+    .create(className)
     .then(function (random) {
       console.log(random);
       //this responds with the assignment that has been added.

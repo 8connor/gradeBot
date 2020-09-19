@@ -1,12 +1,12 @@
 import React from 'react';
-import Particles from 'react-particles-js';
+// import Particles from 'react-particles-js';
 
 
 class ParticlesComponent extends React.Component {
     render() {
       return (
         <section id="ParticlesBackground" className="particles-section">
-            <Particles 
+            {/* <Particles 
                 params={{ 
                     line_linked: {
                         shadow: {
@@ -20,7 +20,7 @@ class ParticlesComponent extends React.Component {
                 style={{
                     width: '100%',
                 }}
-             /> 
+             />  */}
 
         </section> 
     )}; 

@@ -5,11 +5,10 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import Login from './login';
-
+import Login from '../Login/login';
+import logo from "../../image/logo.png"
 
 class Header extends React.Component {
-
     render() {
         return (
             <header>
@@ -19,7 +18,7 @@ class Header extends React.Component {
                             <div className="navbar-default">
                                 <div className="navbar-header float-left">
                                     <Link className="navbar-brand text-uppercase" to="/">
-                                        {/* <img src={logo} alt="logo" /> */}
+                                        <img src={logo} alt="logo" />
                                     </Link>
                                 </div>
 
@@ -80,7 +79,7 @@ class Header extends React.Component {
                                 <div className="mobile-menu">
                                     <div className="logo">
                                         <Link to="/">
-                                            {/* <img src={logo} alt="Logo" /> */}
+                                            <img src={logo} alt="Logo" />
                                         </Link>
                                     </div>
                                     <nav>

@@ -111,7 +111,7 @@ class Footer extends React.Component {
                           </div>
                         </li>
                         <li>
-                          <img src={require( "../../assets/img/gallery/g-2.jpg")} alt="" />
+                          {/* <img src={require( "../../assets/img/gallery/g-2.jpg")} alt="" /> */}
                           <div className="blakish-overlay" />
                           <div className="pop-up-icon">
                            {/* <a

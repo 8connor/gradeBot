@@ -3,7 +3,6 @@ import Container from "react-bootstrap/Container";
 import { Row, Col } from "react-bootstrap";
 import CanvasJSReact from "../../canvasjs.react";
 import Axios from "axios";
-import "./index.css";
 
 
 function Dashboard() {

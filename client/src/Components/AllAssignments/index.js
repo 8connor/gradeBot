@@ -9,7 +9,6 @@ import Dropdown from "react-bootstrap/Dropdown";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form"
 import Axios from "axios";
-import "./index.css";
 
 class AllAssignments extends React.Component {
     state = {
@@ -21,15 +20,14 @@ class AllAssignments extends React.Component {
         filled: false
     }
 
-
     classes() {
         Axios.get("/api/allClasses").then(res => {
-            console.log(res)
+            console.log(res);
             console.log(res.data);
 
             this.setState({
                 classList: res.data
-            })
+            });
         }).catch(err => console.log(err))
     }
 
@@ -51,7 +49,6 @@ class AllAssignments extends React.Component {
             })
         })
     }
-
 
     handleSelect = (e) => {
         console.log(e)

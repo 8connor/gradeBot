@@ -8,7 +8,7 @@ class Login extends Component {
                         <div className="modal-header background-style">
                             <div className="gradient-bg"></div>
                             <div className="popup-logo">
-                                <img src={require("URL to LOGO on github")} alt="logo" />
+                                {/* <img src={require("URL to LOGO on github")} alt="logo" /> */}
                             </div>
                             <div className="popup-text text-center">
                                 <h2> <span>Login</span> Your Account.</h2>

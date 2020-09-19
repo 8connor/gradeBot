@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Header from '../Header/header';
 import Particles from '../Particles/particles';
 import AboutUs from '../AboutUs/aboutus';
@@ -9,23 +9,23 @@ import ContactUs from '../ContactUs/contact_us';
 import Footer from '../Footer/footer';
 
 
+import { AuthContext } from "../../Context/AuthContext";
 
-class HomePage extends React.Component {
-    render() {
-        return (
-            <div className="homePage">
-                <Header />
-                <Particles />
-                <AboutUs />
-                <LatestNews />
-                <Teachers />
-                <Courses />
-                <ContactUs />
-                <Footer />
-            </div>
-        )
-    }
-};
+function HomePage() {
+    const authContext = useContext(AuthContext);
 
+    return (
+        <div className="homePage">
+            <Header />
+            <Particles />
+            <AboutUs />
+            <LatestNews />
+            <Teachers />
+            <Courses />
+            <ContactUs />
+            <Footer />
+        </div>
+    )
+}
 
 export default HomePage;
