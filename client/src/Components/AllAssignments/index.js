@@ -8,7 +8,7 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form"
-import "./index.css";
+
 
 import AllAssignmentsService from "../../Services/AllAssignmentsService";
 

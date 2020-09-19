@@ -1,9 +1,9 @@
 
 
-import React, {useState, useContext} from "react";
-import AuthService from  "../../Services/AuthService";
+import React, { useState, useContext } from "react";
+import AuthService from "../../Services/AuthService";
 import Message from "../Message"; // Message from the server
-import {AuthContext} from "../../Context/AuthContext"; // Global State components
+import { AuthContext } from "../../Context/AuthContext"; // Global State components
 
 
 import Card from "react-bootstrap/Card";
@@ -18,32 +18,33 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import "./index.css";
+
+import "./index.css"
 
 
 
 const Login = props => {
-    
-    const [user,setUser] = useState({email: "", password : ""});
+
+    const [user, setUser] = useState({ email: "", password: "" });
     const [message, setMessage] = useState(null);
     const authContext = useContext(AuthContext);
 
     const onChange = (e) => {
         e.preventDefault();
 
-        setUser({...user,[e.target.name] : e.target.value});
+        setUser({ ...user, [e.target.name]: e.target.value });
     }
 
     const onSubmit = e => {
         e.preventDefault();
 
-        
+
         AuthService.login(user).then(data => {
 
-            
-            const {isAuthenticated, user, message} = data;
 
-            if(isAuthenticated){
+            const { isAuthenticated, user, message } = data;
+
+            if (isAuthenticated) {
                 authContext.setUser(user);
                 authContext.setIsAuthenticated(isAuthenticated);
 
@@ -55,53 +56,54 @@ const Login = props => {
             }
         })
     }
-    return(
+    return (
+        <div className="about-us-section" style={{padding: "300px"}}>
+            <Container className="loginCon shadow-lg">
+                <Card>
+                    <Card.Body>
+                        <Row>
+                            <Col md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} sm={{ span: 6, offset: 3 }} >
 
-        <Container className = "loginCon shadow-lg">
-            <Card>
-                <Card.Body>
-                    <Row>
-                        <Col md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} sm={{ span: 6, offset: 3 }} >
-                        
-                            <Form>
+                                <Form>
 
-                                <Form.Group controlId="email">
-                                    <Form.Label>Email address</Form.Label>
-                                    <Form.Control 
-                                        type="email" 
-                                        name="email"
-                                        onChange={onChange}
-                                        placeholder="Enter Email" />
-                                </Form.Group>
-                                <Form.Group controlId="password">
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control 
-                                        type="password" 
-                                        name="password"
-                                        onChange={onChange}
-                                        placeholder="Enter Password"/>
-                                </Form.Group>
-                                <Row className="justify-content-md-center">
-                                    <Button onClick={onSubmit}  variant="primary" type="submit" id="subButton">
-                                        Log In
+                                    <Form.Group controlId="email">
+                                        <Form.Label>Email address</Form.Label>
+                                        <Form.Control
+                                            type="email"
+                                            name="email"
+                                            onChange={onChange}
+                                            placeholder="Enter Email" />
+                                    </Form.Group>
+                                    <Form.Group controlId="password">
+                                        <Form.Label>Password</Form.Label>
+                                        <Form.Control
+                                            type="password"
+                                            name="password"
+                                            onChange={onChange}
+                                            placeholder="Enter Password" />
+                                    </Form.Group>
+                                    <Row className="justify-content-md-center">
+                                        <Button onClick={onSubmit} variant="primary" type="submit" id="subButton">
+                                            Log In
                                     </Button>
-                                </Row>
+                                    </Row>
 
-                            </Form>
+                                </Form>
 
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} sm={{ span: 6, offset: 3 }}>
-                        
-                             {/* In case we have a message to display */}
-                             {message ? <Message message={message}/> : null}
-                             
-                        </Col>
-                    </Row>
-                </Card.Body>
-            </Card>
-        </Container>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} sm={{ span: 6, offset: 3 }}>
+
+                                {/* In case we have a message to display */}
+                                {message ? <Message message={message} /> : null}
+
+                            </Col>
+                        </Row>
+                    </Card.Body>
+                </Card>
+            </Container>
+        </div >
 
     )
 }

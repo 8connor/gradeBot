@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     BrowserRouter as Router,
     Switch,
@@ -51,13 +51,17 @@ function Header() {
                             <Button variant={"dark"}>
                                 Hello
                             </Button>
-                            
-                            <div className="log-in float-right">
-                                <a data-toggle="modal" data-target="#myModal" href="#">
-                                    log in
+                            {
+                                window.location === "/login" ?
+                                    <div className="log-in float-right">
+                                        <a data-toggle="modal" data-target="#myModal" href="#">
+                                            log in
                                     </a>
-                                <Login />
-                            </div>
+                                        <Login />
+                                    </div>
+                                : false
+                            }
+
                         </div>
                     </div>
                 </div>

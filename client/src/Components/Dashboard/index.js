@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useState }from "react"
 import Container from "react-bootstrap/Container";
 import { Row, Col } from "react-bootstrap";
-import "./index.css"
+
 
 import { AuthContext } from "../../Context/AuthContext";
 

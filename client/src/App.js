@@ -43,7 +43,7 @@ function App() {
 
   // exact will match the route exactly 
   return (
-    <div className="homepage">
+  
       <Router>
         <Header />
         <Route exact path="/">
@@ -62,7 +62,7 @@ function App() {
         <PrivateRoute path="/adminCreateUser" roles={["admin"]} component={AdminCreateUser} />
         <Footer />
       </Router>
-    </div>
+
 
   );
 }
