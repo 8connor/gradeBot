@@ -53,11 +53,11 @@ const Top = props => {
         return(
             <>
                 <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-                <Nav.Link href="/createAssignment">Create Assignment</Nav.Link>
+                <Nav.Link href="/createForm">Create Assignment</Nav.Link>
                 <Nav.Link href="/allAssignments">All Assignments</Nav.Link>
                 <Nav.Link href="/grade">Grade</Nav.Link>
                 <Nav.Link href="/adminCreateUser">Admin Create User</Nav.Link>
-                <Nav.Link href="/createClass">Create Class</Nav.Link>
+                <Nav.Link href="/classCreate">Create Class</Nav.Link>
 
             </>
         )

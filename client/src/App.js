@@ -38,10 +38,8 @@ function App() {
         <PrivateRoute path="/createForm" roles={["student","admin","teacher"]} component={CreateForm}/>
         <PrivateRoute path="/allAssignments" roles={["student","admin","teacher"]} component={AllAssignments}/>
         <PrivateRoute path="/classCreate" roles={["student","admin","teacher"]} component={ClassCreate}/>
-
         {/* Only Admin has access to the links below */}
         <PrivateRoute path="/adminCreateUser" roles={["admin"]} component={AdminCreateUser}/>
-
       <Bottom/>
     </Router>
   );
