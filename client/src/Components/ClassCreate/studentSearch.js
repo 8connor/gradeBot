@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -8,21 +8,19 @@ import Axios from "axios";
 import ClassCreateService from "../../Services/ClassCreateService";
 
 
-function StudentSearch () {
+function StudentSearch (props) {
 
-  const [studentArr, setStudentArr] = useEffect([]);
-  const [currentList, setCurrentList] = useEffect([]);
-  const [studentSearch, setStudentSearch] = useEffect(false);
-  const [filled, setFilled] = useEffect(false);
-  const [currentListFilled, setCurrentListFilled] = useEffect(false);
-  const [search, setSearch] = useEffect(false);
-  const [error, setError] = useEffect(false);
+  const [studentArr, setStudentArr] = useState([]);
+  const [currentList, setCurrentList] = useState([]);
+  const [studentSearch, setStudentSearch] = useState(false);
+  const [filled, setFilled] = useState(false);
+  const [currentListFilled, setCurrentListFilled] = useState(false);
+  const [search, setSearch] = useState(false);
+  const [error, setError] = useState(false);
 
 
   const handleClick = () => {
-    this.setState({
-      studentArr: [],
-    });
+    setStudentArr([])
 
     ClassCreateService.createStudentQuery(search)
     .then((res) => {
@@ -55,11 +53,11 @@ function StudentSearch () {
     console.log("made it here");
 
     let listObj = {
-      students: this.state.currentList,
-      className: this.props.currentClass,
+      students: currentList,
+      className: props.currentClass,
     };
 
-    console.log(this.props.currentClass);
+    console.log(props.currentClass);
 
     ClassCreateService.addStudentList(listObj)
       .then((res) => console.log(res.data))
@@ -95,7 +93,6 @@ function StudentSearch () {
 
     setCurrentList(tempArr);
     setCurrentListFilled(true);
-    
   }
 
 
@@ -120,9 +117,9 @@ function StudentSearch () {
       </Row>
       <Row className="justify-content-center">
         <Col sm={12} md={12} lg={12} id="searchDiv">
-          {this.state.filled ? <h4>Search Results: </h4> : false}
-          {this.state.filled
-            ? this.state.studentArr.map((students, index) => (
+          {filled ? <h4>Search Results: </h4> : false}
+          {filled
+            ? studentArr.map((students, index) => (
               <>
                 <p key={index} id={`searchNum${index}`}>
                   {students.firstName}
@@ -135,13 +132,13 @@ function StudentSearch () {
             : false}
         </Col>
         <Col sm={12} md={12} lg={12} id="listDiv">
-          {this.state.currentListFilled ? (
+          {currentListFilled ? (
             <h4>Current students you wish to add: </h4>
           ) : (
               false
             )}
-          {this.state.currentListFilled
-            ? this.state.currentList.map((students, index) => (
+          {currentListFilled
+            ? currentList.map((students, index) => (
               <>
                 <p key={index} id={`listNum${index}`}>
                   {students.firstName}
@@ -156,9 +153,9 @@ function StudentSearch () {
             ))
             : false}
         </Col>
-        {this.state.error ? <p>Search Failed! Please try again.</p> : false}
+        {error ? <p>Search Failed! Please try again.</p> : false}
       </Row>
-      {this.state.currentListFilled ? (
+      {currentListFilled ? (
         <Row className="justify-content-center">
           <Button onClick={() => handleSubmit()}>submit the list</Button>
         </Row>

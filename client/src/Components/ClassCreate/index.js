@@ -14,8 +14,7 @@ import CreateClassService from "../../Services/ClassCreateService";
 import { AuthContext } from "../../Context/AuthContext";
 
 
-function ClassCreate () {
-
+function ClassCreate() {
   const authContext = useContext(AuthContext);
 
   const [currentClass, setCurrentClass] = useState(null);
@@ -24,6 +23,8 @@ function ClassCreate () {
 
 
   const handleClick = (e) => {
+    setCurrentClass(e.target.value)
+
     let classRoomObj = {
       name: document.getElementById("className").value,
     };
@@ -33,37 +34,28 @@ function ClassCreate () {
     console.log(classRoomObj);
 
     CreateClassService.createClass(classRoomObj)
-    .then((res) => {
-      console.log(res);
+      .then((res) => {
+        console.log(res);
 
-      if (res.data.name === "MongoError") {
-        this.setState({
-          errorHandle: true
-        })
-      } else {
-        this.setState({ errorHandle: false })
-      }
-    });
+        if (res.data.name === "MongoError") {
+          setErrorHandle(true)
+        } else {
+          setErrorHandle(false)
+        }
+      });
 
 
 
     setCurrentClass(document.getElementById("className").value);
     setClassCreated(true);
-
-    
   }
 
-  const handleChange = (e) => {
-    
-    setCurrentClass(e.target.value);
-    
-  }
-
+  
   const handleSubmit = (e) => {
     // Checks to see if you entered the "RETURN" key
     e.stopPropagation();
     if (e.key === "Enter") {
-      this.handleClick();
+      handleClick();
     }
   }
 
@@ -81,35 +73,34 @@ function ClassCreate () {
                     placeholder="Class name."
                     contentEditable={true}
                     onKeyPress={(e) => handleSubmit(e)}
-                    onChange={(e) => handleChange(e)}
                   />
                 </Form.Group>
               </Form>
             </Col>
             <Col>
-              <TeacherSelect currentClass={this.state.currentClass} classCreated={this.state.classCreated} />
+              <TeacherSelect currentClass={currentClass} classCreated={classCreated} />
             </Col>
           </Row>
           <Row className="justify-content-center">
-            <Button type="submit" onClick={(e) => this.handleClick(e)}>
+            <Button type="submit" onClick={(e) => handleClick(e)}>
               Submit
             </Button>
           </Row>
           <Row className="justify-content-center">
-            {this.state.errorHandle && <p className="text-danger">Error this class has already been made!</p>}
+            {errorHandle && <p className="text-danger">Error this class has already been made!</p>}
           </Row>
 
 
           <Row>
-            {this.state.currentClass ? (
-              <h1>Currently selected class: {this.state.currentClass}</h1>
+            {currentClass ? (
+              <h1>Currently selected class: {currentClass}</h1>
             ) : (
                 false
               )}
           </Row>
 
-          {this.state.currentClass ? (
-            <StudentSearch currentClass={this.state.currentClass} />
+          {currentClass ? (
+            <StudentSearch currentClass={currentClass} />
           ) : (
               false
             )}

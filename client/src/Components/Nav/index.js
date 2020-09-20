@@ -83,7 +83,7 @@ const Top = props => {
     const authenticatedNavBar = ()=>{
         return(
             <>
-                <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+                <Button href="/dashboard">Dashboard</Button>
                 <Nav.Link href="/allAssignments">All Assignments</Nav.Link>
                
                 {(userRole === "admin" ) ? adminUserNavLinks() : notAdminUserNavLink()}

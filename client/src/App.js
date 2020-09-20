@@ -8,6 +8,8 @@ import './assets/css/video.min.css';
 import './assets/css/progess.css';
 import './assets/css/animate.min.css';
 //main css
+import "./assets/css/menu.css"
+import "./assets/css/colors/switch.css"
 import './assets/scss/style.scss';
 import 'bootstrap';
 
@@ -17,6 +19,7 @@ import CreateForm from "./Components/CreateForm";
 import AllAssignments from "./Components/AllAssignments";
 import AdminCreateUser from "./Components/AdminCreateUser";
 import ClassCreate from "./Components/ClassCreate";
+import MainBody from "./Components/MainBody"
 
 import Header from './Components/Header/header';
 import Particles from './Components/Particles/particles';
@@ -43,16 +46,17 @@ function App() {
 
   // exact will match the route exactly 
   return (
-  
-      <Router>
-        <Header />
-        <Route exact path="/">
-          <AboutUs />
-          <LatestNews />
-          <Teachers />
-          <Courses />
-          <ContactUs />
-        </Route>
+
+    <Router>
+      <Header />
+      <Route exact path="/">
+        <AboutUs />
+        <LatestNews />
+        <Teachers />
+        <Courses />
+        <ContactUs />
+      </Route>
+      <MainBody>
         <UnPrivateRoute path="/login" component={Login} />
         <PrivateRoute path="/dashboard" roles={["student", "admin", "teacher"]} component={Dashboard} />
         <PrivateRoute path="/createForm" roles={["student", "admin", "teacher"]} component={CreateForm} />
@@ -60,8 +64,9 @@ function App() {
         <PrivateRoute path="/classCreate" roles={["student", "admin", "teacher"]} component={ClassCreate} />
         {/* Only Admin has access to the links below */}
         <PrivateRoute path="/adminCreateUser" roles={["admin"]} component={AdminCreateUser} />
-        <Footer />
-      </Router>
+      </MainBody>
+      <Footer />
+    </Router>
 
 
   );

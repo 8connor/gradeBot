@@ -1,8 +1,6 @@
 .main-menu-container {
 	position: fixed;
 	width: 100%;
-	border-bottom: 2px solid #4d4d4d;
-	background-color: #000;
 	z-index: 2;
 }
 .nav-menu a {

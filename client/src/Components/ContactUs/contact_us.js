@@ -1,17 +1,6 @@
 import React from "react";
-// import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
-
-const mapStyles = {
-  width: '100%',
-  height: '100%'
-};
-
 
 const contactinfo = [
-  {
-    icon: 'fas fa-map-marker-alt',
-    primary: '2201 West End Ave, Nashville, TN 37235'
-  },
 
   {
     icon: 'fas fa-phone',
@@ -29,9 +18,7 @@ const contactinfo = [
 
 const contactinfoList = contactinfo.map((item) =>
   <div className="contact-address-details" key={item.icon}>
-    <div className="address-icon relative-position text-center float-left">
-      <i className={item.icon} />
-    </div>
+    
     <div className="address-details ul-li-block">
       <ul>
         <li>
@@ -60,7 +47,7 @@ export class ContactUs extends React.Component {
           <div className="contact-area-content">
             <div className="row">
               <div className="col-md-6">
-                <div className="contact-left-content ">
+                <div className="contact-left-content">
                   <div className="section-title  mb45 headline text-left">
                     <span className="subtitle ml42  text-uppercase">
                       CONTACT US
@@ -82,20 +69,7 @@ export class ContactUs extends React.Component {
                   </a>
                 </div>
               </div>
-              <div className="col-md-6">
-                <div id="contact-map" className="contact-map-section">
-                  <div id="google-map">
-                    {/*  <Map
-                      google={this.props.google}
-                      zoom={14}
-                      style={mapStyles}
-                      initialCenter={{ lat: 47.444, lng: -122.176 }}
-                    >
-                      <Marker position={{ lat: 47.440, lng: -122.175 }} />
-                    </Map> */}
-                  </div>
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>

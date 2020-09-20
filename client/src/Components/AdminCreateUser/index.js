@@ -29,7 +29,7 @@ function AdminCreateUser (){
 
     // Only using function will change the const color
     const [firstNameState, setFirstName] = useState("");
-    const [lasttNameState, setLastName] = useState("");
+    const [lastNameState, setLastName] = useState("");
     const [emailState, setEmail] = useState("");
     const [passwordState, setPassword] = useState("");
     const [accessTypeState, setAccessType] = useState("");
@@ -84,7 +84,7 @@ function AdminCreateUser (){
 
         var newUser = {
             firstName: firstNameState,
-            lastName: lasttNameState,
+            lastName: lastNameState,
             email: emailState,
             password: passwordState,
             accessType: accessTypeState,
