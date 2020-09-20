@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react"
 import Container from "react-bootstrap/Container";
 import { Row, Col } from "react-bootstrap";
 import CanvasJSReact from "../../canvasjs.react";
+import Axios from "axios";
 
 import { AuthContext } from "../../Context/AuthContext";
 
@@ -11,6 +12,7 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 function Dashboard() {
     const authContext = useContext(AuthContext);
     const [userRole, setUserRole] = useState("");
+    const [averages, setAverages] = useState([]);
 
     useEffect(
         () => {
@@ -30,25 +32,28 @@ function Dashboard() {
         }
     )
 
+    useEffect(() => {
+        Axios.get("/api/allGrades").then(res => {
+            setAverages(res.data)
+        })
+
+
+    }, [])
+
     const options = {
         animationEnabled: true,
         exportEnabled: true,
         theme: "dark2", // "light1", "dark1", "dark2"
         title: {
-            text: "Trip Expenses"
+            text: "Averages for assignments"
         },
         data: [{
-            type: "pie",
+            type: "column",
             indexLabel: "{label}: {y}%",
             startAngle: -90,
-            dataPoints: [
-                { y: 20, label: "Airfare" },
-                { y: 24, label: "Food & Drinks" },
-                { y: 20, label: "Accomodation" },
-                { y: 14, label: "Transportation" },
-                { y: 12, label: "Activities" },
-                { y: 10, label: "Misc" }
-            ]
+            dataPoints: averages.map((assignment, i) => {
+                return { y: assignment.grades, label: assignment.Assignment }
+            })
         }]
     }
 
@@ -62,12 +67,12 @@ function Dashboard() {
                 </Col>
             </Row>
             <Row>
-                <div>
+                <Col sm={12} lg={12} md={12}>
                     <CanvasJSChart options={options}
                     /* onRef={ref => this.chart = ref} */
                     />
                     {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-                </div>
+                </Col>
             </Row>
         </Container>
     )
