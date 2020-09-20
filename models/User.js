@@ -23,7 +23,7 @@ const UserSchema = new Schema({
     },
     accessType: {
         type: String,
-        enum : ["student", "teacher", "admin"], // pre-determined roles
+        enum: ["student", "teacher", "admin"], // pre-determined roles
         required: true
     }
 });
@@ -69,4 +69,12 @@ UserSchema.methods.comparePassword = function(password,cb){
 
 
 module.exports = mongoose.model('User',UserSchema);
+
+
+
+
+
+
+
+
 

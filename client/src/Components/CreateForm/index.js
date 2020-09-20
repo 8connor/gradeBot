@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+
+import React, { useEffect, useState, useContext } from "react";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -6,15 +7,24 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
-import Axios from "axios";
+
+import CreateFormService from "../../Services/CreateFormService";
+
+import { AuthContext } from "../../Context/AuthContext";
+
 
 function CreateForm(props) {
+
+    const authContext = useContext(AuthContext);
+
+
     const [classList, setClassList] = useState();
     const [selectedClass, setSelectedClass] = useState("");
 
     useEffect(() => {
+
         const get = async () => {
-            const theClasses = await Axios.get("/api/allClasses");
+            const theClasses = await CreateFormService.getAllClass("/api/allClasses");
 
             setClassList(theClasses.data)
         }
@@ -37,10 +47,10 @@ function CreateForm(props) {
             classroom: selectedClass
         };
 
-        Axios.post("/api/createAssignment", assignmentObj).then(res => console.log(res))
+        CreateFormService.createAssignment(assignmentObj)
+        .then(res => console.log(res))
+        
     }
-
-
 
 
     return (
