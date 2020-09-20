@@ -12,15 +12,15 @@ import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Message from "../Message";
-
 import AdminCreateUserService from "../../Services/AdminCreateUserService";
+
 
 import { AuthContext } from "../../Context/AuthContext";
 
 // // Only using function will change the const color
 
 
-function AdminCreateUser (){
+function AdminCreateUser() {
 
     // Used to track the persistent autherication token
     // Use Context will use the Auth Context file which contains the Autherization
@@ -29,21 +29,21 @@ function AdminCreateUser (){
 
     // Only using function will change the const color
     const [firstNameState, setFirstName] = useState("");
-    const [lasttNameState, setLastName] = useState("");
+    const [lastNameState, setLastName] = useState("");
     const [emailState, setEmail] = useState("");
     const [passwordState, setPassword] = useState("");
     const [accessTypeState, setAccessType] = useState("");
     const [titleState, setTitle] = useState("");
     const [classroomState, setClassroom] = useState("");
 
-    const [message,setMessage] = useState(null);
+    const [message, setMessage] = useState(null);
 
     const [hideState, setHideState] = useState(false);
 
 
     // At the beginning of the app we can make the api call instead of making several api calls 
     // when a teacher or student access type is selected
-    const [classrooms, setClassroomList] = useState([{id : "", name : ""}]);
+    const [classrooms, setClassroomList] = useState([{ id: "", name: "" }]);
 
 
     // Need to load the Classroom list right before the component is loaded
@@ -51,7 +51,7 @@ function AdminCreateUser (){
         () => {
             // Creating an asynchronous function so the classroom is listed before the component is loaded
             const call = async () => {
-                await AdminCreateUserService.getAllClass().then( result => {
+                await AdminCreateUserService.getAllClass().then(result => {
 
                     setClassroomList(result);
                 })
@@ -63,17 +63,17 @@ function AdminCreateUser (){
         }, [])
 
 
-    const handleSelect=(e)=>{
+    const handleSelect = (e) => {
         setTitle(e);
         setAccessType(e);
         // logic to Show if Teacher or Student has been selected
-        if(e === "Teacher" || e === "Student"){
+        if (e === "Teacher" || e === "Student") {
             setHideState(true);
         }
 
     }
 
-    const handleClassroom=(e)=>{
+    const handleClassroom = (e) => {
         setClassroom(e);
     }
 
@@ -84,32 +84,33 @@ function AdminCreateUser (){
 
         var newUser = {
             firstName: firstNameState,
-            lastName: lasttNameState,
+            lastName: lastNameState,
             email: emailState,
             password: passwordState,
             accessType: accessTypeState,
             classroom: classroomState
         };
 
-        AdminCreateUserService.postUser(newUser).then(data => {
-            const { message } = data;
+        AdminCreateUserService.postUser(newUser)
+            .then(data => {
+                const { message } = data;
 
-            if(!message.msgError){
-                setMessage(message);
-            }
-            else if(message.msgBody === "UnAuthorized"){
-                setMessage(message);
-                authContext.setUser({email : "", accessType : ""});
-                authContext.setIsAuthenticated(false);
-            }
-            else{
-                setMessage(message);
-            }
-        })
+                if (!message.msgError) {
+                    setMessage(message);
+                }
+                else if (message.msgBody === "UnAuthorized") {
+                    setMessage(message);
+                    authContext.setUser({ email: "", accessType: "" });
+                    authContext.setIsAuthenticated(false);
+                }
+                else {
+                    setMessage(message);
+                }
+            })
 
     }
 
-    
+
     return (
         <Container className="adminCreateUser">
             <Card.Body>
@@ -120,7 +121,7 @@ function AdminCreateUser (){
                             {/* First Name */}
                             <Form.Group>
                                 <Form.Label>First Name</Form.Label>
-                                <Form.Control type="firstName" placeholder="Enter First Name" 
+                                <Form.Control type="firstName" placeholder="Enter First Name"
                                     onChange={e => setFirstName(e.target.value)}></Form.Control>
                             </Form.Group>
 
@@ -128,7 +129,7 @@ function AdminCreateUser (){
                             {/* Last Name */}
                             <Form.Group>
                                 <Form.Label>Last Name</Form.Label>
-                                <Form.Control type="lastName" placeholder="Enter Last Name" 
+                                <Form.Control type="lastName" placeholder="Enter Last Name"
                                     onChange={e => setLastName(e.target.value)}></Form.Control>
                             </Form.Group>
 
@@ -136,7 +137,7 @@ function AdminCreateUser (){
                             {/* New email*/}
                             <Form.Group>
                                 <Form.Label>Email</Form.Label>
-                                <Form.Control type="email" placeholder="Enter Email" 
+                                <Form.Control type="email" placeholder="Enter Email"
                                     onChange={e => setEmail(e.target.value)}></Form.Control>
                             </Form.Group>
 
@@ -159,11 +160,11 @@ function AdminCreateUser (){
                                     id="dropdown-menu-align-right"
                                     display="none"
                                     onSelect={handleSelect}
-                                        > 
-                                        <Dropdown.Item eventKey ="Student">Student</Dropdown.Item>
-                                        <Dropdown.Item eventKey="Teacher">Teacher</Dropdown.Item>
-                                        <Dropdown.Item eventKey="Admin">Admin</Dropdown.Item>
-                                        {/* <Dropdown.Divider />
+                                >
+                                    <Dropdown.Item eventKey="student">Student</Dropdown.Item>
+                                    <Dropdown.Item eventKey="teacher">Teacher</Dropdown.Item>
+                                    <Dropdown.Item eventKey="admin">Admin</Dropdown.Item>
+                                    {/* <Dropdown.Divider />
                                         <Dropdown.Item eventKey="some link">some link</Dropdown.Item> */}
                                 </DropdownButton>
                             </Form.Group>
@@ -192,21 +193,21 @@ function AdminCreateUser (){
 
                             {/* Button to make Axios call to register user */}
                             <Row className="justify-content-md-center">
-                                <Button onClick={registerUser}  variant="primary" type="submit" id="subButton">
+                                <Button onClick={registerUser} variant="primary" type="submit" id="subButton">
                                     Submit
                                 </Button>
                             </Row>
-                            
+
                         </Form>
-                        
+
                     </Col>
-                    {message ? <Message message={message}/> : null}
-                    
+                    {message ? <Message message={message} /> : null}
+
                 </Row>
             </Card.Body>
         </Container>
     )
-    
+
 }
 
 

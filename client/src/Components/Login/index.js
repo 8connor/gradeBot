@@ -19,8 +19,6 @@ import {
     Link
 } from "react-router-dom";
 
-import "./index.css"
-
 
 
 const Login = props => {
@@ -57,53 +55,53 @@ const Login = props => {
         })
     }
     return (
-        <div className="about-us-section" style={{padding: "300px"}}>
-            <Container className="loginCon shadow-lg">
-                <Card>
-                    <Card.Body>
-                        <Row>
-                            <Col md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} sm={{ span: 6, offset: 3 }} >
 
-                                <Form>
+        <Container className="loginCon shadow-lg">
+            <Card>
+                <Card.Body>
+                    <Row>
+                        <Col md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} sm={{ span: 6, offset: 3 }} >
 
-                                    <Form.Group controlId="email">
-                                        <Form.Label>Email address</Form.Label>
-                                        <Form.Control
-                                            type="email"
-                                            name="email"
-                                            onChange={onChange}
-                                            placeholder="Enter Email" />
-                                    </Form.Group>
-                                    <Form.Group controlId="password">
-                                        <Form.Label>Password</Form.Label>
-                                        <Form.Control
-                                            type="password"
-                                            name="password"
-                                            onChange={onChange}
-                                            placeholder="Enter Password" />
-                                    </Form.Group>
-                                    <Row className="justify-content-md-center">
-                                        <Button onClick={onSubmit} variant="primary" type="submit" id="subButton">
-                                            Log In
+                            <Form>
+
+                                <Form.Group controlId="email">
+                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Control
+                                        type="email"
+                                        name="email"
+                                        onChange={onChange}
+                                        placeholder="Enter Email" />
+                                </Form.Group>
+                                <Form.Group controlId="password">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        name="password"
+                                        onChange={onChange}
+                                        placeholder="Enter Password" />
+                                </Form.Group>
+                                <Row className="justify-content-md-center">
+                                    <Button onClick={onSubmit} variant="primary" type="submit" id="subButton">
+                                        Log In
                                     </Button>
-                                    </Row>
+                                </Row>
 
-                                </Form>
+                            </Form>
 
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} sm={{ span: 6, offset: 3 }}>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} sm={{ span: 6, offset: 3 }}>
 
-                                {/* In case we have a message to display */}
-                                {message ? <Message message={message} /> : null}
+                            {/* In case we have a message to display */}
+                            {message ? <Message message={message} /> : null}
 
-                            </Col>
-                        </Row>
-                    </Card.Body>
-                </Card>
-            </Container>
-        </div >
+                        </Col>
+                    </Row>
+                </Card.Body>
+            </Card>
+        </Container>
+
 
     )
 }

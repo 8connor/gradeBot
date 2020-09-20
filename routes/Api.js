@@ -104,8 +104,8 @@ userRouter.get("/logout", passport.authenticate("jwt", { session: false }), (req
 
 // Make sure the front end and back end are in sync
 // If the browser is closed and re-opened we will make sure to show the user was authenticated
-userRouter.get('/authenticated',passport.authenticate('jwt',{session : false}),(req,res)=>{
-    
+userRouter.get('/authenticated', passport.authenticate('jwt', { session: false }), (req, res) => {
+
   // Here jwt strategy will return the role
   const { email, accessType } = req.user;
   res.status(200).json({ isAuthenticated: true, user: { email, accessType } });
@@ -180,7 +180,7 @@ userRouter.get("/checkUser", (req, res) => {
 userRouter.get("/allGrades", (req, res) => {
   //todo: this
   var average = (array) => array.reduce((a, b) => a + b) / array.length;
-
+  var newArr = []
   db.Assignment.aggregate([
     {
       "$project": {
@@ -190,18 +190,20 @@ userRouter.get("/allGrades", (req, res) => {
       }
     }
   ])
-    .then(function (grades) {
-      var newArr = []
-
-      for (i = 0; i < grades.length; i++) {
-        if (grades[i]['grades'].length === 0) {
-          continue
-        } else {
-          newArr.push(grades[i]['grades'])
+    .then(async function (grades) {
+      let loopFunction = () => {
+        for (i = 0; i < grades.length; i++) {
+          if (grades[i]['grades'].length === 0) {
+            continue
+          } else {
+            newArr.push({ Assignment: grades[i].taskName, grades: average(grades[i]['grades']) })
+          }
         }
       }
 
-      return average(newArr);
+      await loopFunction()
+
+      return newArr;
     }).then(newest => {
 
       console.log(newest);

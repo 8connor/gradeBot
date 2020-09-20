@@ -15,7 +15,7 @@ import AllAssignmentsService from "../../Services/AllAssignmentsService";
 import { AuthContext } from "../../Context/AuthContext";
 
 
-function AllAssignments (){
+function AllAssignments() {
 
     const authContext = useContext(AuthContext);
 
@@ -38,7 +38,7 @@ function AllAssignments (){
                 await AllAssignmentsService.getAllClass().then(result => {
                     setClassList(result);
                 })
-                .catch(err => console.log(err))
+                    .catch(err => console.log(err))
             }
 
             classes();
@@ -51,18 +51,18 @@ function AllAssignments (){
 
         setAll([]);
         setFilled(false);
-        
+
         let obj = {
             name: e
         }
 
         AllAssignmentsService.postAssignment(obj)
-        .then(res => {
+            .then(res => {
 
-            setAll(res.data);
-            setFilled(res.length === 0 ? false : true);
+                setAll(res);
+                setFilled(res.length === 0 ? false : true);
 
-        })
+            })
 
     }
 
@@ -76,21 +76,21 @@ function AllAssignments (){
         assignments(e);
     }
 
-    const renderTheNew = (a) =>{
+    const renderTheNew = (a) => {
         let obj = {
             assignmentID: a
         }
 
         AllAssignmentsService.postSpecificGrades(obj)
-        .then( data => {
-            var res = data.data
-            console.log(res)
+            .then(res => {
 
-            setSpecificGrade(res);
-            setBeenClicked(res.length === 0 ? false : true);
+                console.log(res)
 
-        })
-        .catch(err => console.log(err));
+                setSpecificGrade(res);
+                setBeenClicked(res.length === 0 ? false : true);
+
+            })
+            .catch(err => console.log(err));
 
     }
 
@@ -106,13 +106,13 @@ function AllAssignments (){
 
 
         AllAssignmentsService.changeGrade(editObj)
-        .then(res => {
-            document.getElementById(`gradeCell${index}`).innerHTML = editObj.newGrade;
+            .then(res => {
+                document.getElementById(`gradeCell${index}`).innerHTML = editObj.newGrade;
 
-            console.log(res);
-        })
-        .catch(err => console.log(err))
-            
+                console.log(res);
+            })
+            .catch(err => console.log(err))
+
     }
 
 
@@ -182,16 +182,17 @@ function AllAssignments (){
                                         <td>
                                             <Col lg={{ offset: 3, span: 6 }} md={{ offset: 3, span: 6 }} sm={{ offset: 3, span: 6 }}>
                                                 <InputGroup className="mb-3">
-                                                <Form.Control
-                                                    placeholder="New grade"
-                                                    aria-label="New grade"
-                                                    aria-describedby="basic-addon2"
-                                                    id={`cell${index}`}
-                                                />
-                                                <InputGroup.Append>
-                                                    <Button variant="success" onClick={() => handleEdit(specific, index)}>Submit</Button>
-                                                </InputGroup.Append>
-                                            </InputGroup>
+                                                    <Form.Control
+                                                        className="text-dark"
+                                                        placeholder="New grade"
+                                                        aria-label="New grade"
+                                                        aria-describedby="basic-addon2"
+                                                        id={`cell${index}`}
+                                                    />
+                                                    <InputGroup.Append>
+                                                        <Button variant="success" onClick={() => handleEdit(specific, index)}>Submit</Button>
+                                                    </InputGroup.Append>
+                                                </InputGroup>
                                             </Col>
 
                                         </td>
@@ -205,7 +206,7 @@ function AllAssignments (){
         </Container >
     )
 
-    
+
 }
 
 

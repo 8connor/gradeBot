@@ -26,7 +26,7 @@ function CreateForm(props) {
         const get = async () => {
             const theClasses = await CreateFormService.getAllClass("/api/allClasses");
 
-            setClassList(theClasses.data)
+            setClassList(theClasses)
         }
 
         get();
