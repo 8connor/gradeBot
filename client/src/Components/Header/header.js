@@ -103,13 +103,13 @@ function Header() {
                     <Link to="/classCreate">Create Class</Link>
                 </li>
 
-
-
                 <li>
                     <Link to="/adminCreateUser">Create User</Link>
                 </li>
 
-
+                <li>
+                    <Link to="/createForm">Create Assignment</Link>
+                </li>
 
 
             </>
@@ -131,6 +131,7 @@ function Header() {
                 <li>
                     <Link to="/allAssignments">all assignments</Link>
                 </li>
+
                 <li>
                     <Link to="/logout" onClick={onClickLogoutHandler}>Logout</Link>
                 </li>
@@ -169,9 +170,6 @@ function Header() {
                                                     <Link to="/#contact">Contact us</Link>
                                                 </li>
                                             </ul>
-
-
-
                                         </li>
                                         {isAuthenticated ? authenticatedNavBar() : unauthenticatedNavBar()}
                                     </ul>

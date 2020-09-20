@@ -33,11 +33,11 @@ function ClassCreate() {
 
     console.log(classRoomObj);
 
-    CreateClassService.createClass(classRoomObj)
+      CreateClassService.createClass(classRoomObj)
       .then((res) => {
         console.log(res);
 
-        if (res.data.name === "MongoError") {
+        if (res.name === "MongoError") {
           setErrorHandle(true)
         } else {
           setErrorHandle(false)

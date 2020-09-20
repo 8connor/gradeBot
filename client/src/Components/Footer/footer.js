@@ -20,50 +20,35 @@ class Footer extends React.Component {
 
                       <i className="fas fa-caret-right" />
                           Noe
-
-                      </li>
+                          <a href="#">
+                        <i className="fab fa-github" />
+                      </a>
+                    </li>
                     <li>
 
                       <i className="fas fa-caret-right" />
                          Katie
-
-                      </li>
+                         <a href="#">
+                        <i className="fab fa-github" />
+                      </a>
+                    </li>
                     <li>
 
                       <i className="fas fa-caret-right" />
                          James
-
-                      </li>
+                         <a href="#">
+                        <i className="fab fa-github" />
+                      </a>
+                    </li>
                     <li>
 
                       <i className="fas fa-caret-right" />
                          Connor
-
-                      </li>
+                         <a href="#">
+                        <i className="fab fa-github" />
+                      </a>
+                    </li>
                   </ul>
-                </div>
-
-                <div className="offset-6">
-                  <div className="footer-social ul-li">
-                    <h2 className="widget-title">Social Network</h2>
-                    <ul>
-                      <li>
-                        <a href="#">
-                          <i className="fab fa-facebook-f" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fab fa-twitter" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <i className="fab fa-google-plus-g" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
             </div>

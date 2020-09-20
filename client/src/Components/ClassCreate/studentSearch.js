@@ -12,7 +12,6 @@ function StudentSearch (props) {
 
   const [studentArr, setStudentArr] = useState([]);
   const [currentList, setCurrentList] = useState([]);
-  const [studentSearch, setStudentSearch] = useState(false);
   const [filled, setFilled] = useState(false);
   const [currentListFilled, setCurrentListFilled] = useState(false);
   const [search, setSearch] = useState(false);
@@ -20,16 +19,16 @@ function StudentSearch (props) {
 
 
   const handleClick = () => {
-    setStudentArr([])
 
     ClassCreateService.createStudentQuery(search)
     .then((res) => {
-      console.log(res);
 
-      setStudentArr(res.data);
-      setError(res.data.length === 0 ? true : false);
-      setFilled(res.data.length === 0 ? false : true);
-
+      
+      setStudentArr(res);     
+      console.log(studentArr)
+      setError(res.length === 0 ? true : false);
+      setFilled(res.length === 0 ? false : true);
+  
     })
     .catch((err) => {
 
@@ -60,7 +59,7 @@ function StudentSearch (props) {
     console.log(props.currentClass);
 
     ClassCreateService.addStudentList(listObj)
-      .then((res) => console.log(res.data))
+      .then((res) => console.log(res))
       .catch((err) => console.log(err));
 
       
