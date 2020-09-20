@@ -62,7 +62,16 @@ function Header() {
         return (
             <>
                 {/* It's only here to create a link */}
-                <Button href="/login">Login</Button>
+                {/* <div className="log-in float-right">
+                    <a data-toggle="modal" data-target="#myModal" href="#">
+                        log in
+                                </a>
+                    <Login />
+                </div> */}
+
+                <li>
+                    <Link to="/login" >Login</Link>
+                </li>
 
             </>
         )
@@ -85,6 +94,24 @@ function Header() {
                 {/* <Button href="/createForm">Create Assignment</Button>
                 <Button href="/classCreate">Create Class</Button>
                 <Button href="/adminCreateUser">Admin Create User</Button> */}
+
+
+
+
+
+                <li>
+                    <Link to="/classCreate">Create Class</Link>
+                </li>
+
+
+
+                <li>
+                    <Link to="/adminCreateUser">Create User</Link>
+                </li>
+
+
+
+
             </>
         )
     }
@@ -93,12 +120,22 @@ function Header() {
     const authenticatedNavBar = () => {
         return (
             <>
-                {/* <Button href="/dashboard">Dashboard</Button>
-                <Button href="/allAssignments">All Assignments</Button> */}
-
                 {(userRole === "admin") ? adminUserNavLinks() : notAdminUserNavLink()}
-                {/* <Button onClick={onSubmit}  href="/logout">Logout</Button> */}
-                {/* <Button onClick={onClickLogoutHandler} >Logout</Button> */}
+
+
+
+                <li>
+                    <Link to="/dashboard">Dashboard</Link>
+                </li>
+
+                <li>
+                    <Link to="/allAssignments">all assignments</Link>
+                </li>
+                <li>
+                    <Link to="/logout" onClick={onClickLogoutHandler}>Logout</Link>
+                </li>
+
+
             </>
         )
     }
@@ -115,15 +152,10 @@ function Header() {
                                 </Link>
                             </div>
 
-                            {isAuthenticated ? authenticatedNavBar() : unauthenticatedNavBar()}
-                           
-                            <div className="log-in float-right">
-                                <a data-toggle="modal" data-target="#myModal" href="#">
-                                    log in
-                                </a>
-                                <Login />
-                            </div>
-                            <nav className="navbar-menu float-right">
+
+
+
+                            <nav className="navbar-menu float-left">
                                 <div className="nav-menu ul-li">
                                     <ul>
                                         <li className="menu-item-has-children ul-li-block">
@@ -131,64 +163,21 @@ function Header() {
 
                                             <ul className="sub-menu">
                                                 <li>
-                                                    <Link to="/">Home 1</Link>
+                                                    <Link to="/#teachers">Featured Teachers</Link>
                                                 </li>
                                                 <li>
-                                                    <Link to="/home-2">Home 2</Link>
-                                                </li>
-                                                <li>
-                                                    <Link to="/home-3">Home 3</Link>
-                                                </li>
-                                                <li>
-                                                    <Link to="/home-4">Home 4</Link>
+                                                    <Link to="/#contact">Contact us</Link>
                                                 </li>
                                             </ul>
 
-                                        </li>
-                                        <li>
-                                            <Link to="/about-us">About Us</Link>
-                                        </li>
 
-                                        <li>
-                                            <Link to="/shop">shop</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/contact">Contact Us</Link>
-                                        </li>
-                                        <li className="menu-item-has-children ul-li-block">
-                                            <Link to="/#!">Pages</Link>
-                                            <ul className="sub-menu">
-                                                <li>
-                                                    <Link to="/teacher">Teacher</Link>
-                                                </li>
-                                                <li>
-                                                    <Link to="/teacher-details">Teacher Details</Link>
-                                                </li>
-                                                <li>
-                                                    <Link to="/blog">Blog</Link>
-                                                </li>
-                                                <li>
-                                                    <Link to="/blog-single">Blog Single</Link>
-                                                </li>
-                                                <li>
-                                                    <Link to="/course">Course</Link>
-                                                </li>
-                                                <li>
-                                                    <Link to="/course-details">Course Details</Link>
-                                                </li>
-                                                <li>
-                                                    <Link to="/faq">FAQ</Link>
-                                                </li>
-                                                <li>
-                                                    <Link to="/checkout">CheckOut</Link>
-                                                </li>
-                                            </ul>
-                                        </li>
 
+                                        </li>
+                                        {isAuthenticated ? authenticatedNavBar() : unauthenticatedNavBar()}
                                     </ul>
+
                                 </div>
                             </nav>
-
                         </div>
                     </div>
                 </div>
