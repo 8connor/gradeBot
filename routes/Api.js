@@ -50,7 +50,7 @@ userRouter.post("/register", (req, res) => {
     else {
       const newUser = new db.User({ firstName, lastName, email, password, accessType });
       newUser.save(err => {
-        if (err) res.status(500).json({ message: { msgBody: "Error has occurred", msgError: true } });
+        if (err) res.json(err) /*res.status(500).json({ message: { msgBody: "Error has occurred", msgError: true } })*/;
         else res.status(201).json({ message: { msgBody: "Account successfully created", msgError: false } });
       })
     }
