@@ -1,4 +1,3 @@
-
 import React, { useState, useContext, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
@@ -13,51 +12,50 @@ import CreateClassService from "../../Services/ClassCreateService";
 
 import { AuthContext } from "../../Context/AuthContext";
 
-
 function ClassCreate() {
   const authContext = useContext(AuthContext);
 
   const [currentClass, setCurrentClass] = useState(null);
   const [classCreated, setClassCreated] = useState(false);
   const [errorHandle, setErrorHandle] = useState(false);
-
+  const [alreadyCreated, setAlreadyCreated] = useState(false);
 
   const handleClick = (e) => {
-    setCurrentClass(e.target.value)
+    setCurrentClass(e.target.value);
 
     let classRoomObj = {
       name: document.getElementById("className").value,
     };
 
-    console.log(document.getElementById("className").value);
+    CreateClassService.createClass(classRoomObj).then((res) => {
+      console.log(res);
 
-    console.log(classRoomObj);
+      if (res.name === "MongoError") {
+        setErrorHandle(true);
+      } else {
+        setClassCreated(true);
+        setCurrentClass(document.getElementById("className").value);
+        setErrorHandle(false);
+      }
+    });
+  };
 
-      CreateClassService.createClass(classRoomObj)
-      .then((res) => {
-        console.log(res);
-
-        if (res.name === "MongoError") {
-          setErrorHandle(true)
-        } else {
-          setErrorHandle(false)
-        }
-      });
-
-
-
-    setCurrentClass(document.getElementById("className").value);
-    setClassCreated(true);
-  }
-
-  
   const handleSubmit = (e) => {
     // Checks to see if you entered the "RETURN" key
     e.stopPropagation();
     if (e.key === "Enter") {
       handleClick();
     }
-  }
+  };
+
+  const handleDecision = (e) => {
+    console.log(e.target.innerHTML);
+
+    if (e.target.innerHTML === "Yes") {
+      setAlreadyCreated(true);
+    };
+
+  };
 
   return (
     <Container>
@@ -65,20 +63,41 @@ function ClassCreate() {
         <Card.Body>
           <Row>
             <Col>
-              <Form onSubmit={(e) => e.preventDefault()}>
-                <Form.Group controlId="className">
-                  <Form.Label>Class name:</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Class name."
-                    contentEditable={true}
-                    onKeyPress={(e) => handleSubmit(e)}
-                  />
-                </Form.Group>
-              </Form>
+              {errorHandle ? (
+                <h1>
+                  This class has already been created. Would you like to edit
+                  this class?
+                  <br />
+                  <Button variant={"danger"} onClick={(e) => handleDecision(e)}>
+                    Yes
+                  </Button>
+                  <br />
+                  <Button
+                    variant={"success"}
+                    onClick={(e) => handleDecision(e)}
+                  >
+                    No
+                  </Button>
+                </h1>
+              ) : (
+                <Form onSubmit={(e) => e.preventDefault()}>
+                  <Form.Group controlId="className">
+                    <Form.Label>Class name:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Class name."
+                      contentEditable={true}
+                      onKeyPress={(e) => handleSubmit(e)}
+                    />
+                  </Form.Group>
+                </Form>
+              )}
             </Col>
             <Col>
-              <TeacherSelect currentClass={currentClass} classCreated={classCreated} />
+              <TeacherSelect
+                currentClass={currentClass}
+                classCreated={classCreated}
+              />
             </Col>
           </Row>
           <Row className="justify-content-center">
@@ -87,31 +106,22 @@ function ClassCreate() {
             </Button>
           </Row>
           <Row className="justify-content-center">
-            {errorHandle && <p className="text-danger">Error this class has already been made!</p>}
+            {errorHandle && (
+              <p className="text-danger">
+                Error this class has already been made!
+              </p>
+            )}
           </Row>
-
 
           <Row>
-            {currentClass ? (
-              <h1>Currently selected class: {currentClass}</h1>
-            ) : (
-                false
-              )}
+            {currentClass && <h1>Currently selected class: {currentClass}</h1>}
           </Row>
 
-          {currentClass ? (
-            <StudentSearch currentClass={currentClass} />
-          ) : (
-              false
-            )}
+          {alreadyCreated && <StudentSearch currentClass={currentClass} />}
         </Card.Body>
       </Card>
     </Container>
   );
-
 }
 
 export default ClassCreate;
-
-
-

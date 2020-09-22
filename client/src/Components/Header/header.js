@@ -20,8 +20,6 @@ function Header() {
     const [scrollState, setScrollState] = useState("clear");
     const [userRole, setUserRole] = useState("");
 
-    console.log(scrollState)
-
     useEffect(
         () => {
             setUserRole(user.accessType);
@@ -152,9 +150,6 @@ function Header() {
                                     <img src={logo} alt="logo" />
                                 </Link>
                             </div>
-
-
-
 
                             <nav className="navbar-menu float-left">
                                 <div className="nav-menu ul-li">
