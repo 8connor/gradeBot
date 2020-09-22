@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -7,9 +7,7 @@ import Axios from "axios";
 
 import ClassCreateService from "../../Services/ClassCreateService";
 
-
-function StudentSearch (props) {
-
+function StudentSearch(props) {
   const [studentArr, setStudentArr] = useState([]);
   const [currentList, setCurrentList] = useState([]);
   const [filled, setFilled] = useState(false);
@@ -17,36 +15,27 @@ function StudentSearch (props) {
   const [search, setSearch] = useState(false);
   const [error, setError] = useState(false);
 
-
   const handleClick = () => {
-
     ClassCreateService.createStudentQuery(search)
-    .then((res) => {
-
-      
-      setStudentArr(res);     
-      console.log(studentArr)
-      setError(res.length === 0 ? true : false);
-      setFilled(res.length === 0 ? false : true);
-  
-    })
-    .catch((err) => {
-
-      setError(true);
-
-    });
-  }
+      .then((res) => {
+        setStudentArr(res);
+        console.log(studentArr);
+        setError(res.length === 0 ? true : false);
+        setFilled(res.length === 0 ? false : true);
+      })
+      .catch((err) => {
+        setError(true);
+      });
+  };
   // End HandlClick
 
-
   const handleChange = (e) => {
-
     let studentName = {
       firstName: e.target.value,
     };
 
     setSearch(studentName);
-  }
+  };
 
   const handleSubmit = () => {
     console.log("made it here");
@@ -61,9 +50,7 @@ function StudentSearch (props) {
     ClassCreateService.addStudentList(listObj)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-
-      
-  }
+  };
 
   const handleDelete = (index) => {
     let tempArr = currentList.slice();
@@ -72,8 +59,7 @@ function StudentSearch (props) {
 
     setCurrentList(tempArr);
     setCurrentListFilled(currentList.length === 0 ? false : true);
-
-  }
+  };
 
   const handleAdd = (index) => {
     let tempArr = currentList.slice();
@@ -92,8 +78,7 @@ function StudentSearch (props) {
 
     setCurrentList(tempArr);
     setCurrentListFilled(true);
-  }
-
+  };
 
   return (
     <>
@@ -119,37 +104,34 @@ function StudentSearch (props) {
           {filled ? <h4>Search Results: </h4> : false}
           {filled
             ? studentArr.map((students, index) => (
-              <>
-                <p key={index} id={`searchNum${index}`}>
-                  {students.firstName}
-                </p>
-                <Button key={index} onClick={() => handleAdd(index)}>
-                  Add
+                <>
+                  <p key={index} id={`searchNum${index}`}>
+                    {students.firstName}
+                  </p>
+                  <Button key={index} onClick={() => handleAdd(index)}>
+                    Add
                   </Button>
-              </>
-            ))
+                </>
+              ))
             : false}
         </Col>
         <Col sm={12} md={12} lg={12} id="listDiv">
           {currentListFilled ? (
             <h4>Current students you wish to add: </h4>
           ) : (
-              false
-            )}
+            false
+          )}
           {currentListFilled
             ? currentList.map((students, index) => (
-              <>
-                <p key={index} id={`listNum${index}`}>
-                  {students.firstName}
-                </p>
-                <Button
-                  key={index}
-                  onClick={() => handleDelete(index)}
-                >
-                  Delete
+                <>
+                  <p key={index} id={`listNum${index}`}>
+                    {students.firstName}
+                  </p>
+                  <Button key={index} onClick={() => handleDelete(index)}>
+                    Delete
                   </Button>
-              </>
-            ))
+                </>
+              ))
             : false}
         </Col>
         {error ? <p>Search Failed! Please try again.</p> : false}
@@ -159,15 +141,10 @@ function StudentSearch (props) {
           <Button onClick={() => handleSubmit()}>submit the list</Button>
         </Row>
       ) : (
-          false
-        )}
+        false
+      )}
     </>
   );
-
-  
 }
 
-
 export default StudentSearch;
-
-
