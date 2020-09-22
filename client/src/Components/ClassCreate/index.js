@@ -12,10 +12,9 @@ import CreateClassService from "../../Services/ClassCreateService";
 
 import { AuthContext } from "../../Context/AuthContext";
 
-function ClassCreate() {
-  const authContext = useContext(AuthContext);
+function ClassCreate(props) {
 
-  const [currentClass, setCurrentClass] = useState(null);
+  const [currentClass, setCurrentClass] = useState("");
   const [classCreated, setClassCreated] = useState(false);
   const [errorHandle, setErrorHandle] = useState(false);
   const [alreadyCreated, setAlreadyCreated] = useState(false);
@@ -63,23 +62,6 @@ function ClassCreate() {
         <Card.Body>
           <Row>
             <Col>
-              {errorHandle ? (
-                <h1>
-                  This class has already been created. Would you like to edit
-                  this class?
-                  <br />
-                  <Button variant={"danger"} onClick={(e) => handleDecision(e)}>
-                    Yes
-                  </Button>
-                  <br />
-                  <Button
-                    variant={"success"}
-                    onClick={(e) => handleDecision(e)}
-                  >
-                    No
-                  </Button>
-                </h1>
-              ) : (
                 <Form onSubmit={(e) => e.preventDefault()}>
                   <Form.Group controlId="className">
                     <Form.Label>Class name:</Form.Label>
@@ -91,7 +73,7 @@ function ClassCreate() {
                     />
                   </Form.Group>
                 </Form>
-              )}
+              
             </Col>
             <Col>
               <TeacherSelect

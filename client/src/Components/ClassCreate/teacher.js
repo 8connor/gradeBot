@@ -18,7 +18,11 @@ function TeacherSelect(props) {
     get();
   }, []);
 
-  console.log(props.classToCreate);
+  useEffect(()=>{
+      console.log(props)
+  })
+
+  console.log(props.currentClass);
 
   const assignTeacher = () => {
 
