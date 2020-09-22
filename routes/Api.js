@@ -167,7 +167,15 @@ userRouter.get("/allTeachers", (req, res) => {
   db.User.find({ accessType: "teacher" })
     .lean()
     .then(function (users) {
-      res.json(users);
+      let mappedTeachers = users.map((teacher, index) => {
+        return {
+          teacherID: teacher._id,
+          firstName: teacher.firstName,
+          lastName: teacher.lastName,
+        };
+      });
+
+      res.json(mappedTeachers);
     })
     .catch((err) => console.log(err));
 });
@@ -364,6 +372,8 @@ userRouter.post("/addStudentList", (req, res) => {
 userRouter.post("/updateTeacher", (req, res) => {
   //req coming in
   var incObj = req.body;
+
+  console.log(incObj);
 
   db.Classroom.updateOne(
     { name: incObj.classRoom },
