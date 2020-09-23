@@ -158,12 +158,12 @@ function Header() {
                                         </li>
                                         {isAuthenticated ? authenticatedNavBar() : unauthenticatedNavBar()}
                                     </ul>
-
                                 </div>
-                            </nav>
+                            </nav> 
                         </div>
                     </div>
                 </div>
+
             </div>
         </header>
     );

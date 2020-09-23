@@ -26,6 +26,9 @@ function Teachers(props) {
             <h2>
               <span>Teachers.</span>
             </h2>
+            <br />
+            <br />
+            <br />
           </div>
           <div className="teacher-list">
             <div className="row justify-content-center">
