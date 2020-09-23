@@ -44,7 +44,7 @@ function App() {
 
     <Router>
       <Header />
-      <Route exact path="/">
+      <Route exact path="/" >
         <AboutUs />
         {/* <LatestNews /> */}
         <Teachers />

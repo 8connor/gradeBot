@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {
-    Link
+    Link, Redirect
 } from "react-router-dom";
 import Button from "react-bootstrap/Button"
 import AuthService from '../../Services/AuthService';
 import { AuthContext } from '../../Context/AuthContext';
 import logo from "../../image/logo.png"
 
-function Header() {
+const Header = (props) => {
     const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(AuthContext);
 
     let listener = null
@@ -45,6 +45,8 @@ function Header() {
             if (data.success) {
                 setUser(data.user);
                 setIsAuthenticated(false);
+                // return  <Redirect  to="/" />
+                return <Redirect to={"/"} />
             }
         });
     }
