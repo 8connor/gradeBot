@@ -8,37 +8,44 @@ import React, { useEffect, useState } from "react";
 function TeacherSelect(props) {
     const [teacherList, setTeacherList] = useState();
     const [selectedTeacher, setSelectedTeacher] = useState("");
-    // const [classToCreate, setClassToCreate] = useState(); // Where is this at? 
-
+    const [teacherID, setTeacherID] = useState();
+    const [teacherGet, setTeacherGet] = useState(false);
 
     useEffect(() => {
         const get = async () => {
             const theTeachers = await Axios.get("/api/allTeachers");
 
             setTeacherList(theTeachers.data)
+            setTeacherGet(true)
         }
 
         get();
-
 
     }, [])
 
     const assignTeacher = () => {
         let teachObj = {
-            teacherName: selectedTeacher
-            // ,classRoom: classToCreate // Where is this being used? 
+            teacher: selectedTeacher,
+            teacherID: teacherID,
+            classRoom: props.currentClass // Where is this being used? 
         }
-
+        
         Axios.post("/api/updateTeacher", teachObj).then(res => console.log(res));
     }
 
     // Does this need to be in useEffect?
-    if (props.classCreated === true) {
-        assignTeacher();
-    }
+    useEffect(() => {
+        if (props.classCreated === true) {
+            assignTeacher();
+        }
+    })
 
     const handleSelect = (e) => {
         setSelectedTeacher(e);
+    }
+
+    const handleClick = (e) => {
+        setTeacherID(e)
     }
 
     return (
@@ -51,10 +58,10 @@ function TeacherSelect(props) {
                 onSelect={handleSelect}
             >
                 {
-                    teacherList &&
-                        teacherList.map((teacher, index) =>
-                            <Dropdown.Item key={index} eventKey={teacher.firstName} value={teacher._id}>{teacher.firstName}</Dropdown.Item>
-                        ) 
+                    teacherGet &&
+                    teacherList.map((teacher, index) =>
+                        <Dropdown.Item key={index} eventKey={teacher.firstName} value={teacher.teacherID} onClick={() => handleClick(teacher['teacherID'])}>{teacher.firstName}</Dropdown.Item>
+                    )
                 }
             </DropdownButton>
         </>

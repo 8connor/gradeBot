@@ -18,7 +18,7 @@ const contactinfo = [
 
 const contactinfoList = contactinfo.map((item) =>
   <div className="contact-address-details" key={item.icon}>
-    
+
     <div className="address-details ul-li-block">
       <ul>
         <li>
@@ -64,12 +64,12 @@ export class ContactUs extends React.Component {
                   </div>
                 </div>
                 <div className="genius-btn mt60 gradient-bg text-center text-uppercase ul-li-block bold-font ">
-                  <a href="#">
-                    Contact Us <i className="fas fa-caret-right" />
-                  </a>
+
+                  Contact Us <i className="fas fa-caret-right" />
+
                 </div>
               </div>
-              
+
             </div>
           </div>
         </div>

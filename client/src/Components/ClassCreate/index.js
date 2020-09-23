@@ -1,5 +1,5 @@
 
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -11,11 +11,8 @@ import TeacherSelect from "./teacher";
 
 import CreateClassService from "../../Services/ClassCreateService";
 
-import { AuthContext } from "../../Context/AuthContext";
-
 
 function ClassCreate() {
-  const authContext = useContext(AuthContext);
 
   const [currentClass, setCurrentClass] = useState(null);
   const [classCreated, setClassCreated] = useState(false);
@@ -33,24 +30,20 @@ function ClassCreate() {
 
     console.log(classRoomObj);
 
-      CreateClassService.createClass(classRoomObj)
+    CreateClassService.createClass(classRoomObj)
       .then((res) => {
         console.log(res);
 
         if (res.name === "MongoError") {
-          setErrorHandle(true)
+          setErrorHandle(true);
         } else {
-          setErrorHandle(false)
+          setErrorHandle(false);
+          setCurrentClass(document.getElementById("className").value);
+          setClassCreated(true);
         }
       });
-
-
-
-    setCurrentClass(document.getElementById("className").value);
-    setClassCreated(true);
   }
 
-  
   const handleSubmit = (e) => {
     // Checks to see if you entered the "RETURN" key
     e.stopPropagation();

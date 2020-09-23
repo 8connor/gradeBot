@@ -22,7 +22,6 @@ import ClassCreate from "./Components/ClassCreate";
 import MainBody from "./Components/MainBody"
 
 import Header from './Components/Header/header';
-import Particles from './Components/Particles/particles';
 import AboutUs from './Components/AboutUs/aboutus';
 import LatestNews from './Components/LatestNews/latest_news';
 import Teachers from './Components/Teachers/teachers';
@@ -36,9 +35,7 @@ import UnPrivateRoute from './hocs/UnPrivateRoute';
 
 import {
   BrowserRouter as Router,
-  Switch,
   Route,
-  Link
 } from "react-router-dom";
 
 

@@ -148,10 +148,20 @@ userRouter.get("/allTeachers", (req, res) => {
 
   console.log("In get all teachers api")
 
-  db.User.find({ accessType: "Teacher" })
+
+  db.User.find({ accessType: "teacher" })
     .lean()
     .then(function (users) {
-      res.json(users);
+
+      db.Classroom.find({ teacher: users._id }).lean().then((newData => {
+        // console.log(newData)
+      }))
+
+      let mappedUser = users.map((item, i) => {
+        return { teacherID: item._id, firstName: item.firstName, lastName: item.lastName, email: item.email }
+      });
+
+      res.json(mappedUser);
     })
     .catch(err => console.log(err));
 });
@@ -178,7 +188,6 @@ userRouter.get("/checkUser", (req, res) => {
 
 
 userRouter.get("/allGrades", (req, res) => {
-  //todo: this
   var average = (array) => array.reduce((a, b) => a + b) / array.length;
   var newArr = []
   db.Assignment.aggregate([
@@ -199,16 +208,16 @@ userRouter.get("/allGrades", (req, res) => {
             newArr.push({ Assignment: grades[i].taskName, grades: average(grades[i]['grades']) })
           }
         }
-      }
+      };
 
-      await loopFunction()
+      await loopFunction();
 
       return newArr;
     }).then(newest => {
 
       console.log(newest);
 
-      res.json(newArr);
+      res.json(newest);
     })
     .catch(err => console.log(err));
 });
@@ -358,9 +367,11 @@ userRouter.post("/updateTeacher", (req, res) => {
   //req coming in
   var incObj = req.body
 
+  console.log(incObj)
+
   db.Classroom.updateOne(
     { name: incObj.classRoom },
-    { teacherName: incObj.teacherName })
+    { teacher: incObj.teacherID })
     .lean()
     .then(function (response) {
       console.log(response);
@@ -383,7 +394,7 @@ userRouter.post("/createAssignment", (req, res) => {
         rObj = { studentID: student.studentID, grade: 100 };
         return rObj
       })
-
+      
       console.log(studentsArr)
       //This will create the assignment.
       db.Assignment.create({
@@ -410,7 +421,7 @@ userRouter.post("/createClass", (req, res) => {
   //req coming in
   var className = req.body;
 
-  console.log(className)
+  // console.log(className)
 
 
   //This will create the class.
