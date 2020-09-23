@@ -149,33 +149,27 @@ userRouter.get("/allUsers", (req, res) => {
 });
 
 userRouter.get("/allClasses", (req, res) => {
-  console.log("In get all classes api");
-
   db.Classroom.find({})
     .lean()
     .then(function (classes) {
-      console.log("classes");
-      console.log(classes);
-      res.json(classes);
+
+      let classesArr = classes.map((item, i) => {
+        return {name: item.name, teacher: item.teacher }
+      })
+
+      res.json(classesArr);
     })
     .catch((err) => console.log(err));
 });
 
 userRouter.get("/allTeachers", (req, res) => {
-  console.log("In get all teachers api");
-
-  console.log("In get all teachers api")
-
-
   db.User.find({ accessType: "teacher" })
     .lean()
-    .then(function (users) {
+    .then(async function (users) {
 
-      db.Classroom.find({ teacher: users._id }).lean().then((newData => {
-        // console.log(newData)
-      }))
+      console.log(classRoom)
 
-      let mappedUser = users.map((item, i) => {
+      let mappedUser = await users.map((item, i) => {
         return { teacherID: item._id, firstName: item.firstName, lastName: item.lastName, email: item.email }
       });
 
@@ -402,7 +396,7 @@ userRouter.post("/createAssignment", (req, res) => {
         rObj = { studentID: student.studentID, grade: 100 };
         return rObj
       })
-      
+
       console.log(studentsArr)
       //This will create the assignment.
       db.Assignment.create({

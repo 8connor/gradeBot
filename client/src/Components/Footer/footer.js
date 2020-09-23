@@ -17,28 +17,28 @@ class Footer extends React.Component {
                   <ul>
                     <li>
                       <i className="fas fa-caret-right" />
-                          Noe
+                          Noe Leiva
                           <a href="https://github.com/leivanoe1011">
                         <i className="fab fa-github" />
                       </a>
                     </li>
                     <li>
                       <i className="fas fa-caret-right" />
-                         Katie
+                         Katie Mills
                          <a href="https://github.com/kmills2274">
                         <i className="fab fa-github" />
                       </a>
                     </li>
                     <li>
                       <i className="fas fa-caret-right" />
-                         James
+                         James Zimmermann
                          <a href="https://github.com/slimzim">
                         <i className="fab fa-github" />
                       </a>
                     </li>
                     <li>
                       <i className="fas fa-caret-right" />
-                         Connor
+                        James Hooven
                          <a href="https://github.com/8connor">
                         <i className="fab fa-github" />
                       </a>

@@ -16,7 +16,7 @@ function ClassCreate(props) {
   const [currentClass, setCurrentClass] = useState("");
   const [classCreated, setClassCreated] = useState(false);
   const [errorHandle, setErrorHandle] = useState(false);
-  const [alreadyCreated, setAlreadyCreated] = useState(false);
+  // todo: const [alreadyCreated, setAlreadyCreated] = useState(false); ERROR HANDLING FOR IF THE CLASS HAS ALREADY BEEN CREATED.
   const [teacherList, setTeacherList] = useState([]);
   const [selectedTeacher, setSelectedTeacher] = useState("");
   const [selectedTeacherID, setSelectedTeacherID] = useState("");
@@ -31,9 +31,6 @@ function ClassCreate(props) {
     get();
   }, []);
 
-  if (classCreated === true) {
-    assignTeacher();
-  }
 
   const assignTeacher = () => {
     let teachObj = {
@@ -43,11 +40,13 @@ function ClassCreate(props) {
     };
 
     Axios.post("/api/updateTeacher", teachObj)
-    .then((res) => console.log(res));
+      .then((res) => console.log(res));
   };
 
   const handleClick = (e) => {
-    setCurrentClass(e.target.value);
+    setCurrentClass(document.getElementById("className").value);
+
+    assignTeacher();
 
     let classRoomObj = {
       name: document.getElementById("className").value,
@@ -58,6 +57,7 @@ function ClassCreate(props) {
 
       if (res.name === "MongoError") {
         setErrorHandle(true);
+        setClassCreated(true);
       } else {
         setClassCreated(true);
         setCurrentClass(document.getElementById("className").value);
@@ -82,13 +82,14 @@ function ClassCreate(props) {
     }
   };
 
-  const handleDecision = (e) => {
-    console.log(e.target.innerHTML);
+  // todo: this is where the function for that error handling is
+  //const handleDecision = (e) => {
+  //   console.log(e.target.innerHTML);
 
-    if (e.target.innerHTML === "Yes") {
-      setAlreadyCreated(true);
-    }
-  };
+  //   if (e.target.innerHTML === "Yes") {
+  //     setAlreadyCreated(true);
+  //   }
+  // };
 
   return (
     <Container>
@@ -141,6 +142,7 @@ function ClassCreate(props) {
             {errorHandle && (
               <p className="text-danger">
                 Error this class has already been made!
+                Use caution. You will be overwriting the current information for this class!
               </p>
             )}
           </Row>
@@ -149,7 +151,7 @@ function ClassCreate(props) {
             {currentClass && <h1>Currently selected class: {currentClass}</h1>}
           </Row>
 
-          {alreadyCreated && <StudentSearch currentClass={currentClass} />}
+          {classCreated ? <StudentSearch currentClass={currentClass} /> : null}
         </Card.Body>
       </Card>
     </Container>

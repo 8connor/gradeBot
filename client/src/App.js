@@ -22,10 +22,10 @@ import MainBody from "./Components/MainBody"
 
 import Header from './Components/Header/header';
 import AboutUs from './Components/AboutUs/aboutus';
-import LatestNews from './Components/LatestNews/latest_news';
+// import LatestNews from './Components/LatestNews/latest_news';
 import Teachers from './Components/Teachers/teachers';
 import Courses from './Components/Courses/courses';
-import ContactUs from './Components/ContactUs/contact_us';
+// import ContactUs from './Components/ContactUs/contact_us';
 import Footer from './Components/Footer/footer';
 
 import PrivateRoute from './hocs/PrivateRoute';
@@ -46,20 +46,23 @@ function App() {
       <Header />
       <Route exact path="/">
         <AboutUs />
-        <LatestNews />
+        {/* <LatestNews /> */}
         <Teachers />
         <Courses />
-        <ContactUs />
+        {/* <ContactUs /> */}
       </Route>
-      <MainBody>
-        <UnPrivateRoute path="/login" component={Login} />
-        <PrivateRoute path="/dashboard" roles={["student", "admin", "teacher"]} component={Dashboard} />
-        <PrivateRoute path="/createForm" roles={["student", "admin", "teacher"]} component={CreateForm} />
-        <PrivateRoute path="/allAssignments" roles={["student", "admin", "teacher"]} component={AllAssignments} />
-        <PrivateRoute path="/classCreate" roles={["student", "admin", "teacher"]} component={ClassCreate} />
-        {/* Only Admin has access to the links below */}
-        <PrivateRoute path="/adminCreateUser" roles={["admin"]} component={AdminCreateUser} />
-      </MainBody>
+      {
+        window.location.pathname === "/" ? null :
+          <MainBody>
+            <UnPrivateRoute path="/login" component={Login} />
+            <PrivateRoute path="/dashboard" roles={["student", "admin", "teacher"]} component={Dashboard} />
+            <PrivateRoute path="/createForm" roles={["student", "admin", "teacher"]} component={CreateForm} />
+            <PrivateRoute path="/allAssignments" roles={["student", "admin", "teacher"]} component={AllAssignments} />
+            <PrivateRoute path="/classCreate" roles={["student", "admin", "teacher"]} component={ClassCreate} />
+            {/* Only Admin has access to the links below */}
+            <PrivateRoute path="/adminCreateUser" roles={["admin"]} component={AdminCreateUser} />
+          </MainBody>
+      }
       <Footer />
     </Router>
 

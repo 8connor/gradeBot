@@ -37,7 +37,7 @@ function Teachers(props) {
                         <ul>
                           <li>
                             <a href={`mailto: ${teacher.email}`}>
-                              <i className="fab fa-google-plus-g" />
+                              <i className="fas fa-envelope-square"></i>
                             </a>
                           </li>
                           <br />
