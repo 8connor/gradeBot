@@ -73,7 +73,7 @@ const Login = props => {
                                         onChange={onChange}
                                         placeholder="Enter Password" />
                                 </Form.Group>
-                                <Row className="justify-content-md-center">
+                                <Row className="justify-content-center">
                                     <Button onClick={onSubmit} variant="primary" type="submit" id="subButton">
                                         Log In
                                     </Button>
