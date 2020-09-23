@@ -165,11 +165,9 @@ userRouter.get("/allClasses", (req, res) => {
 userRouter.get("/allTeachers", (req, res) => {
   db.User.find({ accessType: "teacher" })
     .lean()
-    .then(async function (users) {
+    .then(function (users) {
 
-      console.log(classRoom)
-
-      let mappedUser = await users.map((item, i) => {
+      let mappedUser = users.map((item, i) => {
         return { teacherID: item._id, firstName: item.firstName, lastName: item.lastName, email: item.email }
       });
 

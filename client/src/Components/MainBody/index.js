@@ -4,7 +4,7 @@ import "./index.css"
 function MainBody(props) {
 
     return (
-        <div className="main-sec about-us-section">
+        <div className="main-sec about-us-section parallax">
             {props.children}
         </div>
     )
