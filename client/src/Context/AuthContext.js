@@ -1,5 +1,5 @@
 
-import React, {createContext,useState,useEffect} from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import AuthService from '../Services/AuthService';
 
 
@@ -22,20 +22,21 @@ export default ({ children })=>{
     useEffect(()=>{
         // this will be used as a component diMount
         AuthService.isAuthenticated().then(data =>{
+
             setUser(data.user);
             setIsAuthenticated(data.isAuthenticated);
             setIsLoaded(true);
         });
-    },[]);
+    }, []);
 
     return (
         // The value will say What do we want to make available as a global state
         // Here if any component want to update the states, we provide the values below
         <div>
-            {!isLoaded ? <h1>Loading</h1> : 
-            <AuthContext.Provider value={{user,setUser,isAuthenticated,setIsAuthenticated}}>
-                { children }
-            </AuthContext.Provider>}
+            {!isLoaded ? <div id="preloader"></div> :
+                <AuthContext.Provider value={{ user, setUser, isAuthenticated, setIsAuthenticated }}>
+                    {children}
+                </AuthContext.Provider>}
         </div>
     )
 }

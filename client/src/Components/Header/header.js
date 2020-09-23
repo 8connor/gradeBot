@@ -1,107 +1,173 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link
 } from "react-router-dom";
-import Login from './login';
+import Button from "react-bootstrap/Button"
+import AuthService from '../../Services/AuthService';
+import { AuthContext } from '../../Context/AuthContext';
+import logo from "../../image/logo.png"
+
+function Header() {
+    const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(AuthContext);
+
+    let listener = null
+    const [scrollState, setScrollState] = useState("clear");
+    const [userRole, setUserRole] = useState("");
+
+    useEffect(
+        () => {
+            setUserRole(user.accessType);
+        }
+    )
 
 
-class Header extends React.Component {
+    useEffect(() => {
+        listener = document.addEventListener("scroll", e => {
+            var scrolled = document.scrollingElement.scrollTop
+            if (scrolled >= 120) {
+                if (scrollState !== "bg-dark") {
+                    setScrollState("bg-dark")
+                }
+            } else {
+                if (scrollState !== "top") {
+                    setScrollState("clear")
+                }
+            }
+        })
+        return () => {
+            document.removeEventListener("scroll", listener)
+        }
+    }, [scrollState])
 
-    render() {
+
+    const onClickLogoutHandler = () => {
+        AuthService.logout().then(data => {
+            if (data.success) {
+                setUser(data.user);
+                setIsAuthenticated(false);
+            }
+        });
+    }
+
+    const unauthenticatedNavBar = () => {
+
         return (
-            <header>
-                <div id="main-menu" className="main-menu-container">
-                    <div className="main-menu">
-                        <div className="container">
-                            <div className="navbar-default">
-                                <div className="navbar-header float-left">
-                                    <Link className="navbar-brand text-uppercase" to="/">
-                                        {/* <img src={logo} alt="logo" /> */}
-                                    </Link>
-                                </div>
+            <>
+                {/* It's only here to create a link */}
+                {/* <div className="log-in float-right">
+                    <a data-toggle="modal" data-target="#myModal" href="#">
+                        log in
+                                </a>
+                    <Login />
+                </div> */}
 
-                                <div className="select-lang">
-                                    <select>
-                                        <option value={9}>ENG</option>
-                                        <option value={10}>BAN</option>
-                                        <option value={11}>ARB</option>
-                                        <option value={12}>FRN</option>
-                                    </select>
-                                </div>
-                                <div className="cart-search float-right ul-li">
+                <li>
+                    <Link to="/login" >Login</Link>
+                </li>
+
+            </>
+        )
+    }
+
+
+    const notAdminUserNavLink = () => {
+
+        return (
+            <>
+                {(userRole === "teacher") ? <Button href="/createForm">Create Assignment</Button> : null}
+
+            </>
+        )
+    }
+
+    const adminUserNavLinks = () => {
+        return (
+            <>
+                {/* <Button href="/createForm">Create Assignment</Button>
+                <Button href="/classCreate">Create Class</Button>
+                <Button href="/adminCreateUser">Admin Create User</Button> */}
+
+                <li>
+                    <Link to="/classCreate">Create Class</Link>
+                </li>
+
+                <li>
+                    <Link to="/adminCreateUser">Create User</Link>
+                </li>
+
+                <li>
+                    <Link to="/createForm">Create Assignment</Link>
+                </li>
+
+
+            </>
+        )
+    }
+
+
+    const authenticatedNavBar = () => {
+        return (
+            <>
+                {(userRole === "admin") ? adminUserNavLinks() : notAdminUserNavLink()}
+
+
+
+                <li>
+                    <Link to="/dashboard">Dashboard</Link>
+                </li>
+
+                <li>
+                    <Link to="/allAssignments">all assignments</Link>
+                </li>
+
+                <li>
+                    <Link to="/logout" onClick={onClickLogoutHandler}>Logout</Link>
+                </li>
+
+
+            </>
+        )
+    }
+
+    return (
+        <header>
+            <div id="main-menu" className={`main-menu-container ${scrollState}`} >
+                <div className="main-menu">
+                    <div className="container">
+                        <div className="navbar-default">
+                            <div className="navbar-header float-left">
+                                <Link className="navbar-brand text-uppercase" to="/">
+                                    <img src={logo} alt="logo" />
+                                </Link>
+                            </div>
+
+                            <nav className="navbar-menu float-left">
+                                <div className="nav-menu ul-li">
                                     <ul>
-                                        <li>
-                                            <button
-                                                type="button"
-                                                className="toggle-overlay search-btn"
-                                            >
-                                                <i className="fas fa-search" />
-                                            </button>
-                                            <div className="search-body">
-                                                <div className="search-form">
-                                                    <form action="#">
-                                                        <input
-                                                            className="search-input"
-                                                            type="search"
-                                                            placeholder="Search Here"
-                                                        />
-                                                        <div className="outer-close toggle-overlay">
-                                                            <button type="button" className="search-close">
-                                                                <i className="fas fa-times" />
-                                                            </button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
+                                        <li className="menu-item-has-children ul-li-block">
+                                            <Link to="/">Home</Link>
+
+                                            <ul className="sub-menu">
+                                                <li>
+                                                    <Link to="/#teachers">Featured Teachers</Link>
+                                                </li>
+                                                <li>
+                                                    <Link to="/#contact">Contact us</Link>
+                                                </li>
+                                            </ul>
                                         </li>
+                                        {isAuthenticated ? authenticatedNavBar() : unauthenticatedNavBar()}
                                     </ul>
                                 </div>
-                                <div className="log-in float-right">
-                                    <a data-toggle="modal" data-target="#myModal" href="#">
-                                        log in
-                                    </a>
-                                    <Login />
-                                </div>
-                                <nav className="navbar-menu float-right">
-                                    <div className="nav-menu ul-li">
-                                        <ul>
-                                            <li className="menu-item-has-children ul-li-block">
-                                                <Link to="/">Home</Link>
-                                            </li>
-                                            <li>
-                                                <Link to="/about-us">About Us</Link>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </nav>
-                                <div className="mobile-menu">
-                                    <div className="logo">
-                                        <Link to="/">
-                                            {/* <img src={logo} alt="Logo" /> */}
-                                        </Link>
-                                    </div>
-                                    <nav>
-                                        <ul>
-                                            <li>
-                                                <Link to="/">Home</Link>
-                                            </li>
-                                            <li>
-                                                <Link to="/about-us">About Us</Link>
-                                            </li>
-                                        </ul>
-
-                                    </nav>
-                                </div>
-                            </div>
+                            </nav> 
                         </div>
                     </div>
                 </div>
-            </header>
-        );
-    }
+
+            </div>
+        </header>
+    );
+
 }
 
 export default Header;

@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -10,14 +10,9 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 import CreateFormService from "../../Services/CreateFormService";
 
-import { AuthContext } from "../../Context/AuthContext";
 
 
 function CreateForm(props) {
-
-    const authContext = useContext(AuthContext);
-
-
     const [classList, setClassList] = useState();
     const [selectedClass, setSelectedClass] = useState("");
 
@@ -26,7 +21,7 @@ function CreateForm(props) {
         const get = async () => {
             const theClasses = await CreateFormService.getAllClass("/api/allClasses");
 
-            setClassList(theClasses.data)
+            setClassList(theClasses)
         }
 
         get();

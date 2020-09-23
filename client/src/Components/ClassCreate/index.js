@@ -1,4 +1,3 @@
-
 import React, { useState, useContext, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
@@ -7,65 +6,90 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import StudentSearch from "./studentSearch";
-import TeacherSelect from "./teacher";
+import Axios from "axios";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import Dropdown from "react-bootstrap/Dropdown";
 
 import CreateClassService from "../../Services/ClassCreateService";
 
-import { AuthContext } from "../../Context/AuthContext";
-
-
-function ClassCreate () {
-
-  const authContext = useContext(AuthContext);
-
-  const [currentClass, setCurrentClass] = useState(null);
+function ClassCreate(props) {
+  const [currentClass, setCurrentClass] = useState("");
   const [classCreated, setClassCreated] = useState(false);
   const [errorHandle, setErrorHandle] = useState(false);
+  // todo: const [alreadyCreated, setAlreadyCreated] = useState(false); ERROR HANDLING FOR IF THE CLASS HAS ALREADY BEEN CREATED.
+  const [teacherList, setTeacherList] = useState([]);
+  const [selectedTeacher, setSelectedTeacher] = useState("");
+  const [selectedTeacherID, setSelectedTeacherID] = useState("");
 
+  useEffect(() => {
+    const get = async () => {
+      const theTeachers = await Axios.get("/api/allTeachers");
+
+      setTeacherList(theTeachers.data);
+    };
+
+    get();
+  }, []);
+
+
+  const assignTeacher = () => {
+    let teachObj = {
+      teacherName: selectedTeacher,
+      teacherID: selectedTeacherID,
+      classRoom: document.getElementById("className").value, // Where is this being used?
+    };
+
+    Axios.post("/api/updateTeacher", teachObj)
+      .then((res) => console.log(res));
+  };
 
   const handleClick = (e) => {
+    setCurrentClass(document.getElementById("className").value);
+
+    assignTeacher();
+
     let classRoomObj = {
       name: document.getElementById("className").value,
     };
 
-    console.log(document.getElementById("className").value);
-
-    console.log(classRoomObj);
-
-    CreateClassService.createClass(classRoomObj)
-    .then((res) => {
+    CreateClassService.createClass(classRoomObj).then((res) => {
       console.log(res);
 
-      if (res.data.name === "MongoError") {
-        this.setState({
-          errorHandle: true
-        })
+      if (res.name === "MongoError") {
+        setErrorHandle(true);
+        setClassCreated(true);
       } else {
-        this.setState({ errorHandle: false })
+        setClassCreated(true);
+        setCurrentClass(document.getElementById("className").value);
+        setErrorHandle(false);
       }
     });
+  };
 
+  const handleNewClick = (e) => {
+    setSelectedTeacherID(e);
+  };
 
-
-    setCurrentClass(document.getElementById("className").value);
-    setClassCreated(true);
-
-    
-  }
-
-  const handleChange = (e) => {
-    
-    setCurrentClass(e.target.value);
-    
-  }
+  const handleSelect = (e) => {
+    setSelectedTeacher(e);
+  };
 
   const handleSubmit = (e) => {
     // Checks to see if you entered the "RETURN" key
     e.stopPropagation();
     if (e.key === "Enter") {
-      this.handleClick();
+      handleClick();
     }
-  }
+  };
+
+  // todo: this is where the function for that error handling is
+  //const handleDecision = (e) => {
+  //   console.log(e.target.innerHTML);
+
+  //   if (e.target.innerHTML === "Yes") {
+  //     setAlreadyCreated(true);
+  //   }
+  // };
 
   return (
     <Container>
@@ -81,46 +105,57 @@ function ClassCreate () {
                     placeholder="Class name."
                     contentEditable={true}
                     onKeyPress={(e) => handleSubmit(e)}
-                    onChange={(e) => handleChange(e)}
                   />
                 </Form.Group>
               </Form>
             </Col>
             <Col>
-              <TeacherSelect currentClass={this.state.currentClass} classCreated={this.state.classCreated} />
+              <p>Select a teacher:</p>
+              <DropdownButton
+                title={
+                  selectedTeacher === ""
+                    ? "Select a teacher name here"
+                    : selectedTeacher
+                }
+                onSelect={handleSelect}
+              >
+                {teacherList &&
+                  teacherList.map((teacher, index) => (
+                    <Dropdown.Item
+                      key={index}
+                      eventKey={teacher.firstName}
+                      value={teacher._id}
+                      onClick={() => handleNewClick(teacher.teacherID)}
+                    >
+                      {teacher.firstName}
+                    </Dropdown.Item>
+                  ))}
+              </DropdownButton>
             </Col>
           </Row>
           <Row className="justify-content-center">
-            <Button type="submit" onClick={(e) => this.handleClick(e)}>
+            <Button type="submit" onClick={(e) => handleClick(e)}>
               Submit
             </Button>
           </Row>
           <Row className="justify-content-center">
-            {this.state.errorHandle && <p className="text-danger">Error this class has already been made!</p>}
+            {errorHandle && (
+              <p className="text-danger">
+                Error this class has already been made!
+                Use caution. You will be overwriting the current information for this class!
+              </p>
+            )}
           </Row>
-
 
           <Row>
-            {this.state.currentClass ? (
-              <h1>Currently selected class: {this.state.currentClass}</h1>
-            ) : (
-                false
-              )}
+            {currentClass && <h1>Currently selected class: {currentClass}</h1>}
           </Row>
 
-          {this.state.currentClass ? (
-            <StudentSearch currentClass={this.state.currentClass} />
-          ) : (
-              false
-            )}
+          {classCreated ? <StudentSearch currentClass={currentClass} /> : null}
         </Card.Body>
       </Card>
     </Container>
   );
-
 }
 
 export default ClassCreate;
-
-
-
