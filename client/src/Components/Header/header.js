@@ -141,9 +141,6 @@ function Header() {
                                 </Link>
                             </div>
 
-
-
-
                             <nav className="navbar-menu float-left">
                                 <div className="nav-menu ul-li">
                                     <ul>

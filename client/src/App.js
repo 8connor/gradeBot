@@ -9,7 +9,6 @@ import './assets/css/progess.css';
 import './assets/css/animate.min.css';
 //main css
 import "./assets/css/menu.css"
-import "./assets/css/colors/switch.css"
 import './assets/scss/style.scss';
 import 'bootstrap';
 
@@ -28,7 +27,6 @@ import Teachers from './Components/Teachers/teachers';
 import Courses from './Components/Courses/courses';
 import ContactUs from './Components/ContactUs/contact_us';
 import Footer from './Components/Footer/footer';
-
 
 import PrivateRoute from './hocs/PrivateRoute';
 import UnPrivateRoute from './hocs/UnPrivateRoute';

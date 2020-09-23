@@ -1,5 +1,4 @@
-
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -7,42 +6,73 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import StudentSearch from "./studentSearch";
-import TeacherSelect from "./teacher";
+import Axios from "axios";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import Dropdown from "react-bootstrap/Dropdown";
 
 import CreateClassService from "../../Services/ClassCreateService";
 
-
-function ClassCreate() {
-
-  const [currentClass, setCurrentClass] = useState(null);
+function ClassCreate(props) {
+  const [currentClass, setCurrentClass] = useState("");
   const [classCreated, setClassCreated] = useState(false);
   const [errorHandle, setErrorHandle] = useState(false);
+  const [alreadyCreated, setAlreadyCreated] = useState(false);
+  const [teacherList, setTeacherList] = useState([]);
+  const [selectedTeacher, setSelectedTeacher] = useState("");
+  const [selectedTeacherID, setSelectedTeacherID] = useState("");
 
+  useEffect(() => {
+    const get = async () => {
+      const theTeachers = await Axios.get("/api/allTeachers");
+
+      setTeacherList(theTeachers.data);
+    };
+
+    get();
+  }, []);
+
+  if (classCreated === true) {
+    assignTeacher();
+  }
+
+  const assignTeacher = () => {
+    let teachObj = {
+      teacherName: selectedTeacher,
+      teacherID: selectedTeacherID,
+      classRoom: document.getElementById("className").value, // Where is this being used?
+    };
+
+    Axios.post("/api/updateTeacher", teachObj)
+    .then((res) => console.log(res));
+  };
 
   const handleClick = (e) => {
-    setCurrentClass(e.target.value)
+    setCurrentClass(e.target.value);
 
     let classRoomObj = {
       name: document.getElementById("className").value,
     };
 
-    console.log(document.getElementById("className").value);
+    CreateClassService.createClass(classRoomObj).then((res) => {
+      console.log(res);
 
-    console.log(classRoomObj);
+      if (res.name === "MongoError") {
+        setErrorHandle(true);
+      } else {
+        setClassCreated(true);
+        setCurrentClass(document.getElementById("className").value);
+        setErrorHandle(false);
+      }
+    });
+  };
 
-    CreateClassService.createClass(classRoomObj)
-      .then((res) => {
-        console.log(res);
+  const handleNewClick = (e) => {
+    setSelectedTeacherID(e);
+  };
 
-        if (res.name === "MongoError") {
-          setErrorHandle(true);
-        } else {
-          setErrorHandle(false);
-          setCurrentClass(document.getElementById("className").value);
-          setClassCreated(true);
-        }
-      });
-  }
+  const handleSelect = (e) => {
+    setSelectedTeacher(e);
+  };
 
   const handleSubmit = (e) => {
     // Checks to see if you entered the "RETURN" key
@@ -50,7 +80,15 @@ function ClassCreate() {
     if (e.key === "Enter") {
       handleClick();
     }
-  }
+  };
+
+  const handleDecision = (e) => {
+    console.log(e.target.innerHTML);
+
+    if (e.target.innerHTML === "Yes") {
+      setAlreadyCreated(true);
+    }
+  };
 
   return (
     <Container>
@@ -71,7 +109,27 @@ function ClassCreate() {
               </Form>
             </Col>
             <Col>
-              <TeacherSelect currentClass={currentClass} classCreated={classCreated} />
+              <p>Select a teacher:</p>
+              <DropdownButton
+                title={
+                  selectedTeacher === ""
+                    ? "Select a teacher name here"
+                    : selectedTeacher
+                }
+                onSelect={handleSelect}
+              >
+                {teacherList &&
+                  teacherList.map((teacher, index) => (
+                    <Dropdown.Item
+                      key={index}
+                      eventKey={teacher.firstName}
+                      value={teacher._id}
+                      onClick={() => handleNewClick(teacher.teacherID)}
+                    >
+                      {teacher.firstName}
+                    </Dropdown.Item>
+                  ))}
+              </DropdownButton>
             </Col>
           </Row>
           <Row className="justify-content-center">
@@ -80,31 +138,22 @@ function ClassCreate() {
             </Button>
           </Row>
           <Row className="justify-content-center">
-            {errorHandle && <p className="text-danger">Error this class has already been made!</p>}
+            {errorHandle && (
+              <p className="text-danger">
+                Error this class has already been made!
+              </p>
+            )}
           </Row>
-
 
           <Row>
-            {currentClass ? (
-              <h1>Currently selected class: {currentClass}</h1>
-            ) : (
-                false
-              )}
+            {currentClass && <h1>Currently selected class: {currentClass}</h1>}
           </Row>
 
-          {currentClass ? (
-            <StudentSearch currentClass={currentClass} />
-          ) : (
-              false
-            )}
+          {alreadyCreated && <StudentSearch currentClass={currentClass} />}
         </Card.Body>
       </Card>
     </Container>
   );
-
 }
 
 export default ClassCreate;
-
-
-
