@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Table from 'react-bootstrap/Table';
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col"
@@ -12,13 +12,9 @@ import Form from "react-bootstrap/Form"
 
 import AllAssignmentsService from "../../Services/AllAssignmentsService";
 
-import { AuthContext } from "../../Context/AuthContext";
 
 
 function AllAssignments() {
-
-    const authContext = useContext(AuthContext);
-
     const [all, setAll] = useState([]);
     const [specificGrade, setSpecificGrade] = useState([]);
     const [classList, setClassList] = useState([]);

@@ -22,16 +22,16 @@ class LatestNews extends React.Component {
                     </div>
                   <div className="event-text">
                     <h3 className="latest-title bold-font">
-                      <a href="#">
+                     
                         Fully Responsive Web Design & Development.
-                        </a>
+                        
                     </h3>
                     <div className="course-meta">
                       <span className="course-category">
-                        <a href="#">Web Design</a>
+                       Web Design
                       </span>
                       <span className="course-author">
-                        <a href="#">Koke</a>
+                        Koke
                       </span>
                     </div>
                   </div>
@@ -46,16 +46,16 @@ class LatestNews extends React.Component {
                     </div>
                   <div className="event-text">
                     <h3 className="latest-title bold-font">
-                      <a href="#">
+                    
                         Introduction to Mobile Application Development.
-                        </a>
+                        
                     </h3>
                     <div className="course-meta">
                       <span className="course-category">
-                        <a href="#">Web Design</a>
+                       Web Design
                       </span>
                       <span className="course-author">
-                        <a href="#">Koke</a>
+                        Koke
                       </span>
                     </div>
                   </div>
@@ -70,23 +70,23 @@ class LatestNews extends React.Component {
                     </div>
                   <div className="event-text">
                     <h3 className="latest-title bold-font">
-                      <a href="#">IOS Apps Programming & Development.</a>
+                      IOS Apps Programming & Development.
                     </h3>
                     <div className="course-meta">
                       <span className="course-category">
-                        <a href="#">Web Design</a>
+                       Web Design
                       </span>
                       <span className="course-author">
-                        <a href="#">Koke</a>
+                        Koke
                       </span>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="view-all-btn bold-font">
-                <a href="#">
+              
                   Check Calendar <i className="fas fa-calendar-alt" />
-                </a>
+             
               </div>
             </div>
           </div>

@@ -1,7 +1,6 @@
 
 import React, { createContext, useState, useEffect } from 'react';
 import AuthService from '../Services/AuthService';
-import loader from "../assets/img/preloader.gif";
 export const AuthContext = createContext();
 
 export default ({ children }) => {

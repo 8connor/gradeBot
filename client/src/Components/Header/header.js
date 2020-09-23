@@ -1,14 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Nav from "react-bootstrap/Nav";
-import Navbar from 'react-bootstrap/Navbar';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link
 } from "react-router-dom";
 import Button from "react-bootstrap/Button"
-import Login from '../Login/login';
 import AuthService from '../../Services/AuthService';
 import { AuthContext } from '../../Context/AuthContext';
 import logo from "../../image/logo.png"
@@ -19,8 +13,6 @@ function Header() {
     let listener = null
     const [scrollState, setScrollState] = useState("clear");
     const [userRole, setUserRole] = useState("");
-
-    console.log(scrollState)
 
     useEffect(
         () => {
@@ -95,10 +87,6 @@ function Header() {
                 <Button href="/classCreate">Create Class</Button>
                 <Button href="/adminCreateUser">Admin Create User</Button> */}
 
-
-
-
-
                 <li>
                     <Link to="/classCreate">Create Class</Link>
                 </li>
@@ -153,9 +141,6 @@ function Header() {
                                 </Link>
                             </div>
 
-
-
-
                             <nav className="navbar-menu float-left">
                                 <div className="nav-menu ul-li">
                                     <ul>
@@ -173,12 +158,12 @@ function Header() {
                                         </li>
                                         {isAuthenticated ? authenticatedNavBar() : unauthenticatedNavBar()}
                                     </ul>
-
                                 </div>
-                            </nav>
+                            </nav> 
                         </div>
                     </div>
                 </div>
+
             </div>
         </header>
     );
