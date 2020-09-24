@@ -20,16 +20,16 @@ function StudentSearch(props) {
     console.log(search)
    Axios.post("/api/studentQuery", search)
       .then((res) => {
-        setStudentArr(res);
+        setStudentArr(res.data);
         console.log(studentArr);
-        setError(res.length === 0 ? true : false);
-        setFilled(res.length === 0 ? false : true);
+        setError(res.data.length === 0 ? true : false);
+        setFilled(res.data.length === 0 ? false : true);
       })
       .catch((err) => {
         setError(true);
       });
   };
-  // End HandlClick
+  // End HandleClick
 
   const handleChange = (e) => {
     let studentName = {
