@@ -6,17 +6,19 @@ import Button from "react-bootstrap/Button";
 
 
 import ClassCreateService from "../../Services/ClassCreateService";
+import Axios from "axios";
 
 function StudentSearch(props) {
   const [studentArr, setStudentArr] = useState([]);
   const [currentList, setCurrentList] = useState([]);
   const [filled, setFilled] = useState(false);
   const [currentListFilled, setCurrentListFilled] = useState(false);
-  const [search, setSearch] = useState(false);
+  const [search, setSearch] = useState("");
   const [error, setError] = useState(false);
 
   const handleClick = () => {
-    ClassCreateService.createStudentQuery(search)
+    console.log(search)
+   Axios.post("/api/studentQuery", search)
       .then((res) => {
         setStudentArr(res);
         console.log(studentArr);

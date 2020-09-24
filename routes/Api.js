@@ -152,10 +152,9 @@ userRouter.get("/allClasses", (req, res) => {
   db.Classroom.find({})
     .lean()
     .then(function (classes) {
-
       let classesArr = classes.map((item, i) => {
-        return {name: item.name, teacher: item.teacher }
-      })
+        return { name: item.name, teacher: item.teacher };
+      });
 
       res.json(classesArr);
     })
@@ -166,9 +165,13 @@ userRouter.get("/allTeachers", (req, res) => {
   db.User.find({ accessType: "teacher" })
     .lean()
     .then(function (users) {
-
       let mappedUser = users.map((item, i) => {
-        return { teacherID: item._id, firstName: item.firstName, lastName: item.lastName, email: item.email }
+        return {
+          teacherID: item._id,
+          firstName: item.firstName,
+          lastName: item.lastName,
+          email: item.email,
+        };
       });
 
       res.json(mappedUser);
@@ -332,9 +335,13 @@ userRouter.post("/changeGrade", (req, res) => {
 });
 
 userRouter.post("/studentQuery", (req, res) => {
-  let newVar = req.body.firstName
-    ? { firstName: req.body.firstName }
-    : { accessType: "student" };
+  let newVar =
+    req.body.firstName.length === 0
+      ? { accessType: "student" }
+      : { firstName: req.body.firstName };
+
+  console.log("hit the request");
+  console.log(req.body)
 
   db.User.find(newVar)
     .lean()
@@ -370,11 +377,12 @@ userRouter.post("/updateTeacher", (req, res) => {
 
   console.log(incObj);
 
-  console.log(incObj)
+  console.log(incObj);
 
   db.Classroom.updateOne(
     { name: incObj.classRoom },
-    { teacher: incObj.teacherID })
+    { teacher: incObj.teacherID }
+  )
     .lean()
     .then(function (response) {
       console.log(response);
@@ -392,10 +400,10 @@ userRouter.post("/createAssignment", (req, res) => {
     .then((newRes) => {
       let studentsArr = newRes.students.map((student, i) => {
         rObj = { studentID: student.studentID, grade: 100 };
-        return rObj
-      })
+        return rObj;
+      });
 
-      console.log(studentsArr)
+      console.log(studentsArr);
       //This will create the assignment.
       db.Assignment.create({
         task: req.body.task,
@@ -421,7 +429,6 @@ userRouter.post("/createClass", (req, res) => {
   var className = req.body;
 
   // console.log(className)
-
 
   //This will create the class.
   db.Classroom.create(className)
