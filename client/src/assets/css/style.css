@@ -234,7 +234,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .mb65 {
-  margin-bottom: 65px;
+  margin-bottom: 40px;
 }
 
 .mt60 {
@@ -535,34 +535,6 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 15px;
   padding: 15px;
   font-weight: 700;
-}
-
-.cart-search {
-  margin-top: 12px;
-  margin-left: 10px;
-}
-
-.cart-search li {
-  height: 35px;
-  width: 35px;
-  text-align: center;
-  line-height: 30px;
-  border-radius: 100%;
-  color: #fff;
-  margin-left: 10px;
-  border: 2px solid #17d0cf;
-  position: relative;
-}
-
-.cart-search li a {
-  display: block;
-  width: 100%;
-}
-
-.cart-search li button {
-  background-color: transparent;
-  border: none;
-  color: #fff;
 }
 
 .select-lang {
@@ -2028,7 +2000,6 @@ button.alt-menu-btn.float-left {
 
 .about-us-section {
   background-color: #f7f7f7;
-  padding: 125px 0px;
   overflow: visible;
 }
 

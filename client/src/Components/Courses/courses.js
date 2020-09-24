@@ -7,8 +7,8 @@ class Courses extends React.Component {
       <section id="course-category" className="course-category-section">
         <div className="container">
           <div className="section-title mb45 headline text-center ">
-            <span className="subtitle text-uppercase">COURSE CATEGORIES</span>
-            <h2>
+            <span className="courses subtitle text-uppercase">COURSE CATEGORIES</span>
+            <h2 className="browse">
               Browse Courses
             </h2>
           </div>

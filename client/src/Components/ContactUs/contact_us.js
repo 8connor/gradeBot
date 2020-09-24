@@ -4,12 +4,12 @@ const contactinfo = [
 
   {
     icon: 'fas fa-phone',
-    primary: '(800) 867 5309'
+    primary: '1+ (800) 867- 5309'
   },
 
   {
     icon: 'fas fa-envelope',
-    primary: 'mail@mail.com'
+    primary: 'gradebot@mail.com'
   }
 
 ];
@@ -23,9 +23,6 @@ const contactinfoList = contactinfo.map((item) =>
       <ul>
         <li>
           <span>Primary: </span>{item.primary}
-        </li>
-        <li>
-          <span>Second: </span>{item.second}
         </li>
       </ul>
     </div>
@@ -70,6 +67,28 @@ export class ContactUs extends React.Component {
                 </div>
               </div>
               
+              <div className="col-md-6">
+                <div className="section-title  mb45 headline text-left">
+                  <span className="subtitle ml42  text-uppercase">Group Contact Info
+                  </span>
+                  <div className="contact-list mb65 ul-li-block ">
+                    <ul>
+                      <li>
+                        <i className="fas fa-caret-right" /> Noe <a href="#"><i className="fab fa-github" /></a> <a href="#"><i id="fab2" className="fab fa-google-plus-g" /></a> <a href="#"><i className="fab fa-linkedin-in" /></a>
+                      </li>
+                      <li>
+                        <i className="fas fa-caret-right" /> Katie <a href="#"><i className="fab fa-github" /></a> <a href="#"><i id="fab2" className="fab fa-google-plus-g" /></a> <a href="#"><i className="fab fa-linkedin-in" /></a>
+                      </li>
+                      <li>
+                        <i className="fas fa-caret-right" /> James <a href="#"><i className="fab fa-github" /></a> <a href="#"><i id="fab2" className="fab fa-google-plus-g" /></a> <a href="#"><i className="fab fa-linkedin-in" /></a>
+                      </li>
+                      <li>
+                        <i className="fas fa-caret-right" /> Connor <a href="#"><i className="fab fa-github" /></a> <a href="#"><i id="fab2" className="fab fa-google-plus-g" /></a> <a href="#"><i className="fab fa-linkedin-in" /></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

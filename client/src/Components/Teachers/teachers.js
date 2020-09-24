@@ -6,7 +6,7 @@ class Teachers extends React.Component {
     return (
       <section id="course-teacher" className="course-teacher-section">
         <div className="parallax">
-          <div className="container">
+          <div className="container teacher-container">
             <div className="section-title mb20 headline text-center ">
               <span className="subtitle text-uppercase">MEET OUR</span>
               <h2>

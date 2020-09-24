@@ -166,7 +166,7 @@ h6 {
 }
 
 .mb65 {
-	margin-bottom: 65px;
+	margin-bottom: 40px;
 }
 
 .mt60 {
@@ -213,7 +213,7 @@ h6 {
 		background: -ms-linear-gradient(left, $base-color-2 0%, $base-color-1 51%, $base-color-2 100%);
 		background: linear-gradient(to right, $base-color-2 0%, $base-color-1 51%, $base-color-2 100%);
 		background-size: 200% auto;
-		background-position: 190px;
+		background-position: 200px;
 	}
 }
 
@@ -397,32 +397,7 @@ h6 {
 	}
 }
 
-.owl-carousel.owl-carousel {
-	.owl-item { 
-		img {
-			display: block;
-			width: auto;
-			max-width: 100%;
-		}
-	}
-	.owl-nav.owl-nav {
-		right: 0;
-		top: -90px;
-		position: absolute;
+.canvas.tsparticles-canvas-el {
+	height: 0px !important;
 
-		.owl-prev.owl-prev {
-			float: left;
-			width: 60px;
-			height: 60px;
-			line-height: 60px;
-			text-align: center;
-			margin: 0 5px;
-			border-radius: 4px;
-			background-color: #f7f7f7;
-		}
-
-		.owl-next.owl-next {
-			@extend .owl-prev.owl-prev;
-		}
-	}
 }

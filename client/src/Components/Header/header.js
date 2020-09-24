@@ -11,7 +11,7 @@ import Button from "react-bootstrap/Button"
 import Login from '../Login/login';
 import AuthService from '../../Services/AuthService';
 import { AuthContext } from '../../Context/AuthContext';
-import logo from "../../image/logo.png"
+import logo from "../../assets/img/logo/bluerobot2.png"
 
 function Header() {
     const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(AuthContext);
@@ -149,16 +149,17 @@ function Header() {
                         <div className="navbar-default">
                             <div className="navbar-header float-left">
                                 <Link className="navbar-brand text-uppercase" to="/">
-                                    <img src={logo} alt="logo" />
+                                    <img style={{ maxWidth: "200px", padding: "0" }}src={logo} alt="logo" />
                                 </Link>
                             </div>
 
 
 
 
-                            <nav className="navbar-menu float-left">
+                            <nav className="navbar-menu float-right">
                                 <div className="nav-menu ul-li">
                                     <ul>
+
                                         <li className="menu-item-has-children ul-li-block">
                                             <Link to="/">Home</Link>
 

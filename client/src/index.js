@@ -4,6 +4,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import AuthProvider from "./Context/AuthContext"
+import './assets/css/fontawesome-all.css';
+import './assets/css/flaticon.css';
 
 
 // The App component below will get passed to children under the AuthProvider 

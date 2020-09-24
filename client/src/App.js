@@ -20,13 +20,13 @@ import AllAssignments from "./Components/AllAssignments";
 import AdminCreateUser from "./Components/AdminCreateUser";
 import ClassCreate from "./Components/ClassCreate";
 import MainBody from "./Components/MainBody"
-
+import ParticlesIntro from "./Components/Particles/particles"
 import Header from './Components/Header/header';
-import Particles from './Components/Particles/particles';
 import AboutUs from './Components/AboutUs/aboutus';
 import LatestNews from './Components/LatestNews/latest_news';
 import Teachers from './Components/Teachers/teachers';
 import Courses from './Components/Courses/courses';
+import Particles from 'react-particles-js';
 import ContactUs from './Components/ContactUs/contact_us';
 import Footer from './Components/Footer/footer';
 
@@ -50,10 +50,10 @@ function App() {
     <Router>
       <Header />
       <Route exact path="/">
+        <ParticlesIntro />
         <AboutUs />
-        <LatestNews />
-        <Teachers />
         <Courses />
+        <Teachers />
         <ContactUs />
       </Route>
       <MainBody>

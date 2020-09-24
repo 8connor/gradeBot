@@ -15,8 +15,28 @@
 		}
 	}
 }
+
+.contact-list {
+	font-weight: 400;
+	font-size: 30px;
+	color: white;
+	margin-top: 20px;
+	margin-bottom: 8px;
+	padding-left: 25px;
+	position: relative;
+}
+
+.fab {
+	color: #17d0cf;
+}
+
+#fab2 {
+	color: white;
+}
+
 .contact-left-content {
 	max-width: 500px;
+
 }
 .address-icon {
 	height: 60px;

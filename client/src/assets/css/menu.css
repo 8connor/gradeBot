@@ -34,10 +34,10 @@
 	transition: .3s all ease-in-out;
 }
 .nav-menu a.active:after {
-	width: 45px;
+	width: 75px;
 }
 .nav-menu a:hover::after {
-	width: 45px;
+	width: 75px;
 }
 .navbar-header {
 	float: left;
