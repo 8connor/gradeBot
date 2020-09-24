@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import AllAssignmentsService from "../../Services/AllAssignmentsService"
-import Axios from "axios";
 
 function Courses() {
   const [received, setReceived] = useState(false);
