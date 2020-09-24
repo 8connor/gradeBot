@@ -11,8 +11,7 @@ var style = {
 class ParticlesIntro extends React.Component {
     render() {
         return (
-            <router>
-                <div classname="landing">
+                <div className="landing align-content-center">
                     <Particles className="particles"
                         style={style}
                         params={{
@@ -35,7 +34,7 @@ class ParticlesIntro extends React.Component {
                         }}
                         />
 
-                        <div className="logo-title container-fluid text-center"
+                        <div className="logo-title container-fluid align-content-center"
                         style={{
                             top: 0,
                             left: 0,
@@ -47,7 +46,6 @@ class ParticlesIntro extends React.Component {
                             </div>
                         </div>
                 </div>
-            </router>
         
     )}; 
 }
