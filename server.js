@@ -5,8 +5,6 @@ const mongoose = require('mongoose');
 const bcrypt = require("bcryptjs");
 const cookieParser = require("cookie-parser"); // required to read the cookie and JWT to work
 
-
-
 //----------------------------------------- END OF DEPENDENCIES---------------------------------------------------
 
 mongoose.connect(`mongodb+srv://herokuUser:${process.env.herokuPass}@cluster0.beusi.mongodb.net/`, {useNewUrlParser: true, useUnifiedTopology: true }, ()=>{
