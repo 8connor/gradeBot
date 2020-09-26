@@ -10,6 +10,7 @@ import AuthProvider from "./Context/AuthContext"
 // The entire app will now have access to user and isAuthenticated global states 
 ReactDOM.render(
     <AuthProvider>
+        <
         <App />
     </AuthProvider>,
     document.getElementById('root')
