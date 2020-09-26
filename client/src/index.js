@@ -12,6 +12,7 @@ import { BrowserRouter } from 'react-router-dom';
 // The entire app will now have access to user and isAuthenticated global states 
 ReactDOM.render(
     <AuthProvider>
+        
         <BrowserRouter>
              <App />
         </BrowserRouter>
