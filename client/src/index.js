@@ -11,13 +11,17 @@ import { BrowserRouter } from 'react-router-dom';
 // The App component below will get passed to children under the AuthProvider 
 // The entire app will now have access to user and isAuthenticated global states 
 ReactDOM.render(
-    <AuthProvider>
-        
-        <BrowserRouter>
-             <App />
-        </BrowserRouter>
+    <BrowserRouter>
+        <AuthProvider>
+
        
-    </AuthProvider>,
+             <App />
+       
+       
+        </AuthProvider>
+    </BrowserRouter>
+    
+    ,
     document.getElementById('root')
     );
     
