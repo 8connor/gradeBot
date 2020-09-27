@@ -54,13 +54,13 @@ function App() {
       </Route>
 
       <MainBody>
-        <UnPrivateRoute path="/login" component={Login} />
-        <PrivateRoute path="/dashboard" roles={["student", "admin", "teacher"]} component={Dashboard} />
-        <PrivateRoute path="/createForm" roles={["student", "admin", "teacher"]} component={CreateForm} />
-        <PrivateRoute path="/allAssignments" roles={["student", "admin", "teacher"]} component={AllAssignments} />
-        <PrivateRoute path="/classCreate" roles={["student", "admin", "teacher"]} component={ClassCreate} />
+        <UnPrivateRoute exact path="/login" component={Login} />
+        <PrivateRoute exact path="/dashboard" roles={["student", "admin", "teacher"]} component={Dashboard} />
+        <PrivateRoute exact path="/createForm" roles={["student", "admin", "teacher"]} component={CreateForm} />
+        <PrivateRoute exact path="/allAssignments" roles={["student", "admin", "teacher"]} component={AllAssignments} />
+        <PrivateRoute exact path="/classCreate" roles={["student", "admin", "teacher"]} component={ClassCreate} />
         {/* Only Admin has access to the links below */}
-        <UnPrivateRoute path="/adminCreateUser"  roles={["admin"]} component={AdminCreateUser} />
+        <UnPrivateRoute exact path="/adminCreateUser"  roles={["admin"]} component={AdminCreateUser} />
       </MainBody>
       <Footer />
     </Router>
