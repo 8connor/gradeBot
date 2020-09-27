@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require('mongoose');
 const bcrypt = require("bcryptjs");
 const cookieParser = require("cookie-parser"); // required to read the cookie and JWT to work
+const path = require('path');
 
 
 
@@ -20,7 +21,8 @@ app.use(express.json());
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+  app.use(express.static(path.join(__dirname, 'client/build')));
+
 }
 
 //----------------------------------------- END OF MIDDLEWARE ---------------------------------------------------
