@@ -45,7 +45,11 @@ const Header = (props) => {
             if (data.success) {
                 setUser(data.user);
                 setIsAuthenticated(false);
-                return <Redirect to={"/"} />
+              
+                // return  <Redirect  to="/" />
+                return <Redirect to="/" />
+       
+
             }
         });
     }
