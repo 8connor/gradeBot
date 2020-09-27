@@ -45,11 +45,9 @@ const Header = (props) => {
             if (data.success) {
                 setUser(data.user);
                 setIsAuthenticated(false);
-              
                 // return  <Redirect  to="/" />
                 return <Redirect to="/" />
        
-
             }
         });
     }
@@ -154,17 +152,17 @@ const Header = (props) => {
 
                                             <ul className="sub-menu">
                                                 <li>
-                                                    <a href="/#teachers">Featured Teachers</a>
+                                                    <Link to="/#teachers">Featured Teachers</Link>
                                                 </li>
                                                 <li>
-                                                    <a href="/#footer-area">Contact us</a>
+                                                    <Link to="/#contact">Contact us</Link>
                                                 </li>
                                             </ul>
                                         </li>
                                         {isAuthenticated ? authenticatedNavBar() : unauthenticatedNavBar()}
                                     </ul>
                                 </div>
-                            </nav>
+                            </nav> 
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,7 @@
 
 import React, { useState, useContext } from "react";
 import AuthService from "../../Services/AuthService";
-
+import Message from "../Message"; // Message from the server
 import { AuthContext } from "../../Context/AuthContext"; // Global State components
 
 
@@ -17,7 +17,7 @@ import Button from "react-bootstrap/Button";
 const Login = props => {
 
     const [user, setUser] = useState({ email: "", password: "" });
-  
+    const [message, setMessage] = useState(null);
     const authContext = useContext(AuthContext);
 
     const onChange = (e) => {
@@ -33,7 +33,7 @@ const Login = props => {
         AuthService.login(user).then(data => {
 
 
-            const { isAuthenticated, user } = data;
+            const { isAuthenticated, user, message } = data;
 
             if (isAuthenticated) {
                 authContext.setUser(user);
@@ -41,6 +41,9 @@ const Login = props => {
 
                 // here we going to navigate to our todos page
                 props.history.push("/dashboard");
+            }
+            else {
+                setMessage(message);
             }
         })
     }
@@ -83,7 +86,8 @@ const Login = props => {
                     <Row>
                         <Col md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} sm={{ span: 6, offset: 3 }}>
 
-    
+                            {/* In case we have a message to display */}
+                            {message ? <Message message={message} /> : null}
 
                         </Col>
                     </Row>

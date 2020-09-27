@@ -1,4 +1,4 @@
-import Axios from "axios";
+
 
 export default {
 
@@ -25,10 +25,16 @@ export default {
 
     createStudentQuery: (obj) => {
 
-        return Axios.post("/api/studentQuery", obj)
+        return fetch('/api/studentQuery', {
+            method: "post",
+            body: JSON.stringify(obj),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
             .then(res => {
                 if (res.status !== 401)
-                    return res.data
+                    return res.json().then(data => data);
                 else // passport is sending a 401 code
                     return { isAuthenticated: false, user: { email: "", accessType: "" } };
             })

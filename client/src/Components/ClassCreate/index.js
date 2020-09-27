@@ -16,7 +16,7 @@ function ClassCreate(props) {
   const [currentClass, setCurrentClass] = useState("");
   const [classCreated, setClassCreated] = useState(false);
   const [errorHandle, setErrorHandle] = useState(false);
-  // TODO: const [alreadyCreated, setAlreadyCreated] = useState(false); ERROR HANDLING FOR IF THE CLASS HAS ALREADY BEEN CREATED.
+  // todo: const [alreadyCreated, setAlreadyCreated] = useState(false); ERROR HANDLING FOR IF THE CLASS HAS ALREADY BEEN CREATED.
   const [teacherList, setTeacherList] = useState([]);
   const [selectedTeacher, setSelectedTeacher] = useState("");
   const [selectedTeacherID, setSelectedTeacherID] = useState("");
@@ -36,7 +36,7 @@ function ClassCreate(props) {
     let teachObj = {
       teacherName: selectedTeacher,
       teacherID: selectedTeacherID,
-      classRoom: document.getElementById("className").value,
+      classRoom: document.getElementById("className").value, // Where is this being used?
     };
 
     Axios.post("/api/updateTeacher", teachObj)
@@ -83,7 +83,6 @@ function ClassCreate(props) {
   };
 
   // todo: this is where the function for that error handling is
-  
   //const handleDecision = (e) => {
   //   console.log(e.target.innerHTML);
 
