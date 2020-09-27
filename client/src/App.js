@@ -34,6 +34,7 @@ import UnPrivateRoute from './hocs/UnPrivateRoute';
 import {
   BrowserRouter as Router,
   Route,
+  Switch
 } from "react-router-dom";
 
 
@@ -44,25 +45,27 @@ function App() {
 
 
     <Router>
-      <Header />
-      <Route exact path="/" >
-        <AboutUs />
-        {/* <LatestNews /> */}
-        <Teachers />
-        <Courses />
-        {/* <ContactUs /> */}
-      </Route>
+      <Switch>
+        <Header />
+        <Route exact path="/" >
+          <AboutUs />
+          {/* <LatestNews /> */}
+          <Teachers />
+          <Courses />
+          {/* <ContactUs /> */}
+        </Route>
 
-      <MainBody>
-        <UnPrivateRoute path="/login" component={Login} />
-        <PrivateRoute path="/dashboard" roles={["student", "admin", "teacher"]} component={Dashboard} />
-        <PrivateRoute path="/createForm" roles={["student", "admin", "teacher"]} component={CreateForm} />
-        <PrivateRoute path="/allAssignments" roles={["student", "admin", "teacher"]} component={AllAssignments} />
-        <PrivateRoute path="/classCreate" roles={["student", "admin", "teacher"]} component={ClassCreate} />
-        {/* Only Admin has access to the links below */}
-        <UnPrivateRoute path="/adminCreateUser"  roles={["admin"]} component={AdminCreateUser} />
-      </MainBody>
-      <Footer />
+        <MainBody>
+          <UnPrivateRoute path="/login" component={Login} />
+          <PrivateRoute path="/dashboard" roles={["student", "admin", "teacher"]} component={Dashboard} />
+          <PrivateRoute path="/createForm" roles={["student", "admin", "teacher"]} component={CreateForm} />
+          <PrivateRoute path="/allAssignments" roles={["student", "admin", "teacher"]} component={AllAssignments} />
+          <PrivateRoute path="/classCreate" roles={["student", "admin", "teacher"]} component={ClassCreate} />
+          {/* Only Admin has access to the links below */}
+          <UnPrivateRoute path="/adminCreateUser"  roles={["admin"]} component={AdminCreateUser} />
+        </MainBody>
+        <Footer />
+      </Switch>
     </Router>
 
 
