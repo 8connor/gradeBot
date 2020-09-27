@@ -47,7 +47,6 @@ function App() {
       <>
      
       <Header />
-      <Switch>
       <Route exact path="/" >
         <AboutUs />
         {/* <LatestNews /> */}
@@ -56,6 +55,8 @@ function App() {
         {/* <ContactUs /> */}
       </Route>
 
+      <Switch>
+    
       <MainBody>
         <UnPrivateRoute exact path="/login" component={Login} />
         <PrivateRoute exact path="/dashboard" roles={["student", "admin", "teacher"]} component={Dashboard} />
