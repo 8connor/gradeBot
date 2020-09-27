@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AllAssignmentsService from "../../Services/AllAssignmentsService"
+import Axios from "axios";
 
 function Courses() {
   const [received, setReceived] = useState(false);
@@ -23,7 +24,7 @@ function Courses() {
     <section id="course-category" className="course-category-section">
       <div className="container">
         <div className="section-title mb45 headline text-center ">
-          <span className="subtitle text-uppercase text-dark">COURSE CATEGORIES</span>
+          <span className="subtitle text-uppercase">COURSE CATEGORIES</span>
           <h2>
             Browse Courses
             </h2>

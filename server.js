@@ -5,9 +5,11 @@ const mongoose = require('mongoose');
 const bcrypt = require("bcryptjs");
 const cookieParser = require("cookie-parser"); // required to read the cookie and JWT to work
 
+
+
 //----------------------------------------- END OF DEPENDENCIES---------------------------------------------------
-//`mongodb+srv://herokuUser:${process.env.herokuPass}@cluster0.beusi.mongodb.net/`
-mongoose.connect("mongodb://localhost:27017/gradeBot", {useNewUrlParser: true, useUnifiedTopology: true }, ()=>{
+
+mongoose.connect('mongodb://localhost/gradeBot', {useNewUrlParser: true, useUnifiedTopology: true }, ()=>{
   console.log("Successfully connected to Database");
 });
 

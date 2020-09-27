@@ -79,6 +79,8 @@ userRouter.post(
   "/login",
   passport.authenticate("local", { session: false }),
   (req, res) => {
+    console.log("In login route");
+
     // isAuthenticated a passport default function
     if (req.isAuthenticated()) {
       // passport provides req.user
@@ -136,6 +138,8 @@ userRouter.get(
 
 // =============================================================================
 userRouter.get("/allUsers", (req, res) => {
+  console.log("In get all users api");
+
   db.User.find({})
     .lean()
     .then(function (users) {
@@ -148,9 +152,10 @@ userRouter.get("/allClasses", (req, res) => {
   db.Classroom.find({})
     .lean()
     .then(function (classes) {
+
       let classesArr = classes.map((item, i) => {
-        return { name: item.name, teacher: item.teacher };
-      });
+        return {name: item.name, teacher: item.teacher }
+      })
 
       res.json(classesArr);
     })
@@ -161,13 +166,9 @@ userRouter.get("/allTeachers", (req, res) => {
   db.User.find({ accessType: "teacher" })
     .lean()
     .then(function (users) {
+
       let mappedUser = users.map((item, i) => {
-        return {
-          teacherID: item._id,
-          firstName: item.firstName,
-          lastName: item.lastName,
-          email: item.email,
-        };
+        return { teacherID: item._id, firstName: item.firstName, lastName: item.lastName, email: item.email }
       });
 
       res.json(mappedUser);
@@ -226,7 +227,7 @@ userRouter.get("/allGrades", (req, res) => {
       return newArr;
     })
     .then((newest) => {
-      
+      console.log(newest);
 
       res.json(newest);
     })
@@ -287,6 +288,8 @@ userRouter.post("/specificGrade", (req, res) => {
         return rObj;
       });
 
+      console.log(assignArr);
+
       res.json(assignArr);
     })
     .catch((err) => res.json(err));
@@ -296,9 +299,12 @@ userRouter.post("/specificClass", (req, res) => {
   db.Classroom.findOne({ name: req.body.name })
     .lean()
     .then(function (classroom) {
+      console.log(classroom);
       db.Assignment.find({ classroom: classroom._id })
         .lean()
         .then((newResponse) => {
+          console.log(newResponse);
+
           res.json(newResponse);
         });
     })
@@ -308,6 +314,7 @@ userRouter.post("/specificClass", (req, res) => {
 userRouter.post("/changeGrade", (req, res) => {
   //req coming in
   var studentId = req.body.studentID;
+  console.log(req.body);
 
   db.Assignment.updateMany(
     { _id: req.body.assignmentID },
@@ -316,6 +323,8 @@ userRouter.post("/changeGrade", (req, res) => {
   )
     .lean()
     .then(function (assignmentEdit) {
+      console.log("made it to then");
+      console.log(assignmentEdit);
       res.json(assignmentEdit);
     })
     .then((Average) => res.json(Average))
@@ -323,10 +332,9 @@ userRouter.post("/changeGrade", (req, res) => {
 });
 
 userRouter.post("/studentQuery", (req, res) => {
-  let newVar =
-    req.body.firstName.length === 0
-      ? { accessType: "student" }
-      : { firstName: req.body.firstName };
+  let newVar = req.body.firstName
+    ? { firstName: req.body.firstName }
+    : { accessType: "student" };
 
   db.User.find(newVar)
     .lean()
@@ -360,12 +368,17 @@ userRouter.post("/updateTeacher", (req, res) => {
   //req coming in
   var incObj = req.body;
 
+  console.log(incObj);
+
+  console.log(incObj)
+
   db.Classroom.updateOne(
     { name: incObj.classRoom },
-    { teacher: incObj.teacherID }
-  )
+    { teacher: incObj.teacherID })
     .lean()
     .then(function (response) {
+      console.log(response);
+
       res.json(response);
     })
     .then((Average) => res.json(Average))
@@ -378,10 +391,11 @@ userRouter.post("/createAssignment", (req, res) => {
     .lean()
     .then((newRes) => {
       let studentsArr = newRes.students.map((student, i) => {
-        rObj = { studentID: student.studentID, grade: 0 };
+        rObj = { studentID: student.studentID, grade: 100 };
         return rObj
       })
 
+      console.log(studentsArr)
       //This will create the assignment.
       db.Assignment.create({
         task: req.body.task,
@@ -391,6 +405,9 @@ userRouter.post("/createAssignment", (req, res) => {
         classroom: newRes._id,
       })
         .then(function (assignment) {
+          console.log(assignment);
+
+          console.log(assignment.grades);
           //this responds with the assignment that has been added.
           res.json(assignment);
         })
@@ -405,9 +422,11 @@ userRouter.post("/createClass", (req, res) => {
 
   // console.log(className)
 
+
   //This will create the class.
   db.Classroom.create(className)
     .then(function (random) {
+      console.log(random);
       //this responds with the assignment that has been added.
       res.json(random);
     })
