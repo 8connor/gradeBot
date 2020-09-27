@@ -23,8 +23,8 @@ function Courses() {
   return (
     <section id="course-category" className="course-category-section">
       <div className="container">
-        <div className="section-title mb45 headline text-center ">
-          <span className="subtitle text-uppercase">COURSE CATEGORIES</span>
+        <div className="section-title mb45 headline text-center">
+          <span className="subtitle text-uppercase text-dark">COURSE CATEGORIES</span>
           <h2>
             Browse Courses
             </h2>

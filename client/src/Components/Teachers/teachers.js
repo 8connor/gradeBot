@@ -21,7 +21,7 @@ function Teachers(props) {
     <section id="course-category" className="course-category-section">
       <div >
         <div className="container">
-          <div className="section-title mb20 headline text-center ">
+          <div className="section-title mb20 headline text-center text-dark">
             <span className="subtitle text-uppercase">MEET OUR</span>
             <h2>
               <span>Teachers.</span>
