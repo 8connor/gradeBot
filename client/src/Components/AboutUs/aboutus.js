@@ -34,10 +34,10 @@ function AboutUs(props) {
                                             </li>
                                     </ul>
                                 </div>
-                                <div className="about-btn">
+                                <div className="about-btn ">
                                     <div className="genius-btn gradient-bg text-center text-uppercase ul-li-block bold-font">
                                         <a href="#footer-area">
-                                            Sign Up <i className="fas fa-caret-right" />
+                                            contact us <i className="fas fa-caret-right" />
                                         </a>
                                     </div>
                                 </div>

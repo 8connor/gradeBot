@@ -12,13 +12,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-} from "react-router-dom";
-
 
 
 const Login = props => {
@@ -80,7 +73,7 @@ const Login = props => {
                                         onChange={onChange}
                                         placeholder="Enter Password" />
                                 </Form.Group>
-                                <Row className="justify-content-md-center">
+                                <Row className="justify-content-center">
                                     <Button onClick={onSubmit} variant="primary" type="submit" id="subButton">
                                         Log In
                                     </Button>

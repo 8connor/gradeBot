@@ -1,26 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Nav from "react-bootstrap/Nav";
-import Navbar from 'react-bootstrap/Navbar';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
+    Link, Redirect
 } from "react-router-dom";
 import Button from "react-bootstrap/Button"
-import Login from '../Login/login';
 import AuthService from '../../Services/AuthService';
 import { AuthContext } from '../../Context/AuthContext';
 import logo from "../../assets/img/logo/bluerobot2.png"
 
-function Header() {
+const Header = (props) => {
     const { isAuthenticated, user, setIsAuthenticated, setUser } = useContext(AuthContext);
 
     let listener = null
     const [scrollState, setScrollState] = useState("clear");
     const [userRole, setUserRole] = useState("");
-
-    console.log(scrollState)
 
     useEffect(
         () => {
@@ -53,6 +45,9 @@ function Header() {
             if (data.success) {
                 setUser(data.user);
                 setIsAuthenticated(false);
+                // return  <Redirect  to="/" />
+                return <Redirect to="/" />
+       
             }
         });
     }
@@ -94,10 +89,6 @@ function Header() {
                 {/* <Button href="/createForm">Create Assignment</Button>
                 <Button href="/classCreate">Create Class</Button>
                 <Button href="/adminCreateUser">Admin Create User</Button> */}
-
-
-
-
 
                 <li>
                     <Link to="/classCreate">Create Class</Link>
@@ -174,12 +165,12 @@ function Header() {
                                         </li>
                                         {isAuthenticated ? authenticatedNavBar() : unauthenticatedNavBar()}
                                     </ul>
-
                                 </div>
-                            </nav>
+                            </nav> 
                         </div>
                     </div>
                 </div>
+
             </div>
         </header>
     );
