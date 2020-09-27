@@ -19,10 +19,10 @@ function Teachers(props) {
 
   return (
     <section id="course-category" className="course-category-section">
-      <div >
+      <div id="teachers">
         <div className="container">
           <div className="section-title mb20 headline text-center ">
-            <span className="subtitle text-uppercase">MEET OUR</span>
+            <span className="subtitle text-uppercase text-dark">MEET OUR</span>
             <h2>
               <span>Teachers.</span>
             </h2>

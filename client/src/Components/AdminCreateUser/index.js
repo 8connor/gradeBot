@@ -1,7 +1,4 @@
-
-
 import React, { useState, useContext, useEffect } from "react";
-
 
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
@@ -10,208 +7,185 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Message from "../Message";
+import DropdownButton from "react-bootstrap/DropdownButton";
 import AdminCreateUserService from "../../Services/AdminCreateUserService";
-
 
 import { AuthContext } from "../../Context/AuthContext";
 
 // // Only using function will change the const color
 
-
 function AdminCreateUser() {
+  // Used to track the persistent autherication token
+  // Use Context will use the Auth Context file which contains the Autherization
+  // of the user
+  const authContext = useContext(AuthContext);
 
-    // Used to track the persistent autherication token
-    // Use Context will use the Auth Context file which contains the Autherization
-    // of the user
-    const authContext = useContext(AuthContext);
+  // Only using function will change the const color
+  const [firstNameState, setFirstName] = useState("");
+  const [lastNameState, setLastName] = useState("");
+  const [emailState, setEmail] = useState("");
+  const [passwordState, setPassword] = useState("");
+  const [accessTypeState, setAccessType] = useState("");
+  const [titleState, setTitle] = useState("");
+  const [classroomState, setClassroom] = useState("");
 
-    // Only using function will change the const color
-    const [firstNameState, setFirstName] = useState("");
-    const [lastNameState, setLastName] = useState("");
-    const [emailState, setEmail] = useState("");
-    const [passwordState, setPassword] = useState("");
-    const [accessTypeState, setAccessType] = useState("");
-    const [titleState, setTitle] = useState("");
-    const [classroomState, setClassroom] = useState("");
+  const [hideState, setHideState] = useState(false);
 
-    const [message, setMessage] = useState(null);
+  // At the beginning of the app we can make the api call instead of making several api calls
+  // when a teacher or student access type is selected
+  const [classrooms, setClassroomList] = useState([{ id: "", name: "" }]);
 
-    const [hideState, setHideState] = useState(false);
+  // Need to load the Classroom list right before the component is loaded
+  useEffect(() => {
+    // Creating an asynchronous function so the classroom is listed before the component is loaded
+    const call = async () => {
+      await AdminCreateUserService.getAllClass().then((result) => {
+        setClassroomList(result);
+      });
+    };
 
+    // create the function within the useEffect first and then call it
+    call();
+  }, []);
 
-    // At the beginning of the app we can make the api call instead of making several api calls 
-    // when a teacher or student access type is selected
-    const [classrooms, setClassroomList] = useState([{ id: "", name: "" }]);
-
-
-    // Need to load the Classroom list right before the component is loaded
-    useEffect(
-        () => {
-            // Creating an asynchronous function so the classroom is listed before the component is loaded
-            const call = async () => {
-                await AdminCreateUserService.getAllClass().then(result => {
-
-                    setClassroomList(result);
-                })
-            }
-
-            // create the function within the useEffect first and then call it
-            call();
-
-        }, [])
-
-
-    const handleSelect = (e) => {
-        setTitle(e);
-        setAccessType(e);
-        // logic to Show if Teacher or Student has been selected
-        if (e === "Teacher" || e === "Student") {
-            setHideState(true);
-        }
-
+  const handleSelect = (e) => {
+    setTitle(e);
+    setAccessType(e);
+    // logic to Show if Teacher or Student has been selected
+    if (e === "Teacher" || e === "Student") {
+      setHideState(true);
     }
+  };
 
-    const handleClassroom = (e) => {
-        setClassroom(e);
-    }
+  const handleClassroom = (e) => {
+    setClassroom(e);
+  };
 
+  const registerUser = (e) => {
+    e.preventDefault();
 
-    const registerUser = (e) => {
+    var newUser = {
+      firstName: firstNameState,
+      lastName: lastNameState,
+      email: emailState,
+      password: passwordState,
+      accessType: accessTypeState,
+      classroom: classroomState,
+    };
 
-        e.preventDefault();
+    AdminCreateUserService.postUser(newUser).then((data) => {
+      authContext.setUser({ email: "", accessType: "" });
+      authContext.setIsAuthenticated(false);
+    });
+  };
 
-        var newUser = {
-            firstName: firstNameState,
-            lastName: lastNameState,
-            email: emailState,
-            password: passwordState,
-            accessType: accessTypeState,
-            classroom: classroomState
-        };
+  return (
+    <Container className="adminCreateUser">
+      <Card.Body>
+        <Row>
+          <Col
+            md={{ span: 6, offset: 3 }}
+            lg={{ span: 6, offset: 3 }}
+            sm={{ span: 6, offset: 3 }}
+          >
+            <Form>
+              {/* First Name */}
+              <Form.Group>
+                <Form.Label>First Name</Form.Label>
+                <Form.Control
+                  type="firstName"
+                  placeholder="Enter First Name"
+                  onChange={(e) => setFirstName(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
 
-        AdminCreateUserService.postUser(newUser)
-            .then(data => {
-                const { message } = data;
+              {/* Last Name */}
+              <Form.Group>
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control
+                  type="lastName"
+                  placeholder="Enter Last Name"
+                  onChange={(e) => setLastName(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
 
-                if (!message.msgError) {
-                    setMessage(message);
-                }
-                else if (message.msgBody === "UnAuthorized") {
-                    setMessage(message);
-                    authContext.setUser({ email: "", accessType: "" });
-                    authContext.setIsAuthenticated(false);
-                }
-                else {
-                    setMessage(message);
-                }
-            })
+              {/* New email*/}
+              <Form.Group>
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
 
-    }
+              {/* Password */}
+              {/* Need to create functionality for Temp Password */}
+              <Form.Group>
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Enter Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                ></Form.Control>
+              </Form.Group>
 
-
-    return (
-        <Container className="adminCreateUser">
-            <Card.Body>
-                <Row>
-                    <Col md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} sm={{ span: 6, offset: 3 }}>
-                        <Form>
-
-                            {/* First Name */}
-                            <Form.Group>
-                                <Form.Label>First Name</Form.Label>
-                                <Form.Control type="firstName" placeholder="Enter First Name"
-                                    onChange={e => setFirstName(e.target.value)}></Form.Control>
-                            </Form.Group>
-
-
-                            {/* Last Name */}
-                            <Form.Group>
-                                <Form.Label>Last Name</Form.Label>
-                                <Form.Control type="lastName" placeholder="Enter Last Name"
-                                    onChange={e => setLastName(e.target.value)}></Form.Control>
-                            </Form.Group>
-
-
-                            {/* New email*/}
-                            <Form.Group>
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control type="email" placeholder="Enter Email"
-                                    onChange={e => setEmail(e.target.value)}></Form.Control>
-                            </Form.Group>
-
-
-                            {/* Password */}
-                            {/* Need to create functionality for Temp Password */}
-                            <Form.Group>
-                                <Form.Label >Password</Form.Label>
-                                <Form.Control type="password" placeholder="Enter Password"
-                                    onChange={e => setPassword(e.target.value)}></Form.Control>
-                            </Form.Group>
-
-
-                            {/* Access Type */}
-                            {/* Selection of a Class List */}
-                            <Form.Group>
-                                <DropdownButton
-                                    alignRight
-                                    title={(titleState === "") ? "Select Access Type" : titleState}
-                                    id="dropdown-menu-align-right"
-                                    display="none"
-                                    onSelect={handleSelect}
-                                >
-                                    <Dropdown.Item eventKey="student">Student</Dropdown.Item>
-                                    <Dropdown.Item eventKey="teacher">Teacher</Dropdown.Item>
-                                    <Dropdown.Item eventKey="admin">Admin</Dropdown.Item>
-                                    {/* <Dropdown.Divider />
+              {/* Access Type */}
+              {/* Selection of a Class List */}
+              <Form.Group>
+                <DropdownButton
+                  alignRight
+                  title={titleState === "" ? "Select Access Type" : titleState}
+                  id="dropdown-menu-align-right"
+                  display="none"
+                  onSelect={handleSelect}
+                >
+                  <Dropdown.Item eventKey="student">Student</Dropdown.Item>
+                  <Dropdown.Item eventKey="teacher">Teacher</Dropdown.Item>
+                  <Dropdown.Item eventKey="admin">Admin</Dropdown.Item>
+                  {/* <Dropdown.Divider />
                                         <Dropdown.Item eventKey="some link">some link</Dropdown.Item> */}
-                                </DropdownButton>
-                            </Form.Group>
+                </DropdownButton>
+              </Form.Group>
 
+              {/* Assign Class */}
+              <Form.Group>
+                {hideState ? (
+                  <DropdownButton
+                    alignRight
+                    title={classroomState === "" ? "Pick" : classroomState}
+                    onSelect={handleClassroom}
+                  >
+                    {classrooms.map((item, i) => (
+                      <Dropdown.Item
+                        key={i}
+                        eventKey={item.name}
+                        value={item.id}
+                      >
+                        {item.name}
+                      </Dropdown.Item>
+                    ))}
+                  </DropdownButton>
+                ) : null}
+              </Form.Group>
 
-                            {/* Assign Class */}
-                            <Form.Group>
-                                {
-                                    hideState ?
-                                        <DropdownButton
-
-                                            alignRight
-                                            title={classroomState === "" ? "Pick" : classroomState}
-                                            onSelect={handleClassroom}
-                                        >
-                                            {
-                                                classrooms.map((item, i) => (
-                                                    <Dropdown.Item key={i} eventKey={item.name} value={item.id}>{item.name}</Dropdown.Item>
-                                                ))
-                                            }
-                                        </DropdownButton>
-                                        : null
-                                }
-                            </Form.Group>
-
-
-                            {/* Button to make Axios call to register user */}
-                            <Row className="justify-content-md-center">
-                                <Button onClick={registerUser} variant="primary" type="submit" id="subButton">
-                                    Submit
-                                </Button>
-                            </Row>
-
-                        </Form>
-
-                    </Col>
-                    {message ? <Message message={message} /> : null}
-
-                </Row>
-            </Card.Body>
-        </Container>
-    )
-
+              {/* Button to make Axios call to register user */}
+              <Row className="justify-content-md-center">
+                <Button
+                  onClick={registerUser}
+                  variant="primary"
+                  type="submit"
+                  id="subButton"
+                >
+                  Submit
+                </Button>
+              </Row>
+            </Form>
+          </Col>
+        </Row>
+      </Card.Body>
+    </Container>
+  );
 }
 
-
-
 export default AdminCreateUser;
-
-

@@ -6,28 +6,30 @@ import Button from "react-bootstrap/Button";
 
 
 import ClassCreateService from "../../Services/ClassCreateService";
+import Axios from "axios";
 
 function StudentSearch(props) {
   const [studentArr, setStudentArr] = useState([]);
   const [currentList, setCurrentList] = useState([]);
   const [filled, setFilled] = useState(false);
   const [currentListFilled, setCurrentListFilled] = useState(false);
-  const [search, setSearch] = useState(false);
+  const [search, setSearch] = useState("");
   const [error, setError] = useState(false);
 
   const handleClick = () => {
-    ClassCreateService.createStudentQuery(search)
+    console.log(search)
+   Axios.post("/api/studentQuery", search)
       .then((res) => {
-        setStudentArr(res);
+        setStudentArr(res.data);
         console.log(studentArr);
-        setError(res.length === 0 ? true : false);
-        setFilled(res.length === 0 ? false : true);
+        setError(res.data.length === 0 ? true : false);
+        setFilled(res.data.length === 0 ? false : true);
       })
       .catch((err) => {
         setError(true);
       });
   };
-  // End HandlClick
+  // End HandleClick
 
   const handleChange = (e) => {
     let studentName = {
