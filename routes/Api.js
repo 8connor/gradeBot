@@ -378,9 +378,9 @@ userRouter.post("/createAssignment", (req, res) => {
     .lean()
     .then((newRes) => {
       let studentsArr = newRes.students.map((student, i) => {
-        rObj = { studentID: student.studentID, grade: 100 };
-        return rObj;
-      });
+        rObj = { studentID: student.studentID, grade: 0 };
+        return rObj
+      })
 
       //This will create the assignment.
       db.Assignment.create({
