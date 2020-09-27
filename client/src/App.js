@@ -46,25 +46,29 @@ function App() {
 
     <Router>
 
+     
       <Header />
-      <Route exact path="/" >
-        <AboutUs />
-        {/* <LatestNews /> */}
-        <Teachers />
-        <Courses />
-        {/* <ContactUs /> */}
-      </Route>
+      <Switch>
+        <Route exact path="/" >
+          <AboutUs />
+          {/* <LatestNews /> */}
+          <Teachers />
+          <Courses />
+          {/* <ContactUs /> */}
+        </Route>
 
-      <MainBody>
-        <UnPrivateRoute exact path="/login" component={Login} />
-        <PrivateRoute exact path="/dashboard" roles={["student", "admin", "teacher"]} component={Dashboard} />
-        <PrivateRoute exact path="/createForm" roles={["student", "admin", "teacher"]} component={CreateForm} />
-        <PrivateRoute exact path="/allAssignments" roles={["student", "admin", "teacher"]} component={AllAssignments} />
-        <PrivateRoute exact path="/classCreate" roles={["student", "admin", "teacher"]} component={ClassCreate} />
-        {/* Only Admin has access to the links below */}
-        <UnPrivateRoute exact path="/adminCreateUser"  roles={["admin"]} component={AdminCreateUser} />
-      </MainBody>
+        <MainBody>
+          <UnPrivateRoute exact path="/login" component={Login} />
+          <PrivateRoute exact path="/dashboard" roles={["student", "admin", "teacher"]} component={Dashboard} />
+          <PrivateRoute exact path="/createForm" roles={["student", "admin", "teacher"]} component={CreateForm} />
+          <PrivateRoute exact path="/allAssignments" roles={["student", "admin", "teacher"]} component={AllAssignments} />
+          <PrivateRoute exact path="/classCreate" roles={["student", "admin", "teacher"]} component={ClassCreate} />
+          {/* Only Admin has access to the links below */}
+          <UnPrivateRoute exact path="/adminCreateUser"  roles={["admin"]} component={AdminCreateUser} />
+        </MainBody>
+      </Switch>
       <Footer />
+     
     </Router>
 
 
