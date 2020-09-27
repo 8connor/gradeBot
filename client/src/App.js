@@ -34,6 +34,7 @@ import UnPrivateRoute from './hocs/UnPrivateRoute';
 import {
   BrowserRouter as Router,
   Route,
+  Switch
 } from "react-router-dom";
 
 
@@ -44,6 +45,7 @@ function App() {
 
 
     <Router>
+
       <Header />
       <Route exact path="/" >
         <AboutUs />
