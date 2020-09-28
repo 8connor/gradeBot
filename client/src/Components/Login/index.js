@@ -1,10 +1,7 @@
-
-
 import React, { useState, useContext } from "react";
 import AuthService from "../../Services/AuthService";
 import Message from "../Message"; // Message from the server
 import { AuthContext } from "../../Context/AuthContext"; // Global State components
-
 
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
@@ -13,94 +10,105 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
+const Login = (props) => {
+  const [user, setUser] = useState({ email: "", password: "" });
+  const [message, setMessage] = useState(null);
+  const authContext = useContext(AuthContext);
 
-const Login = props => {
+  const onChange = (e) => {
+    e.preventDefault();
 
-    const [user, setUser] = useState({ email: "", password: "" });
-    const [message, setMessage] = useState(null);
-    const authContext = useContext(AuthContext);
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
 
-    const onChange = (e) => {
-        e.preventDefault();
+  const onSubmit = (e) => {
+    e.preventDefault();
 
-        setUser({ ...user, [e.target.name]: e.target.value });
-    }
+    AuthService.login(user).then((data) => {
+      const { isAuthenticated, user, message } = data;
 
-    const onSubmit = e => {
-        e.preventDefault();
+      if (isAuthenticated) {
+        authContext.setUser(user);
+        authContext.setIsAuthenticated(isAuthenticated);
 
-
-        AuthService.login(user).then(data => {
-
-
-            const { isAuthenticated, user, message } = data;
-
-            if (isAuthenticated) {
-                authContext.setUser(user);
-                authContext.setIsAuthenticated(isAuthenticated);
-
-                // here we going to navigate to our todos page
-                props.history.push("/dashboard");
-            }
-            else {
-                setMessage(message);
-            }
-        })
-    }
-    return (
-
-        <Container className="loginCon shadow-lg">
-            <Card>
-                <Card.Body>
-                    <Row>
-                        <Col md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} sm={{ span: 6, offset: 3 }} >
-
-                            <Form>
-
-                                <Form.Group controlId="email">
-                                    <Form.Label>Email address</Form.Label>
-                                    <Form.Control
-                                        type="email"
-                                        name="email"
-                                        onChange={onChange}
-                                        placeholder="Enter Email" />
-                                </Form.Group>
-                                <Form.Group controlId="password">
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control
-                                        type="password"
-                                        name="password"
-                                        onChange={onChange}
-                                        placeholder="Enter Password" />
-                                </Form.Group>
-                                <Row className="justify-content-center">
-                                    <Button onClick={onSubmit} variant="primary" type="submit" id="subButton">
-                                        Log In
-                                    </Button>
-                                </Row>
-
-                            </Form>
-
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col md={{ span: 6, offset: 3 }} lg={{ span: 6, offset: 3 }} sm={{ span: 6, offset: 3 }}>
-
-                            {/* In case we have a message to display */}
-                            {message ? <Message message={message} /> : null}
-
-                        </Col>
-                    </Row>
-                </Card.Body>
-            </Card>
-        </Container>
-
-
-    )
-}
-
-
+        // here we going to navigate to our todos page
+        props.history.push("/dashboard");
+      } else {
+        setMessage(message);
+      }
+    });
+  };
+  return (
+    <Container className="loginCon shadow-lg">
+      <Card>
+        <Card.Body>
+          <Row className="">
+            <Col
+              md={{ span: 6, offset: 3 }}
+              lg={{ span: 6, offset: 3 }}
+              sm={{ span: 6, offset: 3 }}
+            >
+              <Form>
+                <Form.Group controlId="email">
+                  <Form.Label>Email address</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    onChange={onChange}
+                    placeholder="Enter Email"
+                  />
+                </Form.Group>
+                <Form.Group controlId="password">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    onChange={onChange}
+                    placeholder="Enter Password"
+                  />
+                </Form.Group>
+                <Row className="justify-content-center">
+                  <Button
+                    onClick={onSubmit}
+                    variant="primary"
+                    type="submit"
+                    id="subButton"
+                  >
+                    Log In
+                  </Button>
+                </Row>
+              </Form>
+            </Col>
+          </Row>
+          <Row className="mt-4">
+            <Col
+              md={{ span: 6, offset: 3 }}
+              lg={{ span: 6, offset: 3 }}
+              sm={{ span: 6, offset: 3 }}
+            >
+              {/* In case we have a message to display */}
+              {message ? <Message message={message} /> : null}
+            </Col>
+          </Row>
+          <Row>
+            <Col
+              md={{ span: 6, offset: 3 }}
+              lg={{ span: 6, offset: 3 }}
+              sm={{ span: 6, offset: 3 }}
+            >
+              <p>
+                Example Login information for people who are checking out our
+                application:
+              </p>
+              <br />
+              <p>Email: admin@gmail.com</p>
+              <p>password: 123</p>
+            </Col>
+          </Row>
+        </Card.Body>
+      </Card>
+    </Container>
+  );
+};
 
 export default Login;
-
-
