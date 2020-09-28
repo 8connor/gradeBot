@@ -10,7 +10,7 @@ const path = require('path');
 
 //----------------------------------------- END OF DEPENDENCIES---------------------------------------------------
 
-mongoose.connect('mongodb://localhost/gradeBot', {useNewUrlParser: true, useUnifiedTopology: true }, ()=>{
+mongoose.connect(`mongodb+srv://herokuUser:${process.env.herokuPass}@cluster0.beusi.mongodb.net/`, {useNewUrlParser: true, useUnifiedTopology: true }, ()=>{
   console.log("Successfully connected to Database");
 });
 
