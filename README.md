@@ -1,25 +1,13 @@
-# Create React Express App
+# gradeBot
 
-## About This Boilerplate
+## About gradeBot
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
+gradeBot is a web application developed to create a more modernized way of keeping track of student grades from a teacher, administrator, and even student perspective.
 
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+## Features:
 
-## Starting the app locally
-
-Start by installing front and backend dependencies. While in this directory, run the following command:
-
-```
-npm install
-```
-
-This should install node modules within the server and the client folder.
-
-After both installations complete, run the following command in your terminal:
-
-```
-npm start
-```
-
-Your app should now be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
+- Create assignments and assign them to students.
+- Add students to classrooms.
+- Grade student assignments.
+- Create user accounts - Administrators
+- Display averages for assignments.
