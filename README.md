@@ -9,5 +9,5 @@ gradeBot is a web application developed to create a more modernized way of keepi
 - Create assignments and assign them to students.
 - Add students to classrooms.
 - Grade student assignments.
-- Create user accounts - Administrators
+- Create user accounts - administrators.
 - Display averages for assignments.
