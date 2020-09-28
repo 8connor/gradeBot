@@ -1,4 +1,9 @@
 # gradeBot
+<div align="center">
+
+![Our logo image](./client/src/assets/img/logo/logo.png)
+
+</div>
 
 ## About gradeBot
 
