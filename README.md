@@ -16,3 +16,16 @@ gradeBot is a web application developed to create a more modernized way of keepi
 - Grade student assignments.
 - Create user accounts - administrators.
 - Display averages for assignments.
+
+## Technologies used
+
+* React.js
+* Express
+* Node.js
+* Bootstrap
+* Passport
+* Mongodb
+* Bcrypt
+* HTML
+* CSS
+* Sass
